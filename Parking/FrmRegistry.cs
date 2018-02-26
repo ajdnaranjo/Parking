@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Parking.Repositories;
 
 namespace Parking
 {
@@ -34,6 +35,16 @@ namespace Parking
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
                 lblIngreso.Text = DateTime.Now.ToString();
+
+                var repo = new RegistryRepository();
+
+                var reg = new Registry()
+                {
+                    Plate = txtPlate.Text.Trim(),
+                    EntryDate = DateTime.Now
+                };
+
+                repo.RegisterVehicle(reg);
             }
         }
     }

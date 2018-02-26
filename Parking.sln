@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parking", "Parking\Parking.csproj", "{B0DECFB1-9733-430F-84D9-ECF6D6F505F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parkink.Repositories", "Parkink.Repositories\Parkink.Repositories.csproj", "{ACB9510E-8C8E-42A3-9E89-36906D47FABB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parking.Repositories", "Parkink.Repositories\Parking.Repositories.csproj", "{ACB9510E-8C8E-42A3-9E89-36906D47FABB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
