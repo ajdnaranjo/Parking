@@ -73,6 +73,9 @@
       <DependentUpon>MdlParking.tt</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="PaymentMethod.cs">
+      <DependentUpon>MdlParking.tt</DependentUpon>
+    </Compile>
     <Compile Include="Registry.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>

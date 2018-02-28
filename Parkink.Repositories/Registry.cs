@@ -18,7 +18,11 @@ namespace Parking.Repositories
         public string Plate { get; set; }
         public System.DateTime EntryDate { get; set; }
         public Nullable<System.DateTime> ExitDate { get; set; }
-        public Nullable<decimal> TotalTime { get; set; }
+        public Nullable<int> Days { get; set; }
+        public Nullable<int> Hours { get; set; }
+        public Nullable<int> Minutes { get; set; }
         public Nullable<decimal> TotalPayment { get; set; }
+        public Nullable<decimal> Payment { get; set; }
+        public Nullable<decimal> Refund { get; set; }
     }
 }

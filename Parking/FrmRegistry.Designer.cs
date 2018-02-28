@@ -39,10 +39,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.lblIngreso = new System.Windows.Forms.Label();
             this.lblSalida = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtTotalPayment = new System.Windows.Forms.TextBox();
+            this.txtPayment = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtRefund = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -62,7 +62,7 @@
             this.txtPlate.Location = new System.Drawing.Point(168, 95);
             this.txtPlate.MaxLength = 6;
             this.txtPlate.Name = "txtPlate";
-            this.txtPlate.Size = new System.Drawing.Size(618, 189);
+            this.txtPlate.Size = new System.Drawing.Size(661, 189);
             this.txtPlate.TabIndex = 1;
             this.txtPlate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPlate_KeyPress);
             // 
@@ -114,7 +114,7 @@
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(33, 400);
+            this.label5.Location = new System.Drawing.Point(50, 400);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(240, 31);
             this.label5.TabIndex = 5;
@@ -141,44 +141,48 @@
             this.lblSalida.TabIndex = 7;
             this.lblSalida.Text = "lblSalida";
             // 
-            // textBox1
+            // txtTotalPayment
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(33, 448);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(240, 68);
-            this.textBox1.TabIndex = 8;
+            this.txtTotalPayment.Enabled = false;
+            this.txtTotalPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalPayment.Location = new System.Drawing.Point(50, 448);
+            this.txtTotalPayment.Name = "txtTotalPayment";
+            this.txtTotalPayment.Size = new System.Drawing.Size(240, 68);
+            this.txtTotalPayment.TabIndex = 0;
             // 
-            // textBox2
+            // txtPayment
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(292, 448);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(240, 68);
-            this.textBox2.TabIndex = 10;
+            this.txtPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPayment.Location = new System.Drawing.Point(309, 448);
+            this.txtPayment.Name = "txtPayment";
+            this.txtPayment.Size = new System.Drawing.Size(240, 68);
+            this.txtPayment.TabIndex = 2;
+            this.txtPayment.TextChanged += new System.EventHandler(this.txtPayment_TextChanged);
+            this.txtPayment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPayment_KeyPress);
             // 
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(292, 400);
+            this.label6.Location = new System.Drawing.Point(309, 400);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(240, 31);
             this.label6.TabIndex = 9;
             this.label6.Text = "Pago:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox3
+            // txtRefund
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(549, 448);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(240, 68);
-            this.textBox3.TabIndex = 12;
+            this.txtRefund.Enabled = false;
+            this.txtRefund.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRefund.Location = new System.Drawing.Point(566, 448);
+            this.txtRefund.Name = "txtRefund";
+            this.txtRefund.Size = new System.Drawing.Size(240, 68);
+            this.txtRefund.TabIndex = 0;
             // 
             // label7
             // 
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(549, 400);
+            this.label7.Location = new System.Drawing.Point(566, 400);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(240, 31);
             this.label7.TabIndex = 11;
@@ -189,12 +193,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(823, 574);
-            this.Controls.Add(this.textBox3);
+            this.ClientSize = new System.Drawing.Size(862, 574);
+            this.Controls.Add(this.txtRefund);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtPayment);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtTotalPayment);
             this.Controls.Add(this.lblSalida);
             this.Controls.Add(this.lblIngreso);
             this.Controls.Add(this.label5);
@@ -224,10 +228,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblIngreso;
         private System.Windows.Forms.Label lblSalida;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtTotalPayment;
+        private System.Windows.Forms.TextBox txtPayment;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtRefund;
         private System.Windows.Forms.Label label7;
     }
 }

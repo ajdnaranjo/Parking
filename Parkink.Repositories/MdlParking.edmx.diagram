@@ -10,7 +10,8 @@
         <EntityTypeShape EntityType="PLTOModel.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="PLTOModel.FK_User_DocType" ManuallyRouted="false" />
         <AssociationConnector Association="PLTOModel.FK_MonthlyPayment_User" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="PLTOModel.Registry" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="PLTOModel.PaymentMethod" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="PLTOModel.Registry" Width="1.5" PointX="2.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
