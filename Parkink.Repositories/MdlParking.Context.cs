@@ -27,8 +27,8 @@ namespace Parking.Repositories
     
         public virtual DbSet<DocType> DocTypes { get; set; }
         public virtual DbSet<MonthlyPayment> MonthlyPayments { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
         public virtual DbSet<Registry> Registries { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

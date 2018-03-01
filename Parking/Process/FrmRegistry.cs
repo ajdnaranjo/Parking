@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Parking.Repositories;
 
-namespace Parking
+namespace Parking.Process
 {
     public partial class FrmRegistry : Form
     {
@@ -68,8 +68,7 @@ namespace Parking
                     Hours = data.Hours;
                     Minutes = data.Minutes;
                     txtPlate.Enabled = false;
-                }
-              
+                }              
             }
         }
 

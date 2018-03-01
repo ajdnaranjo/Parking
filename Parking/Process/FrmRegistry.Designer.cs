@@ -1,4 +1,4 @@
-﻿namespace Parking
+﻿namespace Parking.Process
 {
     partial class FrmRegistry
     {

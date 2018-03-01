@@ -17,9 +17,12 @@ namespace Parking.Repositories
         public int MonthlyPaymentID { get; set; }
         public string Document { get; set; }
         public int DocTypeID { get; set; }
-        public decimal ToBePaid { get; set; }
+        public string Plate { get; set; }
         public decimal PaidValue { get; set; }
+        public Nullable<decimal> TotalPayment { get; set; }
+        public Nullable<decimal> Refund { get; set; }
         public System.DateTime PaymentDate { get; set; }
+        public System.DateTime ExpirationDate { get; set; }
     
         public virtual User User { get; set; }
     }

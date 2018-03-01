@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Parking.Models;
 
 namespace Parking.Repositories
 {
@@ -64,7 +65,6 @@ namespace Parking.Repositories
             }      
         }
 
-
         public Registry CheckExit(Registry registry)
         {
             using (var context = new PLTOEntities())
@@ -83,6 +83,50 @@ namespace Parking.Repositories
 
                 return reg;
             }
+        }
+
+        public MonthlyPaymentDto SaveMonthlyPayment(MonthlyPaymentDto monthlyPaymentDTO)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var user = context.Users.FirstOrDefault(r => r.DocTypeID == monthlyPaymentDTO.DocTypeId && r.Document == monthlyPaymentDTO.Document);
+
+                if (user == null)
+                {
+                    var rec = new User()
+                    {
+                        Document = monthlyPaymentDTO.Document,
+                        DocTypeID = monthlyPaymentDTO.DocTypeId,
+                        Name = monthlyPaymentDTO.Name,
+                        CelPhone = monthlyPaymentDTO.Celphone
+                    };
+                    context.Users.Add(rec);
+                }
+                else {
+                    user.Name = monthlyPaymentDTO.Name;
+                    user.CelPhone = monthlyPaymentDTO.Celphone;
+                }
+
+                var mPayment = new MonthlyPayment()
+                {
+                    Document = monthlyPaymentDTO.Document,
+                    DocTypeID = monthlyPaymentDTO.DocTypeId,
+                    Plate = monthlyPaymentDTO.Plate,
+                    PaidValue = monthlyPaymentDTO.PaidValue,
+                    TotalPayment = monthlyPaymentDTO.TotalPayment,
+                    Refund = monthlyPaymentDTO.Refund,
+                    PaymentDate = DateTime.Now,
+                    ExpirationDate = DateTime.Now.AddMonths(1)
+                };
+
+                context.MonthlyPayments.Add(mPayment);
+
+                context.SaveChanges();
+
+                monthlyPaymentDTO.MonthlyPaymentId = mPayment.MonthlyPaymentID;
+
+            }
+            return monthlyPaymentDTO;
         }
     }
 }

@@ -1,0 +1,126 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Parking.Repositories;
+using Parking.Models;
+
+namespace Parking.Process
+{
+    public partial class FrmMonthlyPayment : Form
+    {
+        public FrmMonthlyPayment()
+        {
+            InitializeComponent();
+            InitialLoad();
+        }
+
+        private void InitialLoad()
+        {
+            var repo = new UserRepository();
+            var data = repo.GetDocTypes();
+
+            data.Add(new DocType { DocTypeID = -1, Description = "Seleccionar" });
+            data.OrderBy(z => z.DocTypeID);
+
+            CbDocType.DataSource = data;
+            CbDocType.ValueMember = "DocTypeID";
+            CbDocType.DisplayMember = "Description";
+
+            TxtTotalPayment.Text =  repo.GetMonthlyPayment().Value.ToString("N0");
+
+        }
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            var repo = new RegistryRepository();
+            var repoUser = new UserRepository();
+
+            var data = new MonthlyPaymentDto()
+            {
+                Document = TxtDocument.Text.Trim(),
+                DocTypeId = int.Parse(CbDocType.SelectedValue.ToString()),
+                Name = TxtName.Text,
+                Celphone = TxtCelPhone.Text,
+                Plate = TxtPlate.Text,
+                PaidValue = decimal.Parse(TxtPayment.Text),
+                TotalPayment = decimal.Parse(TxtTotalPayment.Text),
+                Refund = decimal.Parse(TxtRefund.Text)
+            };
+
+            var isValid = repoUser.ValidMonthlyPayment(data.Plate);
+
+            if (isValid)
+            {
+                var result = repo.SaveMonthlyPayment(data);
+            }
+            else {/*TODO: take a look on behavior when user has an active monthly payment.*/}
+        }
+
+        private void TxtDocument_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter) || e.KeyChar == Convert.ToChar(Keys.Tab))
+            {
+                FillUser(TxtDocument.Text.Trim());
+            }
+        }
+
+        private void TxtPlate_KeyPress(object sender, KeyPressEventArgs e)
+        {        
+            e.KeyChar = Char.ToUpper(e.KeyChar);
+        }
+
+        private void TxtPayment_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            ValidateNumber(e);
+        }
+
+        private void TxtPayment_TextChanged(object sender, EventArgs e)
+        {
+            CalculateRefund();
+        }
+
+        private void CalculateRefund()
+        {
+            var totalPayment = decimal.Parse(TxtTotalPayment.Text.Trim());
+            var payment = decimal.Parse(TxtPayment.Text.Trim());
+            var refund = payment - totalPayment;
+            TxtRefund.Text = refund.ToString("N0");
+        }
+
+        private void FillUser(string document)
+        {
+            var repo = new UserRepository();
+            var result = repo.GetUserById(document);
+
+            CbDocType.SelectedValue = result.DocTypeID;
+            TxtName.Text = result.Name;
+            TxtCelPhone.Text = result.CelPhone;
+            TxtPlate.Focus();
+        }
+
+        private bool ValidateNumber(KeyPressEventArgs e)
+        {
+            if (char.IsNumber(e.KeyChar) == true)
+            {
+                e.Handled = false;
+            }
+            else if (char.IsControl(e.KeyChar) == true)
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+            return e.Handled;
+        }
+
+     
+    }
+}

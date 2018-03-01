@@ -107,11 +107,20 @@ namespace Parking
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            var frm = new FrmRegistry()
+            var frm = new Process.FrmRegistry()
             {
                 MdiParent = this
             };
             frm.Show();            
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            var frm = new Process.FrmMonthlyPayment()
+            {
+                MdiParent = this
+            };
+            frm.Show();
         }
     }
 }
