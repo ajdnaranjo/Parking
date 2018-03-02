@@ -33,14 +33,24 @@ namespace Parking.Repositories
         }
 
 
-        public bool ValidMonthlyPayment(string plate)
+        public MonthlyPayment ValidMonthlyPayment(string plate)
         {
             using (var context = new PLTOEntities())
             {
-                var result = context.MonthlyPayments.Where(x => x.Plate == plate && (DateTime.Now  >= x.PaymentDate && DateTime.Now <= x.ExpirationDate )).ToList();
+                return context.MonthlyPayments.Where(x => x.Plate == plate && (DateTime.Now  >= x.PaymentDate && DateTime.Now <= x.ExpirationDate )).FirstOrDefault();             
+            }
+        }
 
-                if (result == null) return true;
-                else return false;
+        public User GetUserByPlate(string plate)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var user = (from u in context.Users
+                           join mp in context.MonthlyPayments on u.Document equals mp.Document
+                           where mp.Plate == plate
+                           select u).FirstOrDefault();
+
+                return user;
             }
         }
     }

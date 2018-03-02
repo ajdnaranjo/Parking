@@ -115,8 +115,8 @@ namespace Parking.Repositories
                     PaidValue = monthlyPaymentDTO.PaidValue,
                     TotalPayment = monthlyPaymentDTO.TotalPayment,
                     Refund = monthlyPaymentDTO.Refund,
-                    PaymentDate = DateTime.Now,
-                    ExpirationDate = DateTime.Now.AddMonths(1)
+                    PaymentDate = monthlyPaymentDTO.PaymentDate,
+                    ExpirationDate = monthlyPaymentDTO.ExpirationDate
                 };
 
                 context.MonthlyPayments.Add(mPayment);

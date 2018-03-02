@@ -50,29 +50,51 @@ namespace Parking.Process
                 Plate = TxtPlate.Text,
                 PaidValue = decimal.Parse(TxtPayment.Text),
                 TotalPayment = decimal.Parse(TxtTotalPayment.Text),
-                Refund = decimal.Parse(TxtRefund.Text)
+                Refund = decimal.Parse(TxtRefund.Text),
+                PaymentDate = DateTime.Now,
+                ExpirationDate = DateTime.Now.AddMonths(1)
             };
 
-            var isValid = repoUser.ValidMonthlyPayment(data.Plate);
-
-            if (isValid)
+            var mp = repoUser.ValidMonthlyPayment(data.Plate);
+            var result = new MonthlyPaymentDto(); ;
+            if (mp == null)
             {
-                var result = repo.SaveMonthlyPayment(data);
+                 result = repo.SaveMonthlyPayment(data);
             }
-            else {/*TODO: take a look on behavior when user has an active monthly payment.*/}
+            else {
+
+                data.PaymentDate = mp.ExpirationDate.AddDays(1);
+                data.ExpirationDate = data.PaymentDate.AddMonths(1);                
+
+                result = repo.SaveMonthlyPayment(data);
+            }
         }
 
         private void TxtDocument_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == Convert.ToChar(Keys.Enter) || e.KeyChar == Convert.ToChar(Keys.Tab))
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
                 FillUser(TxtDocument.Text.Trim());
             }
         }
 
         private void TxtPlate_KeyPress(object sender, KeyPressEventArgs e)
-        {        
+        {
             e.KeyChar = Char.ToUpper(e.KeyChar);
+
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                var repo = new UserRepository();
+                var result = repo.GetUserByPlate(TxtPlate.Text.Trim());
+
+                if (result != null)
+                {
+                    TxtDocument.Text = result.Document;
+                    TxtName.Text = result.Name;
+                    CbDocType.SelectedValue = result.DocTypeID;
+                    TxtCelPhone.Text = result.CelPhone;
+                }
+            }
         }
 
         private void TxtPayment_KeyPress(object sender, KeyPressEventArgs e)
@@ -82,7 +104,7 @@ namespace Parking.Process
 
         private void TxtPayment_TextChanged(object sender, EventArgs e)
         {
-            CalculateRefund();
+            if (TxtTotalPayment.Text.Trim() != "" && TxtPayment.Text.Trim() != "") CalculateRefund();
         }
 
         private void CalculateRefund()
