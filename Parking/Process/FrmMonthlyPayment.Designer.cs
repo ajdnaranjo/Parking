@@ -99,6 +99,7 @@
             this.label5.Size = new System.Drawing.Size(129, 17);
             this.label5.TabIndex = 4;
             this.label5.Text = "Tipo documento:";
+            this.label5.Visible = false;
             // 
             // CbDocType
             // 
@@ -108,6 +109,7 @@
             this.CbDocType.Name = "CbDocType";
             this.CbDocType.Size = new System.Drawing.Size(148, 24);
             this.CbDocType.TabIndex = 6;
+            this.CbDocType.Visible = false;
             // 
             // TxtName
             // 

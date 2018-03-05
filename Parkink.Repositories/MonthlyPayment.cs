@@ -14,16 +14,24 @@ namespace Parking.Repositories
     
     public partial class MonthlyPayment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MonthlyPayment()
+        {
+            this.Registries = new HashSet<Registry>();
+        }
+    
         public int MonthlyPaymentID { get; set; }
+        public string Plate { get; set; }
         public string Document { get; set; }
         public int DocTypeID { get; set; }
-        public string Plate { get; set; }
+        public decimal TotalPayment { get; set; }
         public decimal PaidValue { get; set; }
-        public Nullable<decimal> TotalPayment { get; set; }
-        public Nullable<decimal> Refund { get; set; }
+        public decimal Refund { get; set; }
         public System.DateTime PaymentDate { get; set; }
         public System.DateTime ExpirationDate { get; set; }
     
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Registry> Registries { get; set; }
     }
 }

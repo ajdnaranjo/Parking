@@ -37,7 +37,7 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
-                return context.MonthlyPayments.Where(x => x.Plate == plate && (DateTime.Now  >= x.PaymentDate && DateTime.Now <= x.ExpirationDate )).FirstOrDefault();             
+                return context.MonthlyPayments.Where(x => x.Plate == plate).OrderByDescending(t => t.ExpirationDate).FirstOrDefault();             
             }
         }
 
@@ -51,6 +51,14 @@ namespace Parking.Repositories
                            select u).FirstOrDefault();
 
                 return user;
+            }
+        }
+
+        public MonthlyPayment GetMonthlyPaymentByPlate(string plate)
+        {
+            using (var context = new PLTOEntities())
+            {
+                return context.MonthlyPayments.FirstOrDefault(x => x.Plate == plate && DateTime.Now <= x.ExpirationDate);
             }
         }
     }

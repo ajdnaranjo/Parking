@@ -4,14 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="927f402a28a448ee992111568b50eb35" Name="Diagram1">
-        <EntityTypeShape EntityType="PLTOModel.DocType" Width="1.5" PointX="0.75" PointY="1.625" />
-        <EntityTypeShape EntityType="PLTOModel.MonthlyPayment" Width="1.5" PointX="5.25" PointY="1" />
-        <EntityTypeShape EntityType="PLTOModel.PaymentMethod" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="PLTOModel.Registry" Width="1.5" PointX="2.75" PointY="4.75" />
-        <EntityTypeShape EntityType="PLTOModel.User" Width="1.5" PointX="3" PointY="1.375" />
+      <Diagram DiagramId="927f402a28a448ee992111568b50eb35" Name="Diagram1" ZoomLevel="131">
+        <EntityTypeShape EntityType="PLTOModel.Configuration" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="PLTOModel.DocType" Width="1.5" PointX="0.75" PointY="1.875" />
+        <EntityTypeShape EntityType="PLTOModel.MonthlyPayment" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="PLTOModel.PaymentMethod" Width="1.5" PointX="2.75" PointY="5.75" />
+        <EntityTypeShape EntityType="PLTOModel.User" Width="1.5" PointX="3" PointY="1.625" />
         <AssociationConnector Association="PLTOModel.FK_User_DocType" />
         <AssociationConnector Association="PLTOModel.FK_MonthlyPayment_User" />
+        <EntityTypeShape EntityType="PLTOModel.Registry" Width="1.5" PointX="7.5" PointY="1" />
+        <AssociationConnector Association="PLTOModel.FK_Registry_MonthlyPayment" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -47,6 +47,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration.cs">
+      <DependentUpon>MdlParking.tt</DependentUpon>
+    </Compile>
     <Compile Include="DocType.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -71,7 +74,6 @@
     </Compile>
     <Compile Include="MonthlyPayment.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="PaymentMethod.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>

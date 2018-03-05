@@ -44,6 +44,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtRefund = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.lblMessage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -189,11 +190,22 @@
             this.label7.Text = "Devuelta:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblMessage
+            // 
+            this.lblMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMessage.ForeColor = System.Drawing.Color.Red;
+            this.lblMessage.Location = new System.Drawing.Point(32, 534);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(797, 38);
+            this.lblMessage.TabIndex = 12;
+            this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FrmRegistry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(862, 574);
+            this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.txtRefund);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtPayment);
@@ -233,5 +245,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtRefund;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblMessage;
     }
 }

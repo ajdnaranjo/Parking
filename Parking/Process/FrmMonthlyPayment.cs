@@ -68,6 +68,10 @@ namespace Parking.Process
 
                 result = repo.SaveMonthlyPayment(data);
             }
+
+            if (result.MonthlyPaymentId > 0) MessageBox.Show("Mensualidad guardada exitosamente.");
+
+            CleanForm();
         }
 
         private void TxtDocument_KeyPress(object sender, KeyPressEventArgs e)
@@ -94,12 +98,19 @@ namespace Parking.Process
                     CbDocType.SelectedValue = result.DocTypeID;
                     TxtCelPhone.Text = result.CelPhone;
                 }
+
+                TxtPayment.Focus();
             }
         }
 
         private void TxtPayment_KeyPress(object sender, KeyPressEventArgs e)
         {
             ValidateNumber(e);
+
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                BtnSave.Focus();
+            }
         }
 
         private void TxtPayment_TextChanged(object sender, EventArgs e)
@@ -143,6 +154,13 @@ namespace Parking.Process
             return e.Handled;
         }
 
-     
+        private void CleanForm()
+        {
+            TxtDocument.Text = string.Empty;
+            TxtName.Text = string.Empty;
+            TxtCelPhone.Text = string.Empty;
+            TxtPlate.Text = string.Empty;
+            TxtPayment.Text = string.Empty;
+        }
     }
 }

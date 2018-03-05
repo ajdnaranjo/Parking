@@ -39,11 +39,12 @@ namespace Parking.Process
         {
             e.KeyChar = Char.ToUpper(e.KeyChar);
 
-            if (e.KeyChar == Convert.ToChar(Keys.Enter) || e.KeyChar == Convert.ToChar(Keys.Tab))
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
                 lblIngreso.Text = DateTime.Now.ToString();
 
                 var repo = new RegistryRepository();
+                var repoUser = new UserRepository();
 
                 var reg = new Registry()
                 {
@@ -53,21 +54,36 @@ namespace Parking.Process
 
                 var data = repo.CheckEntryExit(reg);
 
-                lblIngreso.Text = data.EntryDate.ToString();                
+                lblIngreso.Text = data.EntryDate.ToString();
+                var mp = repoUser.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
 
                 if (data.ExitDate == null)
                 {
                     /*TODO: Print receipt*/
+                    CleanForm();
                 }
                 else
                 {
-                    lblSalida.Text = data.ExitDate.ToString();
-                    decimal totalPayment = (decimal)data.TotalPayment;
-                    txtTotalPayment.Text = totalPayment.ToString("N0");
-                    Days = data.Days;
-                    Hours = data.Hours;
-                    Minutes = data.Minutes;
-                    txtPlate.Enabled = false;
+                    if (mp == null)
+                    {
+                        lblSalida.Text = data.ExitDate.ToString();
+                        decimal totalPayment = (decimal)data.TotalPayment;
+                        txtTotalPayment.Text = totalPayment.ToString("N0");
+                        Days = data.Days;
+                        Hours = data.Hours;
+                        Minutes = data.Minutes;
+                        txtPlate.Enabled = false;
+                    }
+                    else {
+                        lblMessage.Text = "Usuario con mensualidad activa.";
+                        lblSalida.Text = data.ExitDate.ToString();
+                        txtTotalPayment.Text = "0";
+                        txtPayment.Text = "0";
+                        Days = data.Days;
+                        Hours = data.Hours;
+                        Minutes = data.Minutes;
+                        txtPlate.Enabled = false;
+                    }                    
                 }              
             }
         }
@@ -76,11 +92,12 @@ namespace Parking.Process
         {
             ValidateNumber(e);
 
-            if (e.KeyChar == Convert.ToChar(Keys.Enter) || e.KeyChar == Convert.ToChar(Keys.Tab))
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
                 CalculateRefund();
 
                 var repo = new RegistryRepository();
+                var repoUser = new UserRepository();
 
                 var check = new Registry()
                 {
@@ -93,11 +110,24 @@ namespace Parking.Process
                     Hours = Hours,
                     Minutes = Minutes
                 };
+             
+                var mp = repoUser.GetMonthlyPaymentByPlate(check.Plate);
 
+                if (mp == null)
+                {
+                    var result = repo.CheckExit(check);
+                    /*TODO: Print receipt*/
+                }
+                else
+                {
+                    check.MonthlyPaymentID = mp.MonthlyPaymentID;
+                    check.TotalPayment = 0;
+                    check.Payment = 0;
+                    check.Refund = 0;
 
-                var result = repo.CheckExit(check);
+                    var result = repo.CheckExit(check);
+                }
 
-                /*TODO: Print receipt*/
 
                 CleanForm();
             }
@@ -119,6 +149,7 @@ namespace Parking.Process
             txtTotalPayment.Text = string.Empty;
             txtPayment.Text = string.Empty;
             txtRefund.Text = string.Empty;
+            lblMessage.Text = string.Empty;
         }
 
         private bool ValidateNumber(KeyPressEventArgs e)

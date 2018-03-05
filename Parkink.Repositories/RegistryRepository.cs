@@ -71,6 +71,7 @@ namespace Parking.Repositories
             {
                 var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.ExitDate == null);
 
+                reg.MonthlyPaymentID = registry.MonthlyPaymentID; 
                 reg.ExitDate = registry.ExitDate;
                 reg.TotalPayment = registry.TotalPayment;
                 reg.Payment = registry.Payment;
