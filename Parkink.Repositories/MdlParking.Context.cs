@@ -31,5 +31,9 @@ namespace Parking.Repositories
         public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Registry> Registries { get; set; }
+        public virtual DbSet<AppUser> AppUsers { get; set; }
+        public virtual DbSet<Form> Forms { get; set; }
+        public virtual DbSet<Rol> Rols { get; set; }
+        public virtual DbSet<RolForm> RolForms { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="927f402a28a448ee992111568b50eb35" Name="Diagram1" ZoomLevel="131">
+      <Diagram DiagramId="927f402a28a448ee992111568b50eb35" Name="Diagram1" ZoomLevel="73">
         <EntityTypeShape EntityType="PLTOModel.Configuration" Width="1.5" PointX="0.75" PointY="4.75" />
         <EntityTypeShape EntityType="PLTOModel.DocType" Width="1.5" PointX="0.75" PointY="1.875" />
         <EntityTypeShape EntityType="PLTOModel.MonthlyPayment" Width="1.5" PointX="5.25" PointY="1.125" />
@@ -14,6 +14,13 @@
         <AssociationConnector Association="PLTOModel.FK_MonthlyPayment_User" />
         <EntityTypeShape EntityType="PLTOModel.Registry" Width="1.5" PointX="7.5" PointY="1" />
         <AssociationConnector Association="PLTOModel.FK_Registry_MonthlyPayment" />
+        <EntityTypeShape EntityType="PLTOModel.AppUser" Width="1.5" PointX="7.625" PointY="5.375" />
+        <EntityTypeShape EntityType="PLTOModel.Form" Width="1.5" PointX="5.375" PointY="8.75" />
+        <EntityTypeShape EntityType="PLTOModel.Rol" Width="1.5" PointX="5.375" PointY="5.5" />
+        <EntityTypeShape EntityType="PLTOModel.RolForm" Width="1.5" PointX="7.625" PointY="8.5" />
+        <AssociationConnector Association="PLTOModel.FK_AppUser_Rol" />
+        <AssociationConnector Association="PLTOModel.FK_RolForm_Form" />
+        <AssociationConnector Association="PLTOModel.FK_RolForm_Rol" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

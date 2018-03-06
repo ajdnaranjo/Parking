@@ -47,12 +47,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessRepository.cs" />
+    <Compile Include="AppUser.cs">
+      <DependentUpon>MdlParking.tt</DependentUpon>
+    </Compile>
     <Compile Include="Configuration.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
     <Compile Include="DocType.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Form.cs">
+      <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
     <Compile Include="MdlParking.Context.cs">
       <AutoGen>True</AutoGen>
@@ -82,6 +89,12 @@
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
     <Compile Include="RegistryRepository.cs" />
+    <Compile Include="Rol.cs">
+      <DependentUpon>MdlParking.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RolForm.cs">
+      <DependentUpon>MdlParking.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

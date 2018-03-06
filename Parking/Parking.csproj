@@ -57,6 +57,12 @@
     <Compile Include="MDIContainer.Designer.cs">
       <DependentUpon>MDIContainer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Process\FrmLoguin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Process\FrmLoguin.Designer.cs">
+      <DependentUpon>FrmLoguin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Process\FrmMonthlyPayment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,9 @@
     <Compile Include="Process\FrmRegistry.Designer.cs">
       <DependentUpon>FrmRegistry.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Process\FrmLoguin.resx">
+      <DependentUpon>FrmLoguin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Process\FrmMonthlyPayment.resx">
       <DependentUpon>FrmMonthlyPayment.cs</DependentUpon>
     </EmbeddedResource>
@@ -108,10 +117,17 @@
       <Project>{c9a090a3-54ad-4e3f-b90e-8d2a6e1dc375}</Project>
       <Name>Parking.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Parking.Utilities\Parking.Utilities.csproj">
+      <Project>{9ddb753d-acec-489d-9a3c-4499c8aa8f2f}</Project>
+      <Name>Parking.Utilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Parkink.Repositories\Parking.Repositories.csproj">
       <Project>{acb9510e-8c8e-42a3-9e89-36906d47fabb}</Project>
       <Name>Parking.Repositories</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Receipts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

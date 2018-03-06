@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PLTOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AppUser">
+          <Key>
+            <PropertyRef Name="AppUserID" />
+          </Key>
+          <Property Name="AppUserID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="RolID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Configuration">
           <Key>
             <PropertyRef Name="ConfigurationID" />
@@ -19,6 +29,13 @@
           </Key>
           <Property Name="DocTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="FormID" />
+          </Key>
+          <Property Name="FormID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormName" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="MonthlyPayment">
           <Key>
@@ -58,6 +75,22 @@
           <Property Name="Payment" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Refund" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="RolID" />
+          </Key>
+          <Property Name="RolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RolName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RolForm">
+          <Key>
+            <PropertyRef Name="RolFormID" />
+          </Key>
+          <Property Name="RolFormID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RolID" Type="int" Nullable="false" />
+          <Property Name="FormID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Document" />
@@ -68,6 +101,18 @@
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CelPhone" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <Association Name="FK_AppUser_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="RolID" />
+            </Principal>
+            <Dependent Role="AppUser">
+              <PropertyRef Name="RolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MonthlyPayment_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="MonthlyPayment" Type="Self.MonthlyPayment" Multiplicity="*" />
@@ -94,6 +139,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RolForm_Form">
+          <End Role="Form" Type="Self.Form" Multiplicity="1" />
+          <End Role="RolForm" Type="Self.RolForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Form">
+              <PropertyRef Name="FormID" />
+            </Principal>
+            <Dependent Role="RolForm">
+              <PropertyRef Name="FormID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolForm_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="RolForm" Type="Self.RolForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="RolID" />
+            </Principal>
+            <Dependent Role="RolForm">
+              <PropertyRef Name="RolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_DocType">
           <End Role="DocType" Type="Self.DocType" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -107,12 +176,20 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PLTOModelStoreContainer">
+          <EntitySet Name="AppUser" EntityType="Self.AppUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Configuration" EntityType="Self.Configuration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocType" EntityType="Self.DocType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonthlyPayment" EntityType="Self.MonthlyPayment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentMethod" EntityType="Self.PaymentMethod" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Registry" EntityType="Self.Registry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolForm" EntityType="Self.RolForm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AppUser_Rol" Association="Self.FK_AppUser_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="AppUser" EntitySet="AppUser" />
+          </AssociationSet>
           <AssociationSet Name="FK_MonthlyPayment_User" Association="Self.FK_MonthlyPayment_User">
             <End Role="User" EntitySet="User" />
             <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
@@ -120,6 +197,14 @@
           <AssociationSet Name="FK_Registry_MonthlyPayment" Association="Self.FK_Registry_MonthlyPayment">
             <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
             <End Role="Registry" EntitySet="Registry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolForm_Form" Association="Self.FK_RolForm_Form">
+            <End Role="Form" EntitySet="Form" />
+            <End Role="RolForm" EntitySet="RolForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolForm_Rol" Association="Self.FK_RolForm_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="RolForm" EntitySet="RolForm" />
           </AssociationSet>
           <AssociationSet Name="FK_User_DocType" Association="Self.FK_User_DocType">
             <End Role="DocType" EntitySet="DocType" />
@@ -148,6 +233,22 @@
           <AssociationSet Name="FK_Registry_MonthlyPayment" Association="PLTOModel.FK_Registry_MonthlyPayment">
             <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
             <End Role="Registry" EntitySet="Registries" />
+          </AssociationSet>
+          <EntitySet Name="AppUsers" EntityType="PLTOModel.AppUser" />
+          <EntitySet Name="Forms" EntityType="PLTOModel.Form" />
+          <EntitySet Name="Rols" EntityType="PLTOModel.Rol" />
+          <EntitySet Name="RolForms" EntityType="PLTOModel.RolForm" />
+          <AssociationSet Name="FK_AppUser_Rol" Association="PLTOModel.FK_AppUser_Rol">
+            <End Role="Rol" EntitySet="Rols" />
+            <End Role="AppUser" EntitySet="AppUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolForm_Form" Association="PLTOModel.FK_RolForm_Form">
+            <End Role="Form" EntitySet="Forms" />
+            <End Role="RolForm" EntitySet="RolForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolForm_Rol" Association="PLTOModel.FK_RolForm_Rol">
+            <End Role="Rol" EntitySet="Rols" />
+            <End Role="RolForm" EntitySet="RolForms" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Configuration">
@@ -257,6 +358,81 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AppUser">
+          <Key>
+            <PropertyRef Name="AppUserID" />
+          </Key>
+          <Property Name="AppUserID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="RolID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rol" Relationship="PLTOModel.FK_AppUser_Rol" FromRole="AppUser" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="FormID" />
+          </Key>
+          <Property Name="FormID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RolForms" Relationship="PLTOModel.FK_RolForm_Form" FromRole="Form" ToRole="RolForm" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="RolID" />
+          </Key>
+          <Property Name="RolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RolName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AppUsers" Relationship="PLTOModel.FK_AppUser_Rol" FromRole="Rol" ToRole="AppUser" />
+          <NavigationProperty Name="RolForms" Relationship="PLTOModel.FK_RolForm_Rol" FromRole="Rol" ToRole="RolForm" />
+        </EntityType>
+        <EntityType Name="RolForm">
+          <Key>
+            <PropertyRef Name="RolFormID" />
+          </Key>
+          <Property Name="RolFormID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RolID" Type="Int32" Nullable="false" />
+          <Property Name="FormID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Form" Relationship="PLTOModel.FK_RolForm_Form" FromRole="RolForm" ToRole="Form" />
+          <NavigationProperty Name="Rol" Relationship="PLTOModel.FK_RolForm_Rol" FromRole="RolForm" ToRole="Rol" />
+        </EntityType>
+        <Association Name="FK_AppUser_Rol">
+          <End Type="PLTOModel.Rol" Role="Rol" Multiplicity="1" />
+          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="RolID" />
+            </Principal>
+            <Dependent Role="AppUser">
+              <PropertyRef Name="RolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolForm_Form">
+          <End Type="PLTOModel.Form" Role="Form" Multiplicity="1" />
+          <End Type="PLTOModel.RolForm" Role="RolForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Form">
+              <PropertyRef Name="FormID" />
+            </Principal>
+            <Dependent Role="RolForm">
+              <PropertyRef Name="FormID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolForm_Rol">
+          <End Type="PLTOModel.Rol" Role="Rol" Multiplicity="1" />
+          <End Type="PLTOModel.RolForm" Role="RolForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="RolID" />
+            </Principal>
+            <Dependent Role="RolForm">
+              <PropertyRef Name="RolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -328,6 +504,43 @@
                 <ScalarProperty Name="Plate" ColumnName="Plate" />
                 <ScalarProperty Name="MonthlyPaymentID" ColumnName="MonthlyPaymentID" />
                 <ScalarProperty Name="RegistryID" ColumnName="RegistryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppUsers">
+            <EntityTypeMapping TypeName="PLTOModel.AppUser">
+              <MappingFragment StoreEntitySet="AppUser">
+                <ScalarProperty Name="RolID" ColumnName="RolID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AppUserID" ColumnName="AppUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Forms">
+            <EntityTypeMapping TypeName="PLTOModel.Form">
+              <MappingFragment StoreEntitySet="Form">
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="FormID" ColumnName="FormID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rols">
+            <EntityTypeMapping TypeName="PLTOModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="RolName" ColumnName="RolName" />
+                <ScalarProperty Name="RolID" ColumnName="RolID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolForms">
+            <EntityTypeMapping TypeName="PLTOModel.RolForm">
+              <MappingFragment StoreEntitySet="RolForm">
+                <ScalarProperty Name="FormID" ColumnName="FormID" />
+                <ScalarProperty Name="RolID" ColumnName="RolID" />
+                <ScalarProperty Name="RolFormID" ColumnName="RolFormID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
