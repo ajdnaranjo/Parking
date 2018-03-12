@@ -18,7 +18,7 @@ namespace Parking.Repositories
         public int RolID { get; set; }
         public int FormID { get; set; }
     
-        public virtual Form Form { get; set; }
+        public virtual Forms Form { get; set; }
         public virtual Rol Rol { get; set; }
     }
 }

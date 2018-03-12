@@ -57,11 +57,11 @@
     <Compile Include="MDIContainer.Designer.cs">
       <DependentUpon>MDIContainer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Process\FrmLoguin.cs">
+    <Compile Include="FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Process\FrmLoguin.Designer.cs">
-      <DependentUpon>FrmLoguin.cs</DependentUpon>
+    <Compile Include="FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Process\FrmMonthlyPayment.cs">
       <SubType>Form</SubType>
@@ -77,8 +77,8 @@
     <Compile Include="Process\FrmRegistry.Designer.cs">
       <DependentUpon>FrmRegistry.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Process\FrmLoguin.resx">
-      <DependentUpon>FrmLoguin.cs</DependentUpon>
+    <EmbeddedResource Include="FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Process\FrmMonthlyPayment.resx">
       <DependentUpon>FrmMonthlyPayment.cs</DependentUpon>

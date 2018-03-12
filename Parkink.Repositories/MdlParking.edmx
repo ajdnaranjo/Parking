@@ -9,8 +9,8 @@
           <Key>
             <PropertyRef Name="AppUserID" />
           </Key>
-          <Property Name="AppUserID" Type="int" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AppUserID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Status" Type="bit" Nullable="false" />
           <Property Name="RolID" Type="int" Nullable="false" />
@@ -235,7 +235,7 @@
             <End Role="Registry" EntitySet="Registries" />
           </AssociationSet>
           <EntitySet Name="AppUsers" EntityType="PLTOModel.AppUser" />
-          <EntitySet Name="Forms" EntityType="PLTOModel.Form" />
+          <EntitySet Name="Forms1" EntityType="PLTOModel.Forms" />
           <EntitySet Name="Rols" EntityType="PLTOModel.Rol" />
           <EntitySet Name="RolForms" EntityType="PLTOModel.RolForm" />
           <AssociationSet Name="FK_AppUser_Rol" Association="PLTOModel.FK_AppUser_Rol">
@@ -243,14 +243,14 @@
             <End Role="AppUser" EntitySet="AppUsers" />
           </AssociationSet>
           <AssociationSet Name="FK_RolForm_Form" Association="PLTOModel.FK_RolForm_Form">
-            <End Role="Form" EntitySet="Forms" />
+            <End Role="Form" EntitySet="Forms1" />
             <End Role="RolForm" EntitySet="RolForms" />
           </AssociationSet>
           <AssociationSet Name="FK_RolForm_Rol" Association="PLTOModel.FK_RolForm_Rol">
             <End Role="Rol" EntitySet="Rols" />
             <End Role="RolForm" EntitySet="RolForms" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Configuration">
           <Key>
             <PropertyRef Name="ConfigurationID" />
@@ -362,14 +362,14 @@
           <Key>
             <PropertyRef Name="AppUserID" />
           </Key>
-          <Property Name="AppUserID" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AppUserID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="RolID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Rol" Relationship="PLTOModel.FK_AppUser_Rol" FromRole="AppUser" ToRole="Rol" />
         </EntityType>
-        <EntityType Name="Form">
+        <EntityType Name="Forms">
           <Key>
             <PropertyRef Name="FormID" />
           </Key>
@@ -410,7 +410,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RolForm_Form">
-          <End Type="PLTOModel.Form" Role="Form" Multiplicity="1" />
+          <End Type="PLTOModel.Forms" Role="Form" Multiplicity="1" />
           <End Type="PLTOModel.RolForm" Role="RolForm" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Form">
@@ -513,13 +513,13 @@
                 <ScalarProperty Name="RolID" ColumnName="RolID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="AppUserID" ColumnName="AppUserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Forms">
-            <EntityTypeMapping TypeName="PLTOModel.Form">
+          <EntitySetMapping Name="Forms1">
+            <EntityTypeMapping TypeName="PLTOModel.Forms">
               <MappingFragment StoreEntitySet="Form">
                 <ScalarProperty Name="FormName" ColumnName="FormName" />
                 <ScalarProperty Name="FormID" ColumnName="FormID" />
@@ -544,7 +544,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

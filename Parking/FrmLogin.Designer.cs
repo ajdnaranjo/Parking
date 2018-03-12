@@ -1,6 +1,6 @@
-﻿namespace Parking.Process
+﻿namespace Parking
 {
-    partial class FrmLoguin
+    partial class FrmLogin
     {
         /// <summary>
         /// Required designer variable.
@@ -48,6 +48,7 @@
             this.TxtPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtPass.Location = new System.Drawing.Point(174, 115);
             this.TxtPass.Name = "TxtPass";
+            this.TxtPass.PasswordChar = '*';
             this.TxtPass.Size = new System.Drawing.Size(124, 26);
             this.TxtPass.TabIndex = 1;
             // 
@@ -81,7 +82,7 @@
             this.BtnLoguin.UseVisualStyleBackColor = true;
             this.BtnLoguin.Click += new System.EventHandler(this.BtnLoguin_Click);
             // 
-            // FrmLoguin
+            // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -94,7 +95,7 @@
             this.Controls.Add(this.TxtUser);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FrmLoguin";
+            this.Name = "FrmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmLoguin";
             this.ResumeLayout(false);

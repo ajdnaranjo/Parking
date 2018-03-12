@@ -12,10 +12,14 @@ using Parking.Utilities;
 namespace Parking
 {
     public partial class MDIContainer : Form
-    {      
+    {
+        public string AppUserName;
+
         public MDIContainer()
         {
             InitializeComponent();
+
+           // ((ToolStripMenuItem)toolStripMenuItem1).Enabled = false;
         }
 
         private void ShowNewForm(object sender, EventArgs e)

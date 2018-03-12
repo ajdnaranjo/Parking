@@ -12,10 +12,10 @@ namespace Parking.Repositories
     using System;
     using System.Collections.Generic;
     
-    public partial class Form
+    public partial class Forms
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Form()
+        public Forms()
         {
             this.RolForms = new HashSet<RolForm>();
         }

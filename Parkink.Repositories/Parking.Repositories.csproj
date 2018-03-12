@@ -58,7 +58,7 @@
       <DependentUpon>MdlParking.tt</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Form.cs">
+    <Compile Include="Forms.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
     <Compile Include="MdlParking.Context.cs">
