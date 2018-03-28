@@ -66,6 +66,7 @@
             this.txtPlate.Size = new System.Drawing.Size(661, 189);
             this.txtPlate.TabIndex = 1;
             this.txtPlate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPlate_KeyPress);
+            this.txtPlate.Leave += new System.EventHandler(this.txtPlate_Leave);
             // 
             // label2
             // 
@@ -128,9 +129,8 @@
             this.lblIngreso.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIngreso.Location = new System.Drawing.Point(263, 315);
             this.lblIngreso.Name = "lblIngreso";
-            this.lblIngreso.Size = new System.Drawing.Size(116, 26);
+            this.lblIngreso.Size = new System.Drawing.Size(0, 26);
             this.lblIngreso.TabIndex = 6;
-            this.lblIngreso.Text = "lblIngreso";
             // 
             // lblSalida
             // 
@@ -138,9 +138,8 @@
             this.lblSalida.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSalida.Location = new System.Drawing.Point(263, 355);
             this.lblSalida.Name = "lblSalida";
-            this.lblSalida.Size = new System.Drawing.Size(104, 26);
+            this.lblSalida.Size = new System.Drawing.Size(0, 26);
             this.lblSalida.TabIndex = 7;
-            this.lblSalida.Text = "lblSalida";
             // 
             // txtTotalPayment
             // 

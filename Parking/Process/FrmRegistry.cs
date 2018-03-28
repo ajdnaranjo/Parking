@@ -24,7 +24,7 @@ namespace Parking.Process
         {
             lblHour.Text = DateTime.Now.Hour.ToString() + ":" +
                 DateTime.Now.Minute.ToString() + ":" +
-                DateTime.Now.Second.ToString() ;
+                DateTime.Now.Second.ToString();
         }
 
         private void txtPayment_TextChanged(object sender, EventArgs e)
@@ -41,50 +41,7 @@ namespace Parking.Process
 
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                lblIngreso.Text = DateTime.Now.ToString();
-
-                var repo = new RegistryRepository();
-                var repoUser = new UserRepository();
-
-                var reg = new Registry()
-                {
-                    Plate = txtPlate.Text.Trim(),
-                    EntryDate = DateTime.Now
-                };
-
-                var data = repo.CheckEntryExit(reg);
-
-                lblIngreso.Text = data.EntryDate.ToString();
-                var mp = repoUser.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
-
-                if (data.ExitDate == null)
-                {
-                    /*TODO: Print receipt*/
-                    CleanForm();
-                }
-                else
-                {
-                    if (mp == null)
-                    {
-                        lblSalida.Text = data.ExitDate.ToString();
-                        decimal totalPayment = (decimal)data.TotalPayment;
-                        txtTotalPayment.Text = totalPayment.ToString("N0");
-                        Days = data.Days;
-                        Hours = data.Hours;
-                        Minutes = data.Minutes;
-                        txtPlate.Enabled = false;
-                    }
-                    else {
-                        lblMessage.Text = "Usuario con mensualidad activa.";
-                        lblSalida.Text = data.ExitDate.ToString();
-                        txtTotalPayment.Text = "0";
-                        txtPayment.Text = "0";
-                        Days = data.Days;
-                        Hours = data.Hours;
-                        Minutes = data.Minutes;
-                        txtPlate.Enabled = false;
-                    }                    
-                }              
+                txtPlateKeypress();
             }
         }
 
@@ -94,51 +51,117 @@ namespace Parking.Process
 
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                CalculateRefund();
-
-                var repo = new RegistryRepository();
-                var repoUser = new UserRepository();
-
-                var check = new Registry()
+                if (!string.IsNullOrEmpty(txtPlate.Text))
                 {
-                    Plate = txtPlate.Text.Trim(),
-                    ExitDate = DateTime.Parse(lblSalida.Text),
-                    TotalPayment = decimal.Parse(txtTotalPayment.Text),
-                    Payment = decimal.Parse(txtPayment.Text.Trim()),
-                    Refund = decimal.Parse(txtRefund.Text),
-                    Days = Days,
-                    Hours = Hours,
-                    Minutes = Minutes
-                };
-             
-                var mp = repoUser.GetMonthlyPaymentByPlate(check.Plate);
-
-                if (mp == null)
-                {
-                    var result = repo.CheckExit(check);
-                    /*TODO: Print receipt*/
+                    txtPaymentKeypress();
                 }
-                else
-                {
-                    check.MonthlyPaymentID = mp.MonthlyPaymentID;
-                    check.TotalPayment = 0;
-                    check.Payment = 0;
-                    check.Refund = 0;
-
-                    var result = repo.CheckExit(check);
-                }
-
-
-                CleanForm();
             }
         }
 
+        private void txtPaymentKeypress()
+        {
+            CalculateRefund();
+
+            var repo = new RegistryRepository();
+            var repoUser = new UserRepository();
+
+            var check = new Registry()
+            {
+                Plate = txtPlate.Text.Trim(),
+                ExitDate = DateTime.Parse(lblSalida.Text),
+                TotalPayment = decimal.Parse(txtTotalPayment.Text),
+                Payment = decimal.Parse(txtPayment.Text.Trim()),
+                Refund = decimal.Parse(txtRefund.Text),
+                Days = Days,
+                Hours = Hours,
+                Minutes = Minutes
+            };
+
+            var mp = repoUser.GetMonthlyPaymentByPlate(check.Plate);
+
+            if (mp == null)
+            {
+                var result = repo.CheckExit(check);
+                /*TODO: Print receipt*/
+            }
+            else
+            {
+                check.MonthlyPaymentID = mp.MonthlyPaymentID;
+                check.TotalPayment = 0;
+                check.Payment = 0;
+                check.Refund = 0;
+
+                var result = repo.CheckExit(check);
+            }
+
+            CleanForm();
+        }
+
+        private void txtPlateKeypress()
+        {
+            lblIngreso.Text = DateTime.Now.ToString();
+
+            var repo = new RegistryRepository();
+            var repoUser = new UserRepository();
+
+            var reg = new Registry()
+            {
+                Plate = txtPlate.Text.Trim(),
+                EntryDate = DateTime.Now
+            };
+
+            var data = repo.CheckEntryExit(reg);
+
+            lblIngreso.Text = data.EntryDate.ToString();
+            var mp = repoUser.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
+
+            if (data.ExitDate == null)
+            {
+                /*TODO: Print receipt*/
+                CleanForm();
+            }
+            else
+            {
+                if (mp == null)
+                {
+                    lblSalida.Text = data.ExitDate.ToString();
+                    decimal totalPayment = (decimal)data.TotalPayment;
+                    txtTotalPayment.Text = totalPayment.ToString("N0");
+                    Days = data.Days;
+                    Hours = data.Hours;
+                    Minutes = data.Minutes;
+                    txtPlate.Enabled = false;
+                }
+                else
+                {
+                    lblMessage.Text = "Usuario con mensualidad activa.";
+                    lblSalida.Text = data.ExitDate.ToString();
+                    txtTotalPayment.Text = "0";
+                    txtPayment.Text = "0";
+                    Days = data.Days;
+                    Hours = data.Hours;
+                    Minutes = data.Minutes;
+                    txtPlate.Enabled = false;
+                }
+            }
+
+        }
+
+
         private void CalculateRefund()
         {
-            var totalPayment = decimal.Parse(txtTotalPayment.Text.Trim());
-            var payment = decimal.Parse(txtPayment.Text.Trim());
-            var refund = payment - totalPayment;
-            txtRefund.Text = refund.ToString("N0");
+            if (!string.IsNullOrEmpty(txtPayment.Text))
+            {
+                var totalPayment = decimal.Parse(txtTotalPayment.Text.Trim());
+                var payment = decimal.Parse(txtPayment.Text.Trim());
+                var refund = payment - totalPayment;
+                txtRefund.Text = refund.ToString("N0");
+            }
+        }
+
+        private void txtPlate_Leave(object sender, EventArgs e)
+        {
+            txtPlateKeypress();
         }
 
         private void CleanForm()
