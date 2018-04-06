@@ -11,7 +11,7 @@ namespace Parking.Utilities
     public class PrintReceipts
     {
 
-        public static Boolean PrintPDFs(string pdfFileName)
+        public  Boolean PrintPDFs(string pdfFileName)
         {
             try
             {
@@ -22,7 +22,7 @@ namespace Parking.Utilities
                 //Define location of adobe reader/command line
                 //switches to launch adobe in "print" mode
                 proc.StartInfo.FileName =
-                  @"C:\Program Files (x86)\Adobe\Reader 11.0\Reader\AcroRd32.exe";
+                  @"C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe";
                 proc.StartInfo.Arguments = String.Format(@"/p /h {0}", pdfFileName);
                 proc.StartInfo.UseShellExecute = false;
                 proc.StartInfo.CreateNoWindow = true;

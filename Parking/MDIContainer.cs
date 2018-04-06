@@ -24,8 +24,10 @@ namespace Parking
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-            var repo = new Receipts();
-            repo.EntryReceipt();
+            //var repo = new Receipts();
+            //var path = repo.EntryReceipt();
+            //var print = new PrintReceipts();
+            //var b = print.PrintPDFs(path);
         }      
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)

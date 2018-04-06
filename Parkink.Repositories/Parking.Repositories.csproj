@@ -95,7 +95,7 @@
     <Compile Include="RolForm.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
-    <Compile Include="SecurityRepository.cs" />
+    <Compile Include="ConfigurationRepository.cs" />
     <Compile Include="User.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

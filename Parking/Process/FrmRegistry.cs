@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Parking.Repositories;
+using Parking.Utilities;
 
 namespace Parking.Process
 {
@@ -117,7 +118,11 @@ namespace Parking.Process
 
             if (data.ExitDate == null)
             {
-                /*TODO: Print receipt*/
+                var repoReceipts = new Receipts();
+                var path = repoReceipts.EntryReceipt(reg.Plate, reg.EntryDate);
+                var print = new PrintReceipts();
+                var result = print.PrintPDFs(path);
+
                 CleanForm();
             }
             else

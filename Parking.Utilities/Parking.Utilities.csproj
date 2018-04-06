@@ -47,5 +47,15 @@
     <Compile Include="PrintReceipts.cs" />
     <Compile Include="Receipts.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Parking.Models\Parking.Models.csproj">
+      <Project>{c9a090a3-54ad-4e3f-b90e-8d2a6e1dc375}</Project>
+      <Name>Parking.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Parkink.Repositories\Parking.Repositories.csproj">
+      <Project>{acb9510e-8c8e-42a3-9e89-36906d47fabb}</Project>
+      <Name>Parking.Repositories</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

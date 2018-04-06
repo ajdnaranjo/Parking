@@ -20,7 +20,7 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
-                return context.PaymentMethods.FirstOrDefault(x => x.PaymentMethodID == 4);
+                return context.PaymentMethods.FirstOrDefault(x => x.Description == "Mensualidad");
             }
         }
 
