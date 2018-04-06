@@ -17,13 +17,13 @@ namespace Parking.Repositories
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DocType()
         {
-            this.Users = new HashSet<User>();
+            this.Clients = new HashSet<Client>();
         }
     
         public int DocTypeID { get; set; }
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Client> Clients { get; set; }
     }
 }

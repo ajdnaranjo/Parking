@@ -16,8 +16,8 @@ namespace Parking
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-             Application.Run(new MDIContainer());
-            //Application.Run(new FrmLogin());
+            //Application.Run(new MDIContainer());
+            Application.Run(new FrmLogin());
         }
     }
 }

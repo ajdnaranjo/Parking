@@ -12,10 +12,10 @@ namespace Parking.Repositories
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Client
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public Client()
         {
             this.MonthlyPayments = new HashSet<MonthlyPayment>();
         }
@@ -25,8 +25,8 @@ namespace Parking.Repositories
         public string Name { get; set; }
         public string CelPhone { get; set; }
     
-        public virtual DocType DocType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonthlyPayment> MonthlyPayments { get; set; }
+        public virtual DocType DocType { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.IO;
 
 
 namespace Parking.Utilities
@@ -31,13 +32,15 @@ namespace Parking.Utilities
                 proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 if (proc.HasExited == false)
                 {
-                    proc.WaitForExit(10000);
+                    //proc.WaitForExit(10000);
+                    proc.WaitForExit(8000);
                 }
 
                 proc.EnableRaisingEvents = true;
 
                 proc.Close();
                 KillAdobe("AcroRd32");
+                File.Delete(pdfFileName);
                 return true;
             }
             catch

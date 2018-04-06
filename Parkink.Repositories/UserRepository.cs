@@ -24,11 +24,11 @@ namespace Parking.Repositories
             }
         }
 
-        public User GetUserById(string document)
+        public Client GetUserById(string document)
         {
             using (var context = new PLTOEntities())
             {
-                return context.Users.FirstOrDefault(x => x.Document == document);
+                return context.Clients.FirstOrDefault(x => x.Document == document);
             }
         }
 
@@ -41,11 +41,11 @@ namespace Parking.Repositories
             }
         }
 
-        public User GetUserByPlate(string plate)
+        public Client GetUserByPlate(string plate)
         {
             using (var context = new PLTOEntities())
             {
-                var user = (from u in context.Users
+                var user = (from u in context.Clients
                            join mp in context.MonthlyPayments on u.Document equals mp.Document
                            where mp.Plate == plate
                            select u).FirstOrDefault();

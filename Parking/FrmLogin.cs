@@ -26,8 +26,8 @@ namespace Parking
             if (canLogin)
             {
                 this.Hide();
-                var frm = new MDIContainer();
-                frm.AppUserName = TxtUser.Text.Trim();
+                var frm = new MDIContainer(TxtUser.Text.Trim());
+                //frm.AppUserName = ;
                 frm.Show();
                 
             }

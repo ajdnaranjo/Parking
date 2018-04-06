@@ -22,10 +22,20 @@ namespace Parking.Repositories
                         Plate = registry.Plate,
                         EntryDate = registry.EntryDate,
                     };
-                    context.Registries.Add(reg);
+                    context.Registries.Add(reg);                 
 
                     context.SaveChanges();
                     registry.RegistryID = reg.RegistryID;
+                
+                    var regID = new ReceiptID
+                    {
+                        TableName = "Registry",
+                        TableID = registry.RegistryID
+                    };
+
+                    context.ReceiptIDs.Add(regID);
+                    context.SaveChanges();
+
                 }
                 else
                 {
@@ -90,18 +100,18 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
-                var user = context.Users.FirstOrDefault(r => r.DocTypeID == monthlyPaymentDTO.DocTypeId && r.Document == monthlyPaymentDTO.Document);
+                var user = context.Clients.FirstOrDefault(r => r.DocTypeID == monthlyPaymentDTO.DocTypeId && r.Document == monthlyPaymentDTO.Document);
 
                 if (user == null)
                 {
-                    var rec = new User()
+                    var rec = new Client()
                     {
                         Document = monthlyPaymentDTO.Document,
                         DocTypeID = monthlyPaymentDTO.DocTypeId,
                         Name = monthlyPaymentDTO.Name,
                         CelPhone = monthlyPaymentDTO.Celphone
                     };
-                    context.Users.Add(rec);
+                    context.Clients.Add(rec);
                 }
                 else {
                     user.Name = monthlyPaymentDTO.Name;
@@ -121,13 +131,57 @@ namespace Parking.Repositories
                 };
 
                 context.MonthlyPayments.Add(mPayment);
-
-                context.SaveChanges();
+                context.SaveChanges();            
 
                 monthlyPaymentDTO.MonthlyPaymentId = mPayment.MonthlyPaymentID;
 
+                var regID = new ReceiptID
+                {
+                    TableName = "MonthlyPayment",
+                    TableID = monthlyPaymentDTO.MonthlyPaymentId
+                };
+
+                context.ReceiptIDs.Add(regID);
+
             }
             return monthlyPaymentDTO;
+        }
+
+        public Registry GetEntryRegistryByPlate(string plate)
+        {
+            using (var context = new PLTOEntities())
+            {
+                return context.Registries.FirstOrDefault(x => x.Plate == plate && x.ExitDate == null);
+            }
+        }
+
+        public Registry GetExitRegistryByPlate(string plate)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var sql = (from r in context.Registries
+                           join ri in context.ReceiptIDs on r.RegistryID equals ri.TableID
+                           where r.Plate == plate && r.ExitDate != null && ri.TableName == "Registry"
+                           orderby r.ExitDate descending
+                           select new Registry
+                           {
+                               RegistryID = ri.ReceiptID1,
+                               MonthlyPaymentID = r.MonthlyPaymentID,
+                               Plate = r.Plate,
+                               EntryDate = r.EntryDate,
+                               ExitDate = r.ExitDate,
+                               Days = r.Days,
+                               Hours = r.Hours,
+                               Minutes = r.Minutes,
+                               TotalPayment = r.TotalPayment,
+                               Payment = r.Payment,
+                               Refund  = r.Refund
+                           }
+                           ).FirstOrDefault();
+
+
+                return sql;                
+            }
         }
     }
 }

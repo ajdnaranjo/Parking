@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Parking.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Parking.Repositories
 {
@@ -26,9 +25,32 @@ namespace Parking.Repositories
             {
                 var data = (from r in context.Rols
                             join rf in context.RolForms on r.RolID equals rf.RolID
-                            join f in context.Forms on rf.FormID equals f.FormID
+                            join f in context.Forms1 on rf.FormID equals f.FormID
                             where r.RolID == rolID
                             select f).ToList();
+
+                return data;
+            }
+        }
+
+        public List<RolAccessDTO> GetRolFormAccess(string appUserID)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var data = (from au in context.AppUsers
+                            join r in context.Rols on au.RolID equals r.RolID
+                            join rf in context.RolForms on r.RolID equals rf.RolID
+                            join f in context.Forms1 on rf.FormID equals f.FormID
+                            where au.AppUserID == appUserID
+                            select new RolAccessDTO
+                            {
+                                AppUserID = au.AppUserID,
+                                RolID = r.RolID,
+                                RolName = r.RolName,
+                                FormID = f.FormID,
+                                FormName = f.FormName
+                            }
+                            ).ToList();
 
                 return data;
             }

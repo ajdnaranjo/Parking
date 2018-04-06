@@ -51,6 +51,9 @@
     <Compile Include="AppUser.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
+    <Compile Include="Client.cs">
+      <DependentUpon>MdlParking.tt</DependentUpon>
+    </Compile>
     <Compile Include="Configuration.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
@@ -85,6 +88,9 @@
     <Compile Include="PaymentMethod.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
+    <Compile Include="ReceiptID.cs">
+      <DependentUpon>MdlParking.tt</DependentUpon>
+    </Compile>
     <Compile Include="Registry.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
@@ -96,10 +102,6 @@
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
     <Compile Include="ConfigurationRepository.cs" />
-    <Compile Include="User.cs">
-      <DependentUpon>MdlParking.tt</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

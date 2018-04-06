@@ -8,27 +8,37 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Parking.Utilities;
+using Parking.Models;
+using Parking.Repositories;
 
 namespace Parking
 {
     public partial class MDIContainer : Form
     {
-        public string AppUserName;
+        //public string AppUserName;
 
-        public MDIContainer()
+        public MDIContainer(string AppUserName)
         {
             InitializeComponent();
+            RolAcces(AppUserName);
+            var repo = new ConfigurationRepository();
+            this.Text = repo.GetConfiguration().Name;
 
-           // ((ToolStripMenuItem)toolStripMenuItem1).Enabled = false;
         }
 
-        private void ShowNewForm(object sender, EventArgs e)
+        private void RolAcces(string AppUserName)
         {
-            //var repo = new Receipts();
-            //var path = repo.EntryReceipt();
-            //var print = new PrintReceipts();
-            //var b = print.PrintPDFs(path);
-        }      
+            var repo = new AccessRepository();
+            var result = repo.GetRolFormAccess(AppUserName);            
+
+            foreach (var item in result)
+            {
+                if (((ToolStripMenuItem)tSMIFrmRegistry).Name == item.FormName)
+                    ((ToolStripMenuItem)tSMIFrmRegistry).Enabled = true;
+                if (((ToolStripMenuItem)tsMIFrmMonthlyPayment).Name == item.FormName)
+                    ((ToolStripMenuItem)tsMIFrmMonthlyPayment).Enabled = true;
+            }
+        }
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {

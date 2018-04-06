@@ -83,7 +83,11 @@ namespace Parking.Process
             if (mp == null)
             {
                 var result = repo.CheckExit(check);
-                /*TODO: Print receipt*/
+
+                var repoReceipts = new Receipts();
+                var path = repoReceipts.EntryReceipt(result.Plate);
+                var print = new PrintReceipts();
+                var response = print.PrintPDFs(path);
             }
             else
             {
@@ -118,10 +122,17 @@ namespace Parking.Process
 
             if (data.ExitDate == null)
             {
-                var repoReceipts = new Receipts();
-                var path = repoReceipts.EntryReceipt(reg.Plate, reg.EntryDate);
-                var print = new PrintReceipts();
-                var result = print.PrintPDFs(path);
+                if (mp == null)
+                {
+                    var repoReceipts = new Receipts();
+                    var path = repoReceipts.EntryReceipt(reg.Plate);
+                    var print = new PrintReceipts();
+                    var result = print.PrintPDFs(path);
+                }
+                else
+                {
+                    MessageBox.Show( "Usuario con mensualidad activa.");
+                }
 
                 CleanForm();
             }

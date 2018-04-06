@@ -14,6 +14,12 @@ namespace Parking.Repositories
     
     public partial class Registry
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Registry()
+        {
+            this.ReceiptIDs = new HashSet<ReceiptID>();
+        }
+    
         public int RegistryID { get; set; }
         public Nullable<int> MonthlyPaymentID { get; set; }
         public string Plate { get; set; }
@@ -25,7 +31,13 @@ namespace Parking.Repositories
         public Nullable<decimal> TotalPayment { get; set; }
         public Nullable<decimal> Payment { get; set; }
         public Nullable<decimal> Refund { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
     
+        public virtual AppUser AppUser { get; set; }
+        public virtual AppUser AppUser1 { get; set; }
         public virtual MonthlyPayment MonthlyPayment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReceiptID> ReceiptIDs { get; set; }
     }
 }
