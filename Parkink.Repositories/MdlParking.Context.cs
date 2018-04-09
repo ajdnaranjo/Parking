@@ -35,6 +35,5 @@ namespace Parking.Repositories
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<MonthlyPayment> MonthlyPayments { get; set; }
         public virtual DbSet<Registry> Registries { get; set; }
-        public virtual DbSet<ReceiptNo> ReceiptNoes { get; set; }
     }
 }

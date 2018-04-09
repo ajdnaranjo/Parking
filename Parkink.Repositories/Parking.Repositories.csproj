@@ -47,9 +47,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ReceiptNo.cs">
-      <DependentUpon>MdlParking.tt</DependentUpon>
-    </Compile>
     <Compile Include="SecurityRepository.cs" />
     <Compile Include="AppUser.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>

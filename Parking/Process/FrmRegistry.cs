@@ -98,63 +98,65 @@ namespace Parking.Process
 
         private void txtPlateKeypress()
         {
-            lblIngreso.Text = DateTime.Now.ToString();
-
-            var repo = new RegistryRepository();
-            var repoUser = new UserRepository();
-
-            var reg = new Registry()
+            if (txtPlate.Text.Trim() != string.Empty)
             {
-                Plate = txtPlate.Text.Trim(),
-                EntryDate = DateTime.Now
-            };
+                lblIngreso.Text = DateTime.Now.ToString();
 
-            var data = repo.CheckEntryExit(reg, Globals.appUserID);
+                var repo = new RegistryRepository();
+                var repoUser = new UserRepository();
 
-            lblIngreso.Text = data.EntryDate.ToString();
-            var mp = repoUser.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
-
-            if (data.ExitDate == null)
-            {
-                if (mp == null)
+                var reg = new Registry()
                 {
-                    var repoReceipts = new Receipts();
-                    var path = repoReceipts.EntryReceipt(reg.Plate, Globals.appUserID);
-                    var print = new PrintReceipts();
-                    var result = print.PrintPDFs(path);
+                    Plate = txtPlate.Text.Trim(),
+                    EntryDate = DateTime.Now
+                };
+
+                var data = repo.CheckEntryExit(reg, Globals.appUserID);
+
+                lblIngreso.Text = data.EntryDate.ToString();
+                var mp = repoUser.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
+
+                if (data.ExitDate == null)
+                {
+                    if (mp == null)
+                    {
+                        var repoReceipts = new Receipts();
+                        var path = repoReceipts.EntryReceipt(reg.Plate, Globals.appUserID);
+                        var print = new PrintReceipts();
+                        var result = print.PrintPDFs(path);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Usuario con mensualidad activa.");
+                    }
+
+                    CleanForm();
                 }
                 else
                 {
-                    MessageBox.Show( "Usuario con mensualidad activa.");
-                }
-
-                CleanForm();
-            }
-            else
-            {
-                if (mp == null)
-                {
-                    lblSalida.Text = data.ExitDate.ToString();
-                    decimal totalPayment = (decimal)data.TotalPayment;
-                    txtTotalPayment.Text = totalPayment.ToString("N0");
-                    Days = data.Days;
-                    Hours = data.Hours;
-                    Minutes = data.Minutes;
-                    txtPlate.Enabled = false;
-                }
-                else
-                {
-                    lblMessage.Text = "Usuario con mensualidad activa.";
-                    lblSalida.Text = data.ExitDate.ToString();
-                    txtTotalPayment.Text = "0";
-                    txtPayment.Text = "0";
-                    Days = data.Days;
-                    Hours = data.Hours;
-                    Minutes = data.Minutes;
-                    txtPlate.Enabled = false;
+                    if (mp == null)
+                    {
+                        lblSalida.Text = data.ExitDate.ToString();
+                        decimal totalPayment = (decimal)data.TotalPayment;
+                        txtTotalPayment.Text = totalPayment.ToString("N0");
+                        Days = data.Days;
+                        Hours = data.Hours;
+                        Minutes = data.Minutes;
+                        txtPlate.Enabled = false;
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Usuario con mensualidad activa.";
+                        lblSalida.Text = data.ExitDate.ToString();
+                        txtTotalPayment.Text = "0";
+                        txtPayment.Text = "0";
+                        Days = data.Days;
+                        Hours = data.Hours;
+                        Minutes = data.Minutes;
+                        txtPlate.Enabled = false;
+                    }
                 }
             }
-
         }
 
 

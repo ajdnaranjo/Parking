@@ -47,5 +47,22 @@ namespace Parking.Repositories
                 return config;
             }
         }
+
+        public string GetReceiptNumber()
+        {
+
+            using (var context = new PLTOEntities())
+            {
+                var data = context.Configurations.FirstOrDefault(x => x.ConfigurationName == "ReceiptNumber");
+
+                var result = int.Parse(data.ConfigurationValue) + 1;
+
+                data.ConfigurationValue = result.ToString();
+
+                context.SaveChanges();
+
+                return result.ToString();
+            }
+        }
     }
 }

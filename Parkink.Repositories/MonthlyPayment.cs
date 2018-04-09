@@ -18,10 +18,9 @@ namespace Parking.Repositories
         public MonthlyPayment()
         {
             this.Registries = new HashSet<Registry>();
-            this.ReceiptNoes = new HashSet<ReceiptNo>();
         }
     
-        public int MonthlyPaymentID { get; set; }
+        public string MonthlyPaymentID { get; set; }
         public string Plate { get; set; }
         public string Document { get; set; }
         public int DocTypeID { get; set; }
@@ -36,7 +35,5 @@ namespace Parking.Repositories
         public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Registry> Registries { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReceiptNo> ReceiptNoes { get; set; }
     }
 }

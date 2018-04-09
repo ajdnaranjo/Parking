@@ -21,7 +21,7 @@ namespace Parking.Utilities
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
            
-            var output = new FileStream(@"C:\Parking\Receipts\EntryReceipt" + DateTime.Now + ".pdf", FileMode.Create);
+            var output = new FileStream(@"C:\Parking\Receipts\EntryReceipt.pdf", FileMode.Create);
             var writer = PdfWriter.GetInstance(doc, output);
         
             doc.Open();
@@ -55,7 +55,7 @@ namespace Parking.Utilities
 
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
-            var output = new FileStream(@"C:\Parking\Receipts\EntryReceipt" + DateTime.Now + ".pdf", FileMode.Create);
+            var output = new FileStream(@"C:\Parking\Receipts\EntryReceipt" + DateTime.Now.ToShortTimeString() + ".pdf", FileMode.Create);
             var writer = PdfWriter.GetInstance(doc, output);
 
             doc.Open();
@@ -83,7 +83,7 @@ namespace Parking.Utilities
         }
 
 
-        public void MonthlyPaymentReceipt(int monthlyPaymentID, int appUserID)
+        public void MonthlyPaymentReceipt(string monthlyPaymentID, int appUserID)
         {
             var repo = new ConfigurationRepository();
             var dataRepo = new RegistryRepository();
@@ -95,7 +95,7 @@ namespace Parking.Utilities
 
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
-            var output = new FileStream(@"C:\Parking\Receipts\MonthlyReceipt" + DateTime.Now + ".pdf", FileMode.Create);
+            var output = new FileStream(@"C:\Parking\Receipts\MonthlyReceipt" + DateTime.Now.ToShortTimeString() + ".pdf", FileMode.Create);
             var writer = PdfWriter.GetInstance(doc, output);
 
             doc.Open();

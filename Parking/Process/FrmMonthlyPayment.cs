@@ -69,7 +69,7 @@ namespace Parking.Process
                 result = repo.SaveMonthlyPayment(data, Globals.appUserID);
             }
 
-            if (result.MonthlyPaymentId > 0) MessageBox.Show("Mensualidad guardada exitosamente.");
+            MessageBox.Show("Mensualidad guardada exitosamente.");
 
             CleanForm();
         }

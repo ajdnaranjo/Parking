@@ -13,12 +13,14 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
+                var repo = new ConfigurationRepository();
                 var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.ExitDate == null);
 
                 if (reg == null)
                 {
                     reg = new Registry
                     {
+                        RegistryID = repo.GetReceiptNumber(),
                         Plate = registry.Plate,
                         EntryDate = registry.EntryDate,
                         CreatedBy = userID
@@ -27,15 +29,7 @@ namespace Parking.Repositories
 
                     context.SaveChanges();
                     registry.RegistryID = reg.RegistryID;
-                
-                    var regID = new ReceiptNo
-                    {
-                        TableName = "Registry",
-                        TableID = registry.RegistryID
-                    };
-
-                    context.ReceiptNoes.Add(regID);
-                    context.SaveChanges();
+                                 
 
                 }
                 else
@@ -102,6 +96,8 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
+                var repo = new ConfigurationRepository();
+
                 var user = context.Clients.FirstOrDefault(r => r.DocTypeID == monthlyPaymentDTO.DocTypeId && r.Document == monthlyPaymentDTO.Document);
 
                 if (user == null)
@@ -122,6 +118,7 @@ namespace Parking.Repositories
 
                 var mPayment = new MonthlyPayment()
                 {
+                    MonthlyPaymentID = repo.GetReceiptNumber(),
                     Document = monthlyPaymentDTO.Document,
                     DocTypeID = monthlyPaymentDTO.DocTypeId,
                     Plate = monthlyPaymentDTO.Plate,
@@ -137,14 +134,7 @@ namespace Parking.Repositories
                 context.SaveChanges();            
 
                 monthlyPaymentDTO.MonthlyPaymentId = mPayment.MonthlyPaymentID;
-
-                var regID = new ReceiptNo
-                {
-                    TableName = "MonthlyPayment",
-                    TableID = monthlyPaymentDTO.MonthlyPaymentId
-                };
-
-                context.ReceiptNoes.Add(regID);
+               
 
             }
             return monthlyPaymentDTO;
@@ -162,13 +152,12 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
-                var sql = (from r in context.Registries
-                           join ri in context.ReceiptNoes on r.RegistryID equals ri.TableID
-                           where r.Plate == plate && r.ExitDate != null && ri.TableName == "Registry"
+                var sql = (from r in context.Registries                           
+                           where r.Plate == plate && r.ExitDate != null 
                            orderby r.ExitDate descending
                            select new Registry
                            {
-                               RegistryID = ri.ReceiptID,
+                               RegistryID = r.RegistryID,
                                MonthlyPaymentID = r.MonthlyPaymentID,
                                Plate = r.Plate,
                                EntryDate = r.EntryDate,
@@ -187,19 +176,17 @@ namespace Parking.Repositories
             }
         }
 
-        public MonthlyPaymentDto GetMonthlyPaymentByID(int monthlyPaymentID)
+        public MonthlyPaymentDto GetMonthlyPaymentByID(string monthlyPaymentID)
         {
             using (var context = new PLTOEntities())
             {
-                var data = (from m  in context.MonthlyPayments
-                            join r in context.ReceiptNoes on m.MonthlyPaymentID equals r.TableID
-                            where m.MonthlyPaymentID == monthlyPaymentID 
-                            && r.TableName == "MonthlyPayment"
+                var data = (from m  in context.MonthlyPayments                           
+                            where m.MonthlyPaymentID == monthlyPaymentID                           
                             select new MonthlyPaymentDto
                             {
-                                ReceiptID = r.ReceiptID,
+                                ReceiptID = m.MonthlyPaymentID,
                                 Document = m.Document,
-                                MonthlyPaymentId = monthlyPaymentID,
+                                MonthlyPaymentId = m.MonthlyPaymentID,
                                 Plate = m.Plate,
                                 PaidValue = m.PaidValue,
                                 TotalPayment = m.TotalPayment,
