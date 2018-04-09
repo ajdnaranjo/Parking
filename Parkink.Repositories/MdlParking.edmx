@@ -71,7 +71,7 @@
           <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Value" Type="money" Nullable="false" />
         </EntityType>
-        <EntityType Name="ReceiptID">
+        <EntityType Name="ReceiptNo">
           <Key>
             <PropertyRef Name="ReceiptID" />
           </Key>
@@ -153,24 +153,24 @@
         </Association>
         <Association Name="FK_ReceiptID_MonthlyPayment">
           <End Role="MonthlyPayment" Type="Self.MonthlyPayment" Multiplicity="1" />
-          <End Role="ReceiptID" Type="Self.ReceiptID" Multiplicity="*" />
+          <End Role="ReceiptNo" Type="Self.ReceiptNo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MonthlyPayment">
               <PropertyRef Name="MonthlyPaymentID" />
             </Principal>
-            <Dependent Role="ReceiptID">
+            <Dependent Role="ReceiptNo">
               <PropertyRef Name="TableID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ReceiptID_Registry">
           <End Role="Registry" Type="Self.Registry" Multiplicity="1" />
-          <End Role="ReceiptID" Type="Self.ReceiptID" Multiplicity="*" />
+          <End Role="ReceiptNo" Type="Self.ReceiptNo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Registry">
               <PropertyRef Name="RegistryID" />
             </Principal>
-            <Dependent Role="ReceiptID">
+            <Dependent Role="ReceiptNo">
               <PropertyRef Name="TableID" />
             </Dependent>
           </ReferentialConstraint>
@@ -255,7 +255,7 @@
           <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonthlyPayment" EntityType="Self.MonthlyPayment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentMethod" EntityType="Self.PaymentMethod" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ReceiptID" EntityType="Self.ReceiptID" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReceiptNo" EntityType="Self.ReceiptNo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Registry" EntityType="Self.Registry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RolForm" EntityType="Self.RolForm" Schema="dbo" store:Type="Tables" />
@@ -273,11 +273,11 @@
           </AssociationSet>
           <AssociationSet Name="FK_ReceiptID_MonthlyPayment" Association="Self.FK_ReceiptID_MonthlyPayment">
             <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
-            <End Role="ReceiptID" EntitySet="ReceiptID" />
+            <End Role="ReceiptNo" EntitySet="ReceiptNo" />
           </AssociationSet>
           <AssociationSet Name="FK_ReceiptID_Registry" Association="Self.FK_ReceiptID_Registry">
             <End Role="Registry" EntitySet="Registry" />
-            <End Role="ReceiptID" EntitySet="ReceiptID" />
+            <End Role="ReceiptNo" EntitySet="ReceiptNo" />
           </AssociationSet>
           <AssociationSet Name="FK_Registry_AppUser" Association="Self.FK_Registry_AppUser">
             <End Role="AppUser" EntitySet="AppUser" />
@@ -323,7 +323,6 @@
             <End Role="Rol" EntitySet="Rols" />
             <End Role="RolForm" EntitySet="RolForms" />
           </AssociationSet>
-          <EntitySet Name="ReceiptIDs" EntityType="PLTOModel.ReceiptID" />
           <EntitySet Name="AppUsers" EntityType="PLTOModel.AppUser" />
           <EntitySet Name="Clients" EntityType="PLTOModel.Client" />
           <EntitySet Name="MonthlyPayments" EntityType="PLTOModel.MonthlyPayment" />
@@ -352,17 +351,18 @@
             <End Role="DocType" EntitySet="DocTypes" />
             <End Role="Client" EntitySet="Clients" />
           </AssociationSet>
-          <AssociationSet Name="FK_ReceiptID_MonthlyPayment" Association="PLTOModel.FK_ReceiptID_MonthlyPayment">
-            <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
-            <End Role="ReceiptID" EntitySet="ReceiptIDs" />
-          </AssociationSet>
           <AssociationSet Name="FK_Registry_MonthlyPayment" Association="PLTOModel.FK_Registry_MonthlyPayment">
             <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
             <End Role="Registry" EntitySet="Registries" />
           </AssociationSet>
+          <EntitySet Name="ReceiptNoes" EntityType="PLTOModel.ReceiptNo" />
+          <AssociationSet Name="FK_ReceiptID_MonthlyPayment" Association="PLTOModel.FK_ReceiptID_MonthlyPayment">
+            <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
+            <End Role="ReceiptNo" EntitySet="ReceiptNoes" />
+          </AssociationSet>
           <AssociationSet Name="FK_ReceiptID_Registry" Association="PLTOModel.FK_ReceiptID_Registry">
             <End Role="Registry" EntitySet="Registries" />
-            <End Role="ReceiptID" EntitySet="ReceiptIDs" />
+            <End Role="ReceiptNo" EntitySet="ReceiptNoes" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Configuration">
@@ -441,16 +441,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ReceiptID">
-          <Key>
-            <PropertyRef Name="ReceiptID1" />
-          </Key>
-          <Property Name="ReceiptID1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TableName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="TableID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="MonthlyPayment" Relationship="PLTOModel.FK_ReceiptID_MonthlyPayment" FromRole="ReceiptID" ToRole="MonthlyPayment" />
-          <NavigationProperty Name="Registry" Relationship="PLTOModel.FK_ReceiptID_Registry" FromRole="ReceiptID" ToRole="Registry" />
-        </EntityType>
         <EntityType Name="AppUser">
           <Key>
             <PropertyRef Name="UserID" />
@@ -494,8 +484,8 @@
           <Property Name="CreatedBy" Type="Int32" />
           <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_MonthlyPayment_AppUser" FromRole="MonthlyPayment" ToRole="AppUser" />
           <NavigationProperty Name="Client" Relationship="PLTOModel.FK_MonthlyPayment_User" FromRole="MonthlyPayment" ToRole="Client" />
-          <NavigationProperty Name="ReceiptIDs" Relationship="PLTOModel.FK_ReceiptID_MonthlyPayment" FromRole="MonthlyPayment" ToRole="ReceiptID" />
           <NavigationProperty Name="Registries" Relationship="PLTOModel.FK_Registry_MonthlyPayment" FromRole="MonthlyPayment" ToRole="Registry" />
+          <NavigationProperty Name="ReceiptNoes" Relationship="PLTOModel.FK_ReceiptID_MonthlyPayment" FromRole="MonthlyPayment" ToRole="ReceiptNo" />
         </EntityType>
         <EntityType Name="Registry">
           <Key>
@@ -517,7 +507,7 @@
           <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_Registry_AppUser" FromRole="Registry" ToRole="AppUser" />
           <NavigationProperty Name="AppUser1" Relationship="PLTOModel.FK_Registry_AppUser1" FromRole="Registry" ToRole="AppUser" />
           <NavigationProperty Name="MonthlyPayment" Relationship="PLTOModel.FK_Registry_MonthlyPayment" FromRole="Registry" ToRole="MonthlyPayment" />
-          <NavigationProperty Name="ReceiptIDs" Relationship="PLTOModel.FK_ReceiptID_Registry" FromRole="Registry" ToRole="ReceiptID" />
+          <NavigationProperty Name="ReceiptNoes" Relationship="PLTOModel.FK_ReceiptID_Registry" FromRole="Registry" ToRole="ReceiptNo" />
         </EntityType>
         <Association Name="FK_AppUser_Rol">
           <End Type="PLTOModel.Rol" Role="Rol" Multiplicity="1" />
@@ -593,18 +583,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ReceiptID_MonthlyPayment">
-          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="1" />
-          <End Type="PLTOModel.ReceiptID" Role="ReceiptID" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MonthlyPayment">
-              <PropertyRef Name="MonthlyPaymentID" />
-            </Principal>
-            <Dependent Role="ReceiptID">
-              <PropertyRef Name="TableID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Registry_MonthlyPayment">
           <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="0..1" />
           <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="*" />
@@ -617,14 +595,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ReceiptNo">
+          <Key>
+            <PropertyRef Name="ReceiptID" />
+          </Key>
+          <Property Name="ReceiptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TableName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TableID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MonthlyPayment" Relationship="PLTOModel.FK_ReceiptID_MonthlyPayment" FromRole="ReceiptNo" ToRole="MonthlyPayment" />
+          <NavigationProperty Name="Registry" Relationship="PLTOModel.FK_ReceiptID_Registry" FromRole="ReceiptNo" ToRole="Registry" />
+        </EntityType>
+        <Association Name="FK_ReceiptID_MonthlyPayment">
+          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="1" />
+          <End Type="PLTOModel.ReceiptNo" Role="ReceiptNo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthlyPayment">
+              <PropertyRef Name="MonthlyPaymentID" />
+            </Principal>
+            <Dependent Role="ReceiptNo">
+              <PropertyRef Name="TableID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ReceiptID_Registry">
           <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="1" />
-          <End Type="PLTOModel.ReceiptID" Role="ReceiptID" Multiplicity="*" />
+          <End Type="PLTOModel.ReceiptNo" Role="ReceiptNo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Registry">
               <PropertyRef Name="RegistryID" />
             </Principal>
-            <Dependent Role="ReceiptID">
+            <Dependent Role="ReceiptNo">
               <PropertyRef Name="TableID" />
             </Dependent>
           </ReferentialConstraint>
@@ -687,15 +687,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ReceiptIDs">
-            <EntityTypeMapping TypeName="PLTOModel.ReceiptID">
-              <MappingFragment StoreEntitySet="ReceiptID">
-                <ScalarProperty Name="TableID" ColumnName="TableID" />
-                <ScalarProperty Name="TableName" ColumnName="TableName" />
-                <ScalarProperty Name="ReceiptID1" ColumnName="ReceiptID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AppUsers">
             <EntityTypeMapping TypeName="PLTOModel.AppUser">
               <MappingFragment StoreEntitySet="AppUser">
@@ -750,6 +741,15 @@
                 <ScalarProperty Name="Plate" ColumnName="Plate" />
                 <ScalarProperty Name="MonthlyPaymentID" ColumnName="MonthlyPaymentID" />
                 <ScalarProperty Name="RegistryID" ColumnName="RegistryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReceiptNoes">
+            <EntityTypeMapping TypeName="PLTOModel.ReceiptNo">
+              <MappingFragment StoreEntitySet="ReceiptNo">
+                <ScalarProperty Name="TableID" ColumnName="TableID" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="ReceiptID" ColumnName="ReceiptID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

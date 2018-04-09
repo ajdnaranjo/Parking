@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationDTO.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="MonthlyPaymentDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RolAccessDTO.cs" />

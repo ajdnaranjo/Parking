@@ -12,9 +12,9 @@ namespace Parking.Repositories
     using System;
     using System.Collections.Generic;
     
-    public partial class ReceiptID
+    public partial class ReceiptNo
     {
-        public int ReceiptID1 { get; set; }
+        public int ReceiptID { get; set; }
         public string TableName { get; set; }
         public int TableID { get; set; }
     

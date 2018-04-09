@@ -14,22 +14,27 @@ using Parking.Repositories;
 namespace Parking
 {
     public partial class MDIContainer : Form
-    {
-        //public string AppUserName;
+    {    
 
         public MDIContainer(string AppUserName)
         {
             InitializeComponent();
-            RolAcces(AppUserName);
+
+            var secureRepo = new SecurityRepository();
+
+            var userID = secureRepo.GetUserID(AppUserName);
+            Globals.appUserID = userID;
+
+            RolAcces(Globals.appUserID);
             var repo = new ConfigurationRepository();
             this.Text = repo.GetConfiguration().Name;
 
         }
 
-        private void RolAcces(string AppUserName)
+        private void RolAcces(int AppUserID)
         {
-            var repo = new AccessRepository();
-            var result = repo.GetRolFormAccess(AppUserName);            
+            var repo = new SecurityRepository();
+            var result = repo.GetRolFormAccess(AppUserID);            
 
             foreach (var item in result)
             {
@@ -42,6 +47,7 @@ namespace Parking
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {
+            Globals.appUserID = 0;
             this.Close();
         }
         

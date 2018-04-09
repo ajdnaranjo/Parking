@@ -8,6 +8,7 @@ namespace Parking.Models
 {
     public class MonthlyPaymentDto
     {
+        public int ReceiptID { get; set; }
         public string Document { get; set; }
         public int DocTypeId { get; set; }
         public string Name { get; set; }

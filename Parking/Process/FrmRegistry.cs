@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Parking.Repositories;
+﻿using Parking.Repositories;
 using Parking.Utilities;
+using System;
+using System.Windows.Forms;
+using Parking.Models;
 
 namespace Parking.Process
 {
@@ -82,10 +76,10 @@ namespace Parking.Process
 
             if (mp == null)
             {
-                var result = repo.CheckExit(check);
+                var result = repo.CheckExit(check, Globals.appUserID);
 
                 var repoReceipts = new Receipts();
-                var path = repoReceipts.ExitReceipt(result.Plate);
+                var path = repoReceipts.ExitReceipt(result.Plate, Globals.appUserID);
                 var print = new PrintReceipts();
                 var response = print.PrintPDFs(path);
             }
@@ -96,7 +90,7 @@ namespace Parking.Process
                 check.Payment = 0;
                 check.Refund = 0;
 
-                var result = repo.CheckExit(check);
+                var result = repo.CheckExit(check, Globals.appUserID);
             }
 
             CleanForm();
@@ -115,7 +109,7 @@ namespace Parking.Process
                 EntryDate = DateTime.Now
             };
 
-            var data = repo.CheckEntryExit(reg);
+            var data = repo.CheckEntryExit(reg, Globals.appUserID);
 
             lblIngreso.Text = data.EntryDate.ToString();
             var mp = repoUser.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
@@ -125,7 +119,7 @@ namespace Parking.Process
                 if (mp == null)
                 {
                     var repoReceipts = new Receipts();
-                    var path = repoReceipts.EntryReceipt(reg.Plate);
+                    var path = repoReceipts.EntryReceipt(reg.Plate, Globals.appUserID);
                     var print = new PrintReceipts();
                     var result = print.PrintPDFs(path);
                 }

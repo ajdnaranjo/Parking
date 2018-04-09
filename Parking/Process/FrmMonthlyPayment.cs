@@ -59,14 +59,14 @@ namespace Parking.Process
             var result = new MonthlyPaymentDto(); ;
             if (mp == null)
             {
-                 result = repo.SaveMonthlyPayment(data);
+                 result = repo.SaveMonthlyPayment(data, Globals.appUserID);
             }
             else {
 
                 data.PaymentDate = mp.ExpirationDate.AddDays(1);
                 data.ExpirationDate = data.PaymentDate.AddMonths(1);                
 
-                result = repo.SaveMonthlyPayment(data);
+                result = repo.SaveMonthlyPayment(data, Globals.appUserID);
             }
 
             if (result.MonthlyPaymentId > 0) MessageBox.Show("Mensualidad guardada exitosamente.");

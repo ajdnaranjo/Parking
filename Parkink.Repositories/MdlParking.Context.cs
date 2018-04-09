@@ -31,10 +31,10 @@ namespace Parking.Repositories
         public virtual DbSet<Forms> Forms1 { get; set; }
         public virtual DbSet<Rol> Rols { get; set; }
         public virtual DbSet<RolForm> RolForms { get; set; }
-        public virtual DbSet<ReceiptID> ReceiptIDs { get; set; }
         public virtual DbSet<AppUser> AppUsers { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<MonthlyPayment> MonthlyPayments { get; set; }
         public virtual DbSet<Registry> Registries { get; set; }
+        public virtual DbSet<ReceiptNo> ReceiptNoes { get; set; }
     }
 }

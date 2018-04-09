@@ -13,7 +13,6 @@
         <EntityTypeShape EntityType="PLTOModel.RolForm" Width="1.5" PointX="7.625" PointY="10.5" />
         <AssociationConnector Association="PLTOModel.FK_RolForm_Form" />
         <AssociationConnector Association="PLTOModel.FK_RolForm_Rol" />
-        <EntityTypeShape EntityType="PLTOModel.ReceiptID" Width="1.5" PointX="9.75" PointY="1.75" />
         <EntityTypeShape EntityType="PLTOModel.AppUser" Width="1.5" PointX="7.625" PointY="6" />
         <EntityTypeShape EntityType="PLTOModel.Client" Width="1.5" PointX="7.625" PointY="13.375" />
         <EntityTypeShape EntityType="PLTOModel.MonthlyPayment" Width="1.5" PointX="9.875" PointY="5.625" />
@@ -24,8 +23,9 @@
         <AssociationConnector Association="PLTOModel.FK_Registry_AppUser1" />
         <AssociationConnector Association="PLTOModel.FK_MonthlyPayment_User" />
         <AssociationConnector Association="PLTOModel.FK_User_DocType" />
-        <AssociationConnector Association="PLTOModel.FK_ReceiptID_MonthlyPayment" />
         <AssociationConnector Association="PLTOModel.FK_Registry_MonthlyPayment" />
+        <EntityTypeShape EntityType="PLTOModel.ReceiptNo" Width="1.5" PointX="14.375" PointY="6.5" />
+        <AssociationConnector Association="PLTOModel.FK_ReceiptID_MonthlyPayment" />
         <AssociationConnector Association="PLTOModel.FK_ReceiptID_Registry" />
         </Diagram>
     </edmx:Diagrams>
