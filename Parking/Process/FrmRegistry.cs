@@ -85,7 +85,7 @@ namespace Parking.Process
                 var result = repo.CheckExit(check);
 
                 var repoReceipts = new Receipts();
-                var path = repoReceipts.EntryReceipt(result.Plate);
+                var path = repoReceipts.ExitReceipt(result.Plate);
                 var print = new PrintReceipts();
                 var response = print.PrintPDFs(path);
             }
