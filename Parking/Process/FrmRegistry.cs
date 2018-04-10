@@ -90,7 +90,7 @@ namespace Parking.Process
                 check.Payment = 0;
                 check.Refund = 0;
 
-                var result = repo.CheckExit(check, Globals.appUserID);
+                var result = repo.CheckExit(check, Globals.appUserID); //TODO: review 
             }
 
             CleanForm();

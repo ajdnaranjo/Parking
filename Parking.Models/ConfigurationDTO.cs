@@ -15,7 +15,9 @@ namespace Parking.Models
         public string Telephone { get; set; }
         public string Schedule { get; set; }
         public string Regime { get; set; }
-        public string FootPage { get; set; }
-
+        public string FootTitle { get; set; }
+        public string DayHours { get; set; }
+        public string StartNight { get; set; }
+        public string FootItems { get; set; }
     }
 }

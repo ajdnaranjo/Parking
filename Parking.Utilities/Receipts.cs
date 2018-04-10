@@ -4,6 +4,7 @@ using Parking.Repositories;
 using System;
 using System.IO;
 
+
 namespace Parking.Utilities
 {
     public class Receipts
@@ -19,6 +20,8 @@ namespace Parking.Utilities
             var entry = repoRegistry.GetEntryRegistryByPlate(plate);
             var appUserData = secureRepo.GetAppUserByID(appUserID);
 
+            var footItems = config.FootItems.Split('*');
+
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
            
             var output = new FileStream(@"C:\Parking\Receipts\EntryReceipt.pdf", FileMode.Create);
@@ -26,17 +29,31 @@ namespace Parking.Utilities
         
             doc.Open();
 
+            Font font = new Font(FontFactory.GetFont("Helvetica", 8, Font.NORMAL));
+
             doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
-            doc.Add(new Paragraph("Nit: " + config.Nit,FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Dir: " + config.Address, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Tel: " + config.Telephone, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Horario: " + config.Schedule, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph(config.Regime, FontFactory.GetFont("helvetica", 8)));           
+            doc.Add(new Paragraph("Nit: " + config.Nit,font));
+            doc.Add(new Paragraph("Dir: " + config.Address,font));
+            doc.Add(new Paragraph("Tel: " + config.Telephone, font));
+            doc.Add(new Paragraph("Horario: " + config.Schedule, font));
+            doc.Add(new Paragraph(config.Regime, font));           
             doc.Add(new Paragraph("Placa: " + plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
-            doc.Add(new Paragraph("Entra: " + entry.EntryDate, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Sale: ", FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph(config.FootPage, FontFactory.GetFont("helvetica", 7)));
+            doc.Add(new Paragraph("Entra: " + entry.EntryDate, font));
+            doc.Add(new Paragraph("Sale: ", font));
+            doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, font));         
+         
+            List listItems = new List(footItems.Length);
+
+            font = new Font(FontFactory.GetFont("Helvetica", 7, Font.NORMAL));
+
+            doc.Add(new Paragraph(config.FootTitle, font));
+
+            foreach (var item in footItems)
+            {
+                listItems.Add(new ListItem(item, font));
+            }
+
+            doc.Add(listItems);
 
             doc.Close();
 
@@ -75,7 +92,7 @@ namespace Parking.Utilities
             doc.Add(new Paragraph("Total: " + exit.TotalPayment, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
             doc.Add(new Paragraph("Devuelta: " + exit.Refund, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph(config.FootPage, FontFactory.GetFont("helvetica", 7)));
+            doc.Add(new Paragraph(config.FootTitle, FontFactory.GetFont("helvetica", 7)));
 
             doc.Close();
 
@@ -113,7 +130,7 @@ namespace Parking.Utilities
             doc.Add(new Paragraph("Valido hasta: " + data.ExpirationDate, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("N. Recibo: " + data.ReceiptID, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph(config.FootPage, FontFactory.GetFont("helvetica", 7)));
+            doc.Add(new Paragraph(config.FootTitle, FontFactory.GetFont("helvetica", 7)));
 
             doc.Close();
 

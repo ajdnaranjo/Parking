@@ -39,8 +39,17 @@ namespace Parking.Repositories
                         case "Regime":
                             config.Regime = item.ConfigurationValue;
                             break;
-                        case "FootPage":
-                            config.FootPage = item.ConfigurationValue;
+                        case "FootTitle":
+                            config.FootTitle = item.ConfigurationValue;
+                            break;
+                        case "DayHours":
+                            config.DayHours = item.ConfigurationValue;
+                            break;
+                        case "StartNight":
+                            config.StartNight = item.ConfigurationValue;
+                            break;
+                        case "FootItems":
+                            config.FootItems = item.ConfigurationValue;
                             break;
                     }                   
                 }
