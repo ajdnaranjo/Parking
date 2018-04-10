@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Parking.Models;
 using Parking.Repositories;
-using Parking.Models;
+using Parking.Utilities;
+using System;
+using System.Data;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Parking.Process
 {
@@ -60,6 +56,12 @@ namespace Parking.Process
             if (mp == null)
             {
                  result = repo.SaveMonthlyPayment(data, Globals.appUserID);
+
+                var repoReceipts = new Receipts();
+                var repoPrint = new PrintReceipts();
+                var path = repoReceipts.MonthlyPaymentReceipt(result.MonthlyPaymentId, Globals.appUserID);
+                repoPrint.PrintPDFs(path);
+                
             }
             else {
 

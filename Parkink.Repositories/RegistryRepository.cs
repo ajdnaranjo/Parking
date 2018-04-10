@@ -148,14 +148,14 @@ namespace Parking.Repositories
             }
         }
 
-        public Registry GetExitRegistryByPlate(string plate)
+        public RegistryDto GetExitRegistryByPlate(string plate)
         {
             using (var context = new PLTOEntities())
             {
                 var sql = (from r in context.Registries                           
                            where r.Plate == plate && r.ExitDate != null 
                            orderby r.ExitDate descending
-                           select new Registry
+                           select new RegistryDto()
                            {
                                RegistryID = r.RegistryID,
                                MonthlyPaymentID = r.MonthlyPaymentID,

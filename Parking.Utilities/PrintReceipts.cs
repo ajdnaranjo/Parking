@@ -16,30 +16,30 @@ namespace Parking.Utilities
         {
             try
             {
-                //Process proc = new Process();
-                //proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                //proc.StartInfo.Verb = "print";
+                Process proc = new Process();
+                proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                proc.StartInfo.Verb = "print";
 
-                ////Define location of adobe reader/command line
-                ////switches to launch adobe in "print" mode
-                //proc.StartInfo.FileName =
-                //  @"C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe";
-                //proc.StartInfo.Arguments = String.Format(@"/p /h {0}", pdfFileName);
-                //proc.StartInfo.UseShellExecute = false;
-                //proc.StartInfo.CreateNoWindow = true;
+                //Define location of adobe reader/command line
+                //switches to launch adobe in "print" mode
+                proc.StartInfo.FileName =
+                  @"C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe";
+                proc.StartInfo.Arguments = String.Format(@"/p /h {0}", pdfFileName);
+                proc.StartInfo.UseShellExecute = false;
+                proc.StartInfo.CreateNoWindow = true;
 
-                //proc.Start();
-                //proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                //if (proc.HasExited == false)
-                //{
-                //    //proc.WaitForExit(10000);
-                //    proc.WaitForExit(8000);
-                //}
+                proc.Start();
+                proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                if (proc.HasExited == false)
+                {
+                    //proc.WaitForExit(10000);
+                    proc.WaitForExit(7000);
+                }
 
-                //proc.EnableRaisingEvents = true;
+                proc.EnableRaisingEvents = true;
 
-                //proc.Close();
-                //KillAdobe("AcroRd32");
+                proc.Close();
+                KillAdobe("AcroRd32");
                 File.Delete(pdfFileName);
                 return true;
             }

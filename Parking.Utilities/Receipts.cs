@@ -26,7 +26,7 @@ namespace Parking.Utilities
         
             doc.Open();
 
-            doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 10, Font.BOLD)));
+            doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
             doc.Add(new Paragraph("Nit: " + config.Nit,FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Dir: " + config.Address, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Tel: " + config.Telephone, FontFactory.GetFont("helvetica", 8)));
@@ -55,12 +55,12 @@ namespace Parking.Utilities
 
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
-            var output = new FileStream(@"C:\Parking\Receipts\EntryReceipt" + DateTime.Now.ToShortTimeString() + ".pdf", FileMode.Create);
+            var output = new FileStream(@"C:\Parking\Receipts\EntryReceipt.pdf", FileMode.Create);
             var writer = PdfWriter.GetInstance(doc, output);
 
             doc.Open();
 
-            doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 10, Font.BOLD)));
+            doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
             doc.Add(new Paragraph("Nit: " + config.Nit, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Dir: " + config.Address, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Tel: " + config.Telephone, FontFactory.GetFont("helvetica", 8)));
@@ -83,7 +83,7 @@ namespace Parking.Utilities
         }
 
 
-        public void MonthlyPaymentReceipt(string monthlyPaymentID, int appUserID)
+        public string MonthlyPaymentReceipt(string monthlyPaymentID, int appUserID)
         {
             var repo = new ConfigurationRepository();
             var dataRepo = new RegistryRepository();
@@ -95,12 +95,12 @@ namespace Parking.Utilities
 
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
-            var output = new FileStream(@"C:\Parking\Receipts\MonthlyReceipt" + DateTime.Now.ToShortTimeString() + ".pdf", FileMode.Create);
+            var output = new FileStream(@"C:\Parking\Receipts\MonthlyReceipt.pdf", FileMode.Create);
             var writer = PdfWriter.GetInstance(doc, output);
 
             doc.Open();
 
-            doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 10, Font.BOLD)));
+            doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
             doc.Add(new Paragraph("Nit: " + config.Nit, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Dir: " + config.Address, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Tel: " + config.Telephone, FontFactory.GetFont("helvetica", 8)));
@@ -117,6 +117,7 @@ namespace Parking.Utilities
 
             doc.Close();
 
+            return output.Name;
         }
     }
 }
