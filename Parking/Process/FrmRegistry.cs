@@ -55,45 +55,48 @@ namespace Parking.Process
 
         private void txtPaymentKeypress()
         {
-            CalculateRefund();
-
-            var repo = new RegistryRepository();
-            var repoUser = new UserRepository();
-
-            var check = new Registry()
+            if (!string.IsNullOrEmpty(txtPayment.Text.Trim()))
             {
-                Plate = txtPlate.Text.Trim(),
-                ExitDate = DateTime.Parse(lblSalida.Text),
-                TotalPayment = decimal.Parse(txtTotalPayment.Text),
-                Payment = decimal.Parse(txtPayment.Text.Trim()),
-                Refund = decimal.Parse(txtRefund.Text),
-                Days = Days,
-                Hours = Hours,
-                Minutes = Minutes
-            };
+                CalculateRefund();
 
-            var mp = repoUser.GetMonthlyPaymentByPlate(check.Plate);
+                var repo = new RegistryRepository();
+                var repoUser = new UserRepository();
 
-            if (mp == null)
-            {
-                var result = repo.CheckExit(check, Globals.appUserID);
+                var check = new Registry()
+                {
+                    Plate = txtPlate.Text.Trim(),
+                    ExitDate = DateTime.Parse(lblSalida.Text),
+                    TotalPayment = decimal.Parse(txtTotalPayment.Text),
+                    Payment = decimal.Parse(txtPayment.Text.Trim()),
+                    Refund = decimal.Parse(txtRefund.Text),
+                    Days = Days,
+                    Hours = Hours,
+                    Minutes = Minutes
+                };
 
-                var repoReceipts = new Receipts();
-                var path = repoReceipts.ExitReceipt(result.Plate, Globals.appUserID);
-                var print = new PrintReceipts();
-                var response = print.PrintPDFs(path);
+                var mp = repoUser.GetMonthlyPaymentByPlate(check.Plate);
+
+                if (mp == null)
+                {
+                    var result = repo.CheckExit(check, Globals.appUserID);
+
+                    var repoReceipts = new Receipts();
+                    var path = repoReceipts.ExitReceipt(result.Plate, Globals.appUserID);
+                    var print = new PrintReceipts();
+                    var response = print.PrintPDFs(path);
+                }
+                else
+                {
+                    check.MonthlyPaymentID = mp.MonthlyPaymentID;
+                    check.TotalPayment = 0;
+                    check.Payment = 0;
+                    check.Refund = 0;
+
+                    var result = repo.CheckExit(check, Globals.appUserID);
+                }
+
+                CleanForm();
             }
-            else
-            {
-                check.MonthlyPaymentID = mp.MonthlyPaymentID;
-                check.TotalPayment = 0;
-                check.Payment = 0;
-                check.Refund = 0;
-
-                var result = repo.CheckExit(check, Globals.appUserID); //TODO: review 
-            }
-
-            CleanForm();
         }
 
         private void txtPlateKeypress()

@@ -42,7 +42,10 @@ namespace Parking
                     ((ToolStripMenuItem)tSMIFrmRegistry).Enabled = true;
                 if (((ToolStripMenuItem)tsMIFrmMonthlyPayment).Name == item.FormName)
                     ((ToolStripMenuItem)tsMIFrmMonthlyPayment).Enabled = true;
+                if (((ToolStripMenuItem)tsmiFrmConfiguration).Name == item.FormName)
+                    ((ToolStripMenuItem)tsmiFrmConfiguration).Enabled = true;
             }
+            
         }
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
@@ -51,10 +54,7 @@ namespace Parking
             this.Close();
         }
         
-        private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            statusStrip.Visible = statusBarToolStripMenuItem.Checked;
-        }
+      
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -96,6 +96,15 @@ namespace Parking
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             var frm = new Process.FrmMonthlyPayment()
+            {
+                MdiParent = this
+            };
+            frm.Show();
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frm = new MasterForms.FrmConfiguration()
             {
                 MdiParent = this
             };

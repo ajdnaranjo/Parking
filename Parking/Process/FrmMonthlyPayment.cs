@@ -56,12 +56,7 @@ namespace Parking.Process
             if (mp == null)
             {
                  result = repo.SaveMonthlyPayment(data, Globals.appUserID);
-
-                var repoReceipts = new Receipts();
-                var repoPrint = new PrintReceipts();
-                var path = repoReceipts.MonthlyPaymentReceipt(result.MonthlyPaymentId, Globals.appUserID);
-                repoPrint.PrintPDFs(path);
-                
+                              
             }
             else {
 
@@ -70,6 +65,11 @@ namespace Parking.Process
 
                 result = repo.SaveMonthlyPayment(data, Globals.appUserID);
             }
+
+            var repoReceipts = new Receipts();
+            var repoPrint = new PrintReceipts();
+            var path = repoReceipts.MonthlyPaymentReceipt(result.MonthlyPaymentId, Globals.appUserID);
+            repoPrint.PrintPDFs(path);
 
             MessageBox.Show("Mensualidad guardada exitosamente.");
 
@@ -163,6 +163,7 @@ namespace Parking.Process
             TxtCelPhone.Text = string.Empty;
             TxtPlate.Text = string.Empty;
             TxtPayment.Text = string.Empty;
+            TxtRefund.Text = string.Empty;
         }
     }
 }

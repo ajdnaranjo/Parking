@@ -73,5 +73,13 @@ namespace Parking.Repositories
                 return result.ToString();
             }
         }
+
+        public List<Configuration> GetConfigData()
+        {
+            using (var context = new PLTOEntities())
+            {
+                return context.Configurations.ToList();
+            }
+        }
     }
 }

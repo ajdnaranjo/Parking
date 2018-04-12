@@ -44,7 +44,7 @@ namespace Parking.Utilities
          
             List listItems = new List(footItems.Length);
 
-            font = new Font(FontFactory.GetFont("Helvetica", 7, Font.NORMAL));
+            font = new Font(FontFactory.GetFont("Helvetica", 7, Font.BOLD));
 
             doc.Add(new Paragraph(config.FootTitle, font));
 
@@ -77,22 +77,25 @@ namespace Parking.Utilities
 
             doc.Open();
 
+            decimal TotalPayment = (decimal)exit.TotalPayment;
+            decimal Refund = (decimal)exit.Refund;
+
             doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
             doc.Add(new Paragraph("Nit: " + config.Nit, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Dir: " + config.Address, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Tel: " + config.Telephone, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Horario: " + config.Schedule, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph(config.Regime, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("N. Recibo: " + exit.RegistryID, FontFactory.GetFont("helvetica", 8)));
+            doc.Add(new Paragraph("N. Factura: " + exit.RegistryID, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Placa: " + plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
             doc.Add(new Paragraph("Entra: " + exit.EntryDate, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Sale: " + exit.ExitDate, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Horas: " + exit.Hours, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Minutos: " + exit.Minutes, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Total: " + exit.TotalPayment, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
-            doc.Add(new Paragraph("Devuelta: " + exit.Refund, FontFactory.GetFont("helvetica", 8)));
+            doc.Add(new Paragraph("Total: " + TotalPayment.ToString(), FontFactory.GetFont("helvetica", 14, Font.BOLD)));
+            doc.Add(new Paragraph("Devuelta: " + Refund.ToString("N0"), FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph(config.FootTitle, FontFactory.GetFont("helvetica", 7)));
+            //doc.Add(new Paragraph(config.FootTitle, FontFactory.GetFont("helvetica", 7)));
 
             doc.Close();
 
@@ -127,17 +130,17 @@ namespace Parking.Utilities
             doc.Add(new Paragraph("Tel: " + config.Telephone, font));
             doc.Add(new Paragraph("Horario: " + config.Schedule, font));
             doc.Add(new Paragraph(config.Regime, font));
-            doc.Add(new Paragraph("N. Recibo: " + data.ReceiptID, font));
+            doc.Add(new Paragraph("N. Factura: " + data.ReceiptID, font));
             doc.Add(new Paragraph("Placa: " + data.Plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
-            doc.Add(new Paragraph("Total: " + data.TotalPayment, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
-            doc.Add(new Paragraph("Devuelta: " + data.Refund, font));
-            doc.Add(new Paragraph("Valido hasta: " + font));
+            doc.Add(new Paragraph("Total: " + data.TotalPayment.ToString("N0"), FontFactory.GetFont("helvetica", 14, Font.BOLD)));
+            doc.Add(new Paragraph("Devuelta: " + data.Refund.ToString("N0"), font));
+            doc.Add(new Paragraph("Valido hasta: " + data.ExpirationDate, font));
             doc.Add(new Paragraph("N. Recibo: " + data.ReceiptID, font));
             doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, font));
 
             List listItems = new List(footItems.Length);
 
-            font = new Font(FontFactory.GetFont("Helvetica", 7, Font.NORMAL));
+            font = new Font(FontFactory.GetFont("Helvetica", 7, Font.BOLD));
 
             doc.Add(new Paragraph(config.FootTitle, font));
 
