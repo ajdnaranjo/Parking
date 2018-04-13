@@ -32,7 +32,7 @@
           </Key>
           <Property Name="ConfigurationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ConfigurationName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ConfigurationValue" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ConfigurationValue" Type="nvarchar" MaxLength="1000" Nullable="false" />
         </EntityType>
         <EntityType Name="DocType">
           <Key>
@@ -83,6 +83,8 @@
           <Property Name="Days" Type="int" />
           <Property Name="Hours" Type="int" />
           <Property Name="Minutes" Type="int" />
+          <Property Name="TotalDays" Type="int" Nullable="false" />
+          <Property Name="TotalNights" Type="int" Nullable="false" />
           <Property Name="TotalPayment" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Payment" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Refund" Type="decimal" Precision="18" Scale="0" />
@@ -293,11 +295,15 @@
             <End Role="Client" EntitySet="Clients" />
           </AssociationSet>
           <EntitySet Name="MonthlyPayments" EntityType="PLTOModel.MonthlyPayment" />
-          <EntitySet Name="Registries" EntityType="PLTOModel.Registry" />
           <AssociationSet Name="FK_MonthlyPayment_AppUser" Association="PLTOModel.FK_MonthlyPayment_AppUser">
             <End Role="AppUser" EntitySet="AppUsers" />
             <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
           </AssociationSet>
+          <AssociationSet Name="FK_MonthlyPayment_User" Association="PLTOModel.FK_MonthlyPayment_User">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
+          </AssociationSet>
+          <EntitySet Name="Registries" EntityType="PLTOModel.Registry" />
           <AssociationSet Name="FK_Registry_AppUser" Association="PLTOModel.FK_Registry_AppUser">
             <End Role="AppUser" EntitySet="AppUsers" />
             <End Role="Registry" EntitySet="Registries" />
@@ -305,10 +311,6 @@
           <AssociationSet Name="FK_Registry_AppUser1" Association="PLTOModel.FK_Registry_AppUser1">
             <End Role="AppUser" EntitySet="AppUsers" />
             <End Role="Registry" EntitySet="Registries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MonthlyPayment_User" Association="PLTOModel.FK_MonthlyPayment_User">
-            <End Role="Client" EntitySet="Clients" />
-            <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
           </AssociationSet>
           <AssociationSet Name="FK_Registry_MonthlyPayment" Association="PLTOModel.FK_Registry_MonthlyPayment">
             <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
@@ -321,7 +323,7 @@
           </Key>
           <Property Name="ConfigurationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ConfigurationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ConfigurationValue" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ConfigurationValue" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="DocType">
           <Key>
@@ -460,27 +462,6 @@
           <NavigationProperty Name="Client" Relationship="PLTOModel.FK_MonthlyPayment_User" FromRole="MonthlyPayment" ToRole="Client" />
           <NavigationProperty Name="Registries" Relationship="PLTOModel.FK_Registry_MonthlyPayment" FromRole="MonthlyPayment" ToRole="Registry" />
         </EntityType>
-        <EntityType Name="Registry">
-          <Key>
-            <PropertyRef Name="RegistryID" />
-          </Key>
-          <Property Name="RegistryID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MonthlyPaymentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Plate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ExitDate" Type="DateTime" Precision="3" />
-          <Property Name="Days" Type="Int32" />
-          <Property Name="Hours" Type="Int32" />
-          <Property Name="Minutes" Type="Int32" />
-          <Property Name="TotalPayment" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Payment" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Refund" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="ModifiedBy" Type="Int32" />
-          <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_Registry_AppUser" FromRole="Registry" ToRole="AppUser" />
-          <NavigationProperty Name="AppUser1" Relationship="PLTOModel.FK_Registry_AppUser1" FromRole="Registry" ToRole="AppUser" />
-          <NavigationProperty Name="MonthlyPayment" Relationship="PLTOModel.FK_Registry_MonthlyPayment" FromRole="Registry" ToRole="MonthlyPayment" />
-        </EntityType>
         <Association Name="FK_MonthlyPayment_AppUser">
           <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
           <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
@@ -493,6 +474,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MonthlyPayment_User">
+          <End Type="PLTOModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Document" />
+              <PropertyRef Name="DocTypeID" />
+            </Principal>
+            <Dependent Role="MonthlyPayment">
+              <PropertyRef Name="Document" />
+              <PropertyRef Name="DocTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Registry">
+          <Key>
+            <PropertyRef Name="RegistryID" />
+          </Key>
+          <Property Name="RegistryID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MonthlyPaymentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Plate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExitDate" Type="DateTime" Precision="3" />
+          <Property Name="Days" Type="Int32" />
+          <Property Name="Hours" Type="Int32" />
+          <Property Name="Minutes" Type="Int32" />
+          <Property Name="TotalDays" Type="Int32" Nullable="false" />
+          <Property Name="TotalNights" Type="Int32" Nullable="false" />
+          <Property Name="TotalPayment" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Payment" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Refund" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_Registry_AppUser" FromRole="Registry" ToRole="AppUser" />
+          <NavigationProperty Name="AppUser1" Relationship="PLTOModel.FK_Registry_AppUser1" FromRole="Registry" ToRole="AppUser" />
+          <NavigationProperty Name="MonthlyPayment" Relationship="PLTOModel.FK_Registry_MonthlyPayment" FromRole="Registry" ToRole="MonthlyPayment" />
+        </EntityType>
         <Association Name="FK_Registry_AppUser">
           <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
           <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="*" />
@@ -514,20 +532,6 @@
             </Principal>
             <Dependent Role="Registry">
               <PropertyRef Name="ModifiedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MonthlyPayment_User">
-          <End Type="PLTOModel.Client" Role="Client" Multiplicity="1" />
-          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Document" />
-              <PropertyRef Name="DocTypeID" />
-            </Principal>
-            <Dependent Role="MonthlyPayment">
-              <PropertyRef Name="Document" />
-              <PropertyRef Name="DocTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -647,6 +651,8 @@
                 <ScalarProperty Name="Refund" ColumnName="Refund" />
                 <ScalarProperty Name="Payment" ColumnName="Payment" />
                 <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="TotalNights" ColumnName="TotalNights" />
+                <ScalarProperty Name="TotalDays" ColumnName="TotalDays" />
                 <ScalarProperty Name="Minutes" ColumnName="Minutes" />
                 <ScalarProperty Name="Hours" ColumnName="Hours" />
                 <ScalarProperty Name="Days" ColumnName="Days" />

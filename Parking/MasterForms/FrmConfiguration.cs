@@ -26,5 +26,41 @@ namespace Parking.MasterForms
             DgvData.AutoGenerateColumns = false;
 
         }
+
+        private void DgvData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow row = DgvData.CurrentRow;
+            int output;
+            if (row.Cells[0].Value.ToString() != "")
+            {
+                bool flag = int.TryParse(row.Cells[0].Value.ToString(), out output);
+                if (flag)
+                {
+                    var repo = new ConfigurationRepository();
+                    var data = repo.GetConfigDataByID(int.Parse(row.Cells[0].Value.ToString()));
+                    LblConfigurationID.Text = data.ConfigurationID.ToString();
+                    TxtConfigName.Text = data.ConfigurationName;
+                    TxtConfigValue.Text = data.ConfigurationValue;
+                }
+            }
+        }
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            var repo = new ConfigurationRepository();
+
+            var data = new Configuration()
+            {
+                ConfigurationID = int.Parse(LblConfigurationID.Text),
+                ConfigurationName = TxtConfigName.Text,
+                ConfigurationValue = TxtConfigValue.Text
+            };
+
+            var result = repo.SaveConfiguration(data);
+
+            if (result != null) MessageBox.Show("Datos ingresados correctamente");
+
+            InitialLoad();
+        }
     }
 }

@@ -51,6 +51,10 @@ namespace Parking.Repositories
                         case "FootItems":
                             config.FootItems = item.ConfigurationValue;
                             break;
+                        case "StartDay":
+                            config.StartDay = item.ConfigurationValue;
+                            break;
+                            
                     }                   
                 }
                 return config;
@@ -79,6 +83,45 @@ namespace Parking.Repositories
             using (var context = new PLTOEntities())
             {
                 return context.Configurations.ToList();
+            }
+        }
+
+
+        public Configuration GetConfigDataByID(int configurationID)
+        {
+            using (var context = new PLTOEntities())
+            {
+                return context.Configurations.FirstOrDefault(x => x.ConfigurationID == configurationID);
+            }
+        }
+
+        public Configuration SaveConfiguration(Configuration config)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var result = context.Configurations.FirstOrDefault(x => x.ConfigurationID == config.ConfigurationID);
+
+                if (result == null)
+                {
+                    result = new Configuration()
+                    {
+                        ConfigurationName = config.ConfigurationName,
+                        ConfigurationValue = config.ConfigurationValue
+                    };
+
+                    context.Configurations.Add(result);
+                }
+                else
+                {
+                    result.ConfigurationName = config.ConfigurationName;
+                    result.ConfigurationValue = config.ConfigurationValue;
+                }
+
+                context.SaveChanges();
+
+                config.ConfigurationID = result.ConfigurationID;
+
+                return config;
             }
         }
     }
