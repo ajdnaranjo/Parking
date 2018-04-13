@@ -91,11 +91,12 @@ namespace Parking.Repositories
                     {
                         var hoursValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 2);
                         reg.TotalPayment = reg.TotalPayment + (reg.Hours * hoursValues.Value);
-                    }
 
-                    var minutesValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 1);
-                    if (dif.Minutes > 0 && dif.Minutes < 30) reg.TotalPayment = reg.TotalPayment + minutesValues.Value;
-                    else if (dif.Minutes >= 30 && dif.Minutes < 60) reg.TotalPayment = reg.TotalPayment + (minutesValues.Value * 2);
+                        var minutesValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 1);
+                        if (dif.Minutes > 0 && dif.Minutes < 30) reg.TotalPayment = reg.TotalPayment + minutesValues.Value;
+                        else if (dif.Minutes >= 30 && dif.Minutes < 60) reg.TotalPayment = reg.TotalPayment + (minutesValues.Value * 2);
+                    }
+                   
                 }
                 return reg;
             }
