@@ -57,6 +57,12 @@
     <Compile Include="MasterForms\FrmConfiguration.Designer.cs">
       <DependentUpon>FrmConfiguration.cs</DependentUpon>
     </Compile>
+    <Compile Include="MasterForms\FrmRolAccess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MasterForms\FrmRolAccess.Designer.cs">
+      <DependentUpon>FrmRolAccess.cs</DependentUpon>
+    </Compile>
     <Compile Include="MDIContainer.cs">
       <SubType>Form</SubType>
     </Compile>

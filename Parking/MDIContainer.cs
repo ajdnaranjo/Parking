@@ -25,13 +25,13 @@ namespace Parking
             var userID = secureRepo.GetUserID(AppUserName);
             Globals.appUserID = userID;
 
-            RolAcces(Globals.appUserID);
+            RolAccess(Globals.appUserID);
             var repo = new ConfigurationRepository();
             this.Text = repo.GetConfiguration().Name;
 
         }
 
-        private void RolAcces(int AppUserID)
+        private void RolAccess(int AppUserID)
         {
             var repo = new SecurityRepository();
             var result = repo.GetRolFormAccess(AppUserID);            
@@ -44,6 +44,8 @@ namespace Parking
                     ((ToolStripMenuItem)tsMIFrmMonthlyPayment).Enabled = true;
                 if (((ToolStripMenuItem)tsmiFrmConfiguration).Name == item.FormName)
                     ((ToolStripMenuItem)tsmiFrmConfiguration).Enabled = true;
+                if (((ToolStripMenuItem)tsmiFrmRolAcces).Name == item.FormName)
+                    ((ToolStripMenuItem)tsmiFrmRolAcces).Enabled = true;
             }
             
         }

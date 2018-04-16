@@ -60,7 +60,16 @@ namespace Parking.MasterForms
 
             if (result != null) MessageBox.Show("Datos ingresados correctamente");
 
+            ClearForm();
+
             InitialLoad();
+        }
+
+        public void ClearForm()
+        {
+            LblConfigurationID.Text = string.Empty;
+            TxtConfigName.Text = string.Empty;
+            TxtConfigValue.Text = string.Empty;
         }
     }
 }

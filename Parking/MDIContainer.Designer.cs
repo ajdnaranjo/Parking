@@ -47,6 +47,8 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.tsmiFrmRolAcces = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -56,6 +58,7 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenu,
             this.toolsMenu,
+            this.toolStripMenuItem1,
             this.helpMenu});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -79,7 +82,7 @@
             // 
             this.tSMIFrmRegistry.Enabled = false;
             this.tSMIFrmRegistry.Name = "tSMIFrmRegistry";
-            this.tSMIFrmRegistry.Size = new System.Drawing.Size(142, 22);
+            this.tSMIFrmRegistry.Size = new System.Drawing.Size(180, 22);
             this.tSMIFrmRegistry.Text = "&Registro";
             this.tSMIFrmRegistry.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
@@ -87,26 +90,27 @@
             // 
             this.tsMIFrmMonthlyPayment.Enabled = false;
             this.tsMIFrmMonthlyPayment.Name = "tsMIFrmMonthlyPayment";
-            this.tsMIFrmMonthlyPayment.Size = new System.Drawing.Size(142, 22);
+            this.tsMIFrmMonthlyPayment.Size = new System.Drawing.Size(180, 22);
             this.tsMIFrmMonthlyPayment.Text = "&Mensualidad";
             this.tsMIFrmMonthlyPayment.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(139, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolsStripMenuItem_Click);
             // 
             // toolsMenu
             // 
             this.toolsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiFrmConfiguration});
+            this.tsmiFrmConfiguration,
+            this.tsmiFrmRolAcces});
             this.toolsMenu.Name = "toolsMenu";
             this.toolsMenu.Size = new System.Drawing.Size(69, 20);
             this.toolsMenu.Text = "&Opciones";
@@ -136,7 +140,7 @@
             // 
             this.contentsToolStripMenuItem.Name = "contentsToolStripMenuItem";
             this.contentsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F1)));
-            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.contentsToolStripMenuItem.Text = "&Contents";
             // 
             // indexToolStripMenuItem
@@ -152,18 +156,18 @@
             this.searchToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("searchToolStripMenuItem.Image")));
             this.searchToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.searchToolStripMenuItem.Text = "&Search";
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(165, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.aboutToolStripMenuItem.Text = "&About ... ...";
             // 
             // statusStrip
@@ -181,6 +185,19 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
+            // 
+            // tsmiFrmRolAcces
+            // 
+            this.tsmiFrmRolAcces.Enabled = false;
+            this.tsmiFrmRolAcces.Name = "tsmiFrmRolAcces";
+            this.tsmiFrmRolAcces.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFrmRolAcces.Text = "&Roles Usuario";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(65, 20);
+            this.toolStripMenuItem1.Text = "&Reportes";
             // 
             // MDIContainer
             // 
@@ -222,6 +239,8 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.ToolStripMenuItem tSMIFrmRegistry;
         private System.Windows.Forms.ToolStripMenuItem tsMIFrmMonthlyPayment;
+        private System.Windows.Forms.ToolStripMenuItem tsmiFrmRolAcces;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
 
