@@ -46,6 +46,9 @@ namespace Parking
                     ((ToolStripMenuItem)tsmiFrmConfiguration).Enabled = true;
                 if (((ToolStripMenuItem)tsmiFrmRolAcces).Name == item.FormName)
                     ((ToolStripMenuItem)tsmiFrmRolAcces).Enabled = true;
+                if (((ToolStripMenuItem)tsimCloseWorkShift).Name == item.FormName)
+                    ((ToolStripMenuItem)tsimCloseWorkShift).Enabled = true;
+                
             }
             
         }
@@ -111,6 +114,16 @@ namespace Parking
                 MdiParent = this
             };
             frm.Show();
+        }
+
+        private void tsimCloseWorkShift_Click(object sender, EventArgs e)
+        {
+            var repo = new ReportRepository();
+            var repoReceipts = new Receipts();
+            var data = repo.CloseWorkShift(Globals.appUserID);
+            var path = repoReceipts.CloseWorkShift(data);
+            var repoPrint = new PrintReceipts();
+            repoPrint.PrintPDFs(path);
         }
     }
 }

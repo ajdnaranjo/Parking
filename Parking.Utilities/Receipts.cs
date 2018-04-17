@@ -1,8 +1,9 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Parking.Repositories;
-using System;
 using System.IO;
+using System;
+using Parking.Models;
 
 
 namespace Parking.Utilities
@@ -102,7 +103,6 @@ namespace Parking.Utilities
             return output.Name;
         }
 
-
         public string MonthlyPaymentReceipt(string monthlyPaymentID, int appUserID)
         {
             var repo = new ConfigurationRepository();
@@ -155,5 +155,49 @@ namespace Parking.Utilities
 
             return output.Name;
         }
+
+        public string CloseWorkShift(CloseWorkShiftDto data)
+        {
+            var repo = new ConfigurationRepository();           
+
+            var config = repo.GetConfiguration();                    
+
+            Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
+            var output = new FileStream(@"C:\Parking\Receipts\CloseWorkShift.pdf", FileMode.Create);
+            var writer = PdfWriter.GetInstance(doc, output);
+
+            doc.Open();
+
+            Font font = new Font(FontFactory.GetFont("Helvetica", 8, Font.NORMAL));
+
+            doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
+            doc.Add(new Paragraph("Cierra de turno", FontFactory.GetFont("helvetica", 8, Font.BOLD)));
+            doc.Add(new Paragraph("Fecha: " + DateTime.Now, font ));
+            doc.Add(new Paragraph("Nombre : " + data.Name, font));
+            doc.Add(new Paragraph("\n"));
+
+            font = new Font(FontFactory.GetFont("Helvetica", 7, Font.NORMAL));
+
+            PdfPTable table = new PdfPTable(3);           
+            table.AddCell(new PdfPCell(new Phrase("Tipo Ingreso", font)));
+            table.AddCell(new PdfPCell(new Phrase("Cantidad", font)));
+            table.AddCell(new PdfPCell(new Phrase("Valor Total", font)));
+            table.AddCell(new PdfPCell(new Phrase("Mensualidad", font)));
+            table.AddCell(new PdfPCell(new Phrase(data.MonthlyPaymentCount.ToString(), font)));
+            table.AddCell(new PdfPCell(new Phrase(data.MonthlyPaymentValue.ToString("N0"), font)));
+            table.AddCell(new PdfPCell(new Phrase("Ingreso diario", font)));
+            table.AddCell(new PdfPCell(new Phrase(data.DailyRegistryCount.ToString(), font)));
+            table.AddCell(new PdfPCell(new Phrase(data.DailyRegistryValue.ToString("N0"), font)));
+            table.AddCell(new PdfPCell(new Phrase("Total", font)));
+            table.AddCell(string.Empty);
+            table.AddCell(new PdfPCell(new Phrase((data.MonthlyPaymentValue + data.DailyRegistryValue).ToString(), font)));
+
+            doc.Add(table);
+
+            doc.Close();
+
+            return output.Name;
+        }
     }
 }
+

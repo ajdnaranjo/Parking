@@ -36,8 +36,11 @@
             this.tsMIFrmMonthlyPayment = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsimCloseWorkShift = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFrmConfiguration = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiFrmRolAcces = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,8 +50,6 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.tsmiFrmRolAcces = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -57,8 +58,8 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenu,
+            this.reportMenu,
             this.toolsMenu,
-            this.toolStripMenuItem1,
             this.helpMenu});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -82,7 +83,7 @@
             // 
             this.tSMIFrmRegistry.Enabled = false;
             this.tSMIFrmRegistry.Name = "tSMIFrmRegistry";
-            this.tSMIFrmRegistry.Size = new System.Drawing.Size(180, 22);
+            this.tSMIFrmRegistry.Size = new System.Drawing.Size(142, 22);
             this.tSMIFrmRegistry.Text = "&Registro";
             this.tSMIFrmRegistry.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
@@ -90,21 +91,37 @@
             // 
             this.tsMIFrmMonthlyPayment.Enabled = false;
             this.tsMIFrmMonthlyPayment.Name = "tsMIFrmMonthlyPayment";
-            this.tsMIFrmMonthlyPayment.Size = new System.Drawing.Size(180, 22);
+            this.tsMIFrmMonthlyPayment.Size = new System.Drawing.Size(142, 22);
             this.tsMIFrmMonthlyPayment.Text = "&Mensualidad";
             this.tsMIFrmMonthlyPayment.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(139, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolsStripMenuItem_Click);
+            // 
+            // reportMenu
+            // 
+            this.reportMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsimCloseWorkShift});
+            this.reportMenu.Name = "reportMenu";
+            this.reportMenu.Size = new System.Drawing.Size(65, 20);
+            this.reportMenu.Text = "&Reportes";
+            // 
+            // tsimCloseWorkShift
+            // 
+            this.tsimCloseWorkShift.Enabled = false;
+            this.tsimCloseWorkShift.Name = "tsimCloseWorkShift";
+            this.tsimCloseWorkShift.Size = new System.Drawing.Size(180, 22);
+            this.tsimCloseWorkShift.Text = "Cierre de turno";
+            this.tsimCloseWorkShift.Click += new System.EventHandler(this.tsimCloseWorkShift_Click);
             // 
             // toolsMenu
             // 
@@ -119,9 +136,16 @@
             // 
             this.tsmiFrmConfiguration.Enabled = false;
             this.tsmiFrmConfiguration.Name = "tsmiFrmConfiguration";
-            this.tsmiFrmConfiguration.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFrmConfiguration.Size = new System.Drawing.Size(150, 22);
             this.tsmiFrmConfiguration.Text = "&Configuracion";
             this.tsmiFrmConfiguration.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+            // 
+            // tsmiFrmRolAcces
+            // 
+            this.tsmiFrmRolAcces.Enabled = false;
+            this.tsmiFrmRolAcces.Name = "tsmiFrmRolAcces";
+            this.tsmiFrmRolAcces.Size = new System.Drawing.Size(150, 22);
+            this.tsmiFrmRolAcces.Text = "&Roles Usuario";
             // 
             // helpMenu
             // 
@@ -148,7 +172,7 @@
             this.indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexToolStripMenuItem.Image")));
             this.indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.indexToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.indexToolStripMenuItem.Text = "&Index";
             // 
             // searchToolStripMenuItem
@@ -185,19 +209,6 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
-            // 
-            // tsmiFrmRolAcces
-            // 
-            this.tsmiFrmRolAcces.Enabled = false;
-            this.tsmiFrmRolAcces.Name = "tsmiFrmRolAcces";
-            this.tsmiFrmRolAcces.Size = new System.Drawing.Size(180, 22);
-            this.tsmiFrmRolAcces.Text = "&Roles Usuario";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(65, 20);
-            this.toolStripMenuItem1.Text = "&Reportes";
             // 
             // MDIContainer
             // 
@@ -240,7 +251,8 @@
         private System.Windows.Forms.ToolStripMenuItem tSMIFrmRegistry;
         private System.Windows.Forms.ToolStripMenuItem tsMIFrmMonthlyPayment;
         private System.Windows.Forms.ToolStripMenuItem tsmiFrmRolAcces;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem reportMenu;
+        private System.Windows.Forms.ToolStripMenuItem tsimCloseWorkShift;
     }
 }
 
