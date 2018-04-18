@@ -22,8 +22,6 @@ namespace Parking.Repositories
         public Nullable<int> Days { get; set; }
         public Nullable<int> Hours { get; set; }
         public Nullable<int> Minutes { get; set; }
-        public int TotalDays { get; set; }
-        public int TotalNights { get; set; }
         public Nullable<decimal> TotalPayment { get; set; }
         public Nullable<decimal> Payment { get; set; }
         public Nullable<decimal> Refund { get; set; }

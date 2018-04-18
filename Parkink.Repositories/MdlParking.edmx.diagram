@@ -20,7 +20,7 @@
         <EntityTypeShape EntityType="PLTOModel.MonthlyPayment" Width="1.5" PointX="9.875" PointY="9" />
         <AssociationConnector Association="PLTOModel.FK_MonthlyPayment_AppUser" />
         <AssociationConnector Association="PLTOModel.FK_MonthlyPayment_User" />
-        <EntityTypeShape EntityType="PLTOModel.Registry" Width="1.5" PointX="12.125" PointY="7" />
+        <EntityTypeShape EntityType="PLTOModel.Registry" Width="1.5" PointX="12.125" PointY="7.25" />
         <AssociationConnector Association="PLTOModel.FK_Registry_AppUser" />
         <AssociationConnector Association="PLTOModel.FK_Registry_AppUser1" />
         <AssociationConnector Association="PLTOModel.FK_Registry_MonthlyPayment" />

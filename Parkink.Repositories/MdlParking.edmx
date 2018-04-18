@@ -83,8 +83,6 @@
           <Property Name="Days" Type="int" />
           <Property Name="Hours" Type="int" />
           <Property Name="Minutes" Type="int" />
-          <Property Name="TotalDays" Type="int" Nullable="false" />
-          <Property Name="TotalNights" Type="int" Nullable="false" />
           <Property Name="TotalPayment" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Payment" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Refund" Type="decimal" Precision="18" Scale="0" />
@@ -500,8 +498,6 @@
           <Property Name="Days" Type="Int32" />
           <Property Name="Hours" Type="Int32" />
           <Property Name="Minutes" Type="Int32" />
-          <Property Name="TotalDays" Type="Int32" Nullable="false" />
-          <Property Name="TotalNights" Type="Int32" Nullable="false" />
           <Property Name="TotalPayment" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Payment" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Refund" Type="Decimal" Precision="18" Scale="0" />
@@ -651,8 +647,6 @@
                 <ScalarProperty Name="Refund" ColumnName="Refund" />
                 <ScalarProperty Name="Payment" ColumnName="Payment" />
                 <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
-                <ScalarProperty Name="TotalNights" ColumnName="TotalNights" />
-                <ScalarProperty Name="TotalDays" ColumnName="TotalDays" />
                 <ScalarProperty Name="Minutes" ColumnName="Minutes" />
                 <ScalarProperty Name="Hours" ColumnName="Hours" />
                 <ScalarProperty Name="Days" ColumnName="Days" />
