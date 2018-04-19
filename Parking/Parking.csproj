@@ -81,6 +81,12 @@
     <Compile Include="Process\FrmMonthlyPayment.Designer.cs">
       <DependentUpon>FrmMonthlyPayment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Process\FrmUpdatePass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Process\FrmUpdatePass.Designer.cs">
+      <DependentUpon>FrmUpdatePass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Process\FrmRegistry.cs">
@@ -103,6 +109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MDIContainer.resx">
       <DependentUpon>MDIContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Process\FrmUpdatePass.resx">
+      <DependentUpon>FrmUpdatePass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

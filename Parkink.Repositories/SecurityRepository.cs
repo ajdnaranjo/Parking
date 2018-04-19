@@ -92,5 +92,24 @@ namespace Parking.Repositories
             }
         }
 
+        public bool UpdatePass( int userID, string Pass)
+        {
+            var flag = false;
+            using (var context = new PLTOEntities())
+            {
+                var user = context.AppUsers.FirstOrDefault(x => x.UserID == userID  && x.Status == true);
+
+                if (user != null)
+                {
+                    user.Password = Encrypt(Pass);
+
+                    context.SaveChanges();
+
+                    flag = true;
+                }
+
+                return flag;
+            }
+        }
     }
 }

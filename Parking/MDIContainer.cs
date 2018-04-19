@@ -48,6 +48,8 @@ namespace Parking
                     ((ToolStripMenuItem)tsmiFrmRolAcces).Enabled = true;
                 if (((ToolStripMenuItem)tsimCloseWorkShift).Name == item.FormName)
                     ((ToolStripMenuItem)tsimCloseWorkShift).Enabled = true;
+                if (((ToolStripMenuItem)tsmiFrmUpdatePass).Name == item.FormName)
+                    ((ToolStripMenuItem)tsmiFrmUpdatePass).Enabled = true;
                 
             }
             
@@ -59,8 +61,6 @@ namespace Parking
             this.Close();
         }
         
-      
-
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.Cascade);
@@ -124,6 +124,15 @@ namespace Parking
             var path = repoReceipts.CloseWorkShift(data);
             var repoPrint = new PrintReceipts();
             repoPrint.PrintPDFs(path);
+        }
+
+        private void tsmiFrmUpdatePass_Click(object sender, EventArgs e)
+        {
+            var frm = new Process.FrmUpdatePass()
+            {
+                MdiParent = this
+            };
+            frm.Show();
         }
     }
 }

@@ -51,6 +51,7 @@
             this.TxtPass.PasswordChar = '*';
             this.TxtPass.Size = new System.Drawing.Size(124, 26);
             this.TxtPass.TabIndex = 1;
+            this.TxtPass.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtPass_KeyPress);
             // 
             // label1
             // 

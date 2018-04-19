@@ -41,6 +41,7 @@
             this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFrmConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFrmRolAcces = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiFrmUpdatePass = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -119,7 +120,7 @@
             // 
             this.tsimCloseWorkShift.Enabled = false;
             this.tsimCloseWorkShift.Name = "tsimCloseWorkShift";
-            this.tsimCloseWorkShift.Size = new System.Drawing.Size(180, 22);
+            this.tsimCloseWorkShift.Size = new System.Drawing.Size(153, 22);
             this.tsimCloseWorkShift.Text = "Cierre de turno";
             this.tsimCloseWorkShift.Click += new System.EventHandler(this.tsimCloseWorkShift_Click);
             // 
@@ -127,7 +128,8 @@
             // 
             this.toolsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiFrmConfiguration,
-            this.tsmiFrmRolAcces});
+            this.tsmiFrmRolAcces,
+            this.tsmiFrmUpdatePass});
             this.toolsMenu.Name = "toolsMenu";
             this.toolsMenu.Size = new System.Drawing.Size(69, 20);
             this.toolsMenu.Text = "&Opciones";
@@ -136,7 +138,7 @@
             // 
             this.tsmiFrmConfiguration.Enabled = false;
             this.tsmiFrmConfiguration.Name = "tsmiFrmConfiguration";
-            this.tsmiFrmConfiguration.Size = new System.Drawing.Size(150, 22);
+            this.tsmiFrmConfiguration.Size = new System.Drawing.Size(180, 22);
             this.tsmiFrmConfiguration.Text = "&Configuracion";
             this.tsmiFrmConfiguration.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -144,8 +146,16 @@
             // 
             this.tsmiFrmRolAcces.Enabled = false;
             this.tsmiFrmRolAcces.Name = "tsmiFrmRolAcces";
-            this.tsmiFrmRolAcces.Size = new System.Drawing.Size(150, 22);
+            this.tsmiFrmRolAcces.Size = new System.Drawing.Size(180, 22);
             this.tsmiFrmRolAcces.Text = "&Roles Usuario";
+            // 
+            // tsmiFrmUpdatePass
+            // 
+            this.tsmiFrmUpdatePass.Enabled = false;
+            this.tsmiFrmUpdatePass.Name = "tsmiFrmUpdatePass";
+            this.tsmiFrmUpdatePass.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFrmUpdatePass.Text = "Cambio contraseña";
+            this.tsmiFrmUpdatePass.Click += new System.EventHandler(this.tsmiFrmUpdatePass_Click);
             // 
             // helpMenu
             // 
@@ -253,6 +263,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiFrmRolAcces;
         private System.Windows.Forms.ToolStripMenuItem reportMenu;
         private System.Windows.Forms.ToolStripMenuItem tsimCloseWorkShift;
+        private System.Windows.Forms.ToolStripMenuItem tsmiFrmUpdatePass;
     }
 }
 
