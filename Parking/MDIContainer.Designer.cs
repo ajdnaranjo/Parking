@@ -38,6 +38,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.tsimCloseWorkShift = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMonthlyPayments = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFrmConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFrmRolAcces = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,8 +78,8 @@
             this.exitToolStripMenuItem});
             this.fileMenu.ImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
             this.fileMenu.Name = "fileMenu";
-            this.fileMenu.Size = new System.Drawing.Size(60, 20);
-            this.fileMenu.Text = "&Archivo";
+            this.fileMenu.Size = new System.Drawing.Size(66, 20);
+            this.fileMenu.Text = "&Procesos";
             // 
             // tSMIFrmRegistry
             // 
@@ -111,7 +112,8 @@
             // reportMenu
             // 
             this.reportMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsimCloseWorkShift});
+            this.tsimCloseWorkShift,
+            this.tsmiMonthlyPayments});
             this.reportMenu.Name = "reportMenu";
             this.reportMenu.Size = new System.Drawing.Size(65, 20);
             this.reportMenu.Text = "&Reportes";
@@ -120,9 +122,17 @@
             // 
             this.tsimCloseWorkShift.Enabled = false;
             this.tsimCloseWorkShift.Name = "tsimCloseWorkShift";
-            this.tsimCloseWorkShift.Size = new System.Drawing.Size(153, 22);
-            this.tsimCloseWorkShift.Text = "Cierre de turno";
+            this.tsimCloseWorkShift.Size = new System.Drawing.Size(180, 22);
+            this.tsimCloseWorkShift.Text = "&Cierre de turno";
             this.tsimCloseWorkShift.Click += new System.EventHandler(this.tsimCloseWorkShift_Click);
+            // 
+            // tsmiMonthlyPayments
+            // 
+            this.tsmiMonthlyPayments.Enabled = false;
+            this.tsmiMonthlyPayments.Name = "tsmiMonthlyPayments";
+            this.tsmiMonthlyPayments.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMonthlyPayments.Text = "&Mensualidades";
+            this.tsmiMonthlyPayments.Click += new System.EventHandler(this.tsmiMonthlyPayments_Click);
             // 
             // toolsMenu
             // 
@@ -138,7 +148,7 @@
             // 
             this.tsmiFrmConfiguration.Enabled = false;
             this.tsmiFrmConfiguration.Name = "tsmiFrmConfiguration";
-            this.tsmiFrmConfiguration.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFrmConfiguration.Size = new System.Drawing.Size(177, 22);
             this.tsmiFrmConfiguration.Text = "&Configuracion";
             this.tsmiFrmConfiguration.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -146,14 +156,14 @@
             // 
             this.tsmiFrmRolAcces.Enabled = false;
             this.tsmiFrmRolAcces.Name = "tsmiFrmRolAcces";
-            this.tsmiFrmRolAcces.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFrmRolAcces.Size = new System.Drawing.Size(177, 22);
             this.tsmiFrmRolAcces.Text = "&Roles Usuario";
             // 
             // tsmiFrmUpdatePass
             // 
             this.tsmiFrmUpdatePass.Enabled = false;
             this.tsmiFrmUpdatePass.Name = "tsmiFrmUpdatePass";
-            this.tsmiFrmUpdatePass.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFrmUpdatePass.Size = new System.Drawing.Size(177, 22);
             this.tsmiFrmUpdatePass.Text = "Cambio contraseña";
             this.tsmiFrmUpdatePass.Click += new System.EventHandler(this.tsmiFrmUpdatePass_Click);
             // 
@@ -264,6 +274,7 @@
         private System.Windows.Forms.ToolStripMenuItem reportMenu;
         private System.Windows.Forms.ToolStripMenuItem tsimCloseWorkShift;
         private System.Windows.Forms.ToolStripMenuItem tsmiFrmUpdatePass;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMonthlyPayments;
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using Parking.Models;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Parking.Repositories
 {
@@ -212,6 +213,29 @@ namespace Parking.Repositories
                 return data;
             }
 
+        }
+
+        public List<MonthlyPaymentDto> GetActiveMonthlyPayments()
+        {
+            using (var context = new PLTOEntities())
+            {
+                var data = (from m in context.MonthlyPayments
+                            join c in context.Clients on m.Document equals c.Document
+                            select new MonthlyPaymentDto
+                            {
+                                ReceiptID = m.MonthlyPaymentID,
+                                Document = m.Document,
+                                Name = c.Name,
+                                MonthlyPaymentId = m.MonthlyPaymentID,
+                                Plate = m.Plate,
+                                PaidValue = m.PaidValue,
+                                TotalPayment = m.TotalPayment,                               
+                                PaymentDate = m.PaymentDate,
+                                ExpirationDate = m.ExpirationDate
+                            }).ToList();
+
+                return data;
+            }
         }
     }
 }

@@ -50,9 +50,10 @@ namespace Parking
                     ((ToolStripMenuItem)tsimCloseWorkShift).Enabled = true;
                 if (((ToolStripMenuItem)tsmiFrmUpdatePass).Name == item.FormName)
                     ((ToolStripMenuItem)tsmiFrmUpdatePass).Enabled = true;
-                
-            }
-            
+                if (((ToolStripMenuItem)tsmiMonthlyPayments).Name == item.FormName)
+                    ((ToolStripMenuItem)tsmiMonthlyPayments).Enabled = true;
+
+            }            
         }
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
@@ -129,6 +130,15 @@ namespace Parking
         private void tsmiFrmUpdatePass_Click(object sender, EventArgs e)
         {
             var frm = new Process.FrmUpdatePass()
+            {
+                MdiParent = this
+            };
+            frm.Show();
+        }
+
+        private void tsmiMonthlyPayments_Click(object sender, EventArgs e)
+        {
+            var frm = new Reports.FrmMonthlyPayments()
             {
                 MdiParent = this
             };

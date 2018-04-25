@@ -20,5 +20,6 @@ namespace Parking.Models
         public string StartNight { get; set; }
         public string FootItems { get; set; }
         public string StartDay { get; set; }
+        public int Lockers { get; set; }
     }
 }

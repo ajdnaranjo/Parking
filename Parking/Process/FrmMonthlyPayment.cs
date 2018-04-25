@@ -34,46 +34,60 @@ namespace Parking.Process
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            var repo = new RegistryRepository();
-            var repoUser = new UserRepository();
-
-            var data = new MonthlyPaymentDto()
+            if (ValidateForm())
             {
-                Document = TxtDocument.Text.Trim(),
-                DocTypeId = int.Parse(CbDocType.SelectedValue.ToString()),
-                Name = TxtName.Text,
-                Celphone = TxtCelPhone.Text,
-                Plate = TxtPlate.Text,
-                PaidValue = decimal.Parse(TxtPayment.Text),
-                TotalPayment = decimal.Parse(TxtTotalPayment.Text),
-                Refund = decimal.Parse(TxtRefund.Text),
-                PaymentDate = DateTime.Now,
-                ExpirationDate = DateTime.Now.AddMonths(1)
-            };
+                var repo = new RegistryRepository();
+                var repoUser = new UserRepository();
 
-            var mp = repoUser.ValidMonthlyPayment(data.Plate);
-            var result = new MonthlyPaymentDto(); ;
-            if (mp == null)
-            {
-                 result = repo.SaveMonthlyPayment(data, Globals.appUserID);
-                              
+                var data = new MonthlyPaymentDto()
+                {
+                    Document = TxtDocument.Text.Trim(),
+                    DocTypeId = int.Parse(CbDocType.SelectedValue.ToString()),
+                    Name = TxtName.Text,
+                    Celphone = TxtCelPhone.Text,
+                    Plate = TxtPlate.Text,
+                    PaidValue = decimal.Parse(TxtPayment.Text),
+                    TotalPayment = decimal.Parse(TxtTotalPayment.Text),
+                    Refund = decimal.Parse(TxtRefund.Text),
+                    PaymentDate = DateTime.Now,
+                    ExpirationDate = DateTime.Now.AddMonths(1)
+                };
+
+                var mp = repoUser.ValidMonthlyPayment(data.Plate);
+                var result = new MonthlyPaymentDto(); ;
+                if (mp == null)
+                {
+                    result = repo.SaveMonthlyPayment(data, Globals.appUserID);
+
+                }
+                else
+                {
+                    data.PaymentDate = mp.ExpirationDate.AddDays(1);
+                    data.ExpirationDate = data.PaymentDate.AddMonths(1);
+
+                    result = repo.SaveMonthlyPayment(data, Globals.appUserID);
+                }
+
+                var repoReceipts = new Receipts();
+                var repoPrint = new PrintReceipts();
+                var path = repoReceipts.MonthlyPaymentReceipt(result.MonthlyPaymentId, Globals.appUserID);
+                repoPrint.PrintPDFs(path);
+
+                MessageBox.Show("Mensualidad guardada exitosamente.");
+
+                CleanForm();
             }
-            else {
+            else
+                MessageBox.Show("Ha ocurrido un error. Verifique la información ingresada.");
+        }
 
-                data.PaymentDate = mp.ExpirationDate.AddDays(1);
-                data.ExpirationDate = data.PaymentDate.AddMonths(1);                
+        private bool ValidateForm()
+        {
+            var flag = true;
 
-                result = repo.SaveMonthlyPayment(data, Globals.appUserID);
-            }
+            if (string.IsNullOrEmpty(TxtPayment.Text.Trim())) flag = false;
 
-            var repoReceipts = new Receipts();
-            var repoPrint = new PrintReceipts();
-            var path = repoReceipts.MonthlyPaymentReceipt(result.MonthlyPaymentId, Globals.appUserID);
-            repoPrint.PrintPDFs(path);
-
-            MessageBox.Show("Mensualidad guardada exitosamente.");
-
-            CleanForm();
+            return flag;
         }
 
         private void TxtDocument_KeyPress(object sender, KeyPressEventArgs e)

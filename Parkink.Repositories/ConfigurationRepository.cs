@@ -51,7 +51,9 @@ namespace Parking.Repositories
                         case "StartDay":
                             config.StartDay = item.ConfigurationValue;
                             break;
-                            
+                        case "Lockers":
+                            config.Lockers = int.Parse(item.ConfigurationValue);
+                            break;                            
                     }                   
                 }
                 return config;
