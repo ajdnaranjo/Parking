@@ -61,6 +61,7 @@ namespace Parking.Process
 
                 var repo = new RegistryRepository();
                 var repoUser = new UserRepository();
+                var repoReceipts = new Receipts();
 
                 var check = new Registry()
                 {
@@ -80,19 +81,28 @@ namespace Parking.Process
                 {
                     var result = repo.CheckExit(check, Globals.appUserID);
 
-                    var repoReceipts = new Receipts();
+                    
                     var path = repoReceipts.ExitReceipt(result.Plate, Globals.appUserID);
                     var print = new PrintReceipts();
                     var response = print.PrintPDFs(path);
                 }
                 else
-                {
+                {                    
                     check.MonthlyPaymentID = mp.MonthlyPaymentID;
                     check.TotalPayment = 0;
                     check.Payment = 0;
                     check.Refund = 0;
 
                     var result = repo.CheckExit(check, Globals.appUserID);
+
+                    var date = DateTime.Now.Subtract(mp.ExpirationDate);
+                    if (date.Days <= 2)
+                    {
+                        var path = repoReceipts.MonthlyPaymentExpirationReceipt(mp.MonthlyPaymentID, Globals.appUserID);
+                        var print = new PrintReceipts();
+                        var response = print.PrintPDFs(path);
+                        
+                    }
                 }
 
                 CleanForm();

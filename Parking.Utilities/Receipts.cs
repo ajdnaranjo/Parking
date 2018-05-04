@@ -134,8 +134,7 @@ namespace Parking.Utilities
             doc.Add(new Paragraph("Placa: " + data.Plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
             doc.Add(new Paragraph("Total: " + data.TotalPayment.ToString("N0"), FontFactory.GetFont("helvetica", 14, Font.BOLD)));
             doc.Add(new Paragraph("Devuelta: " + data.Refund.ToString("N0"), font));
-            doc.Add(new Paragraph("Valido hasta: " + data.ExpirationDate, font));
-            doc.Add(new Paragraph("N. Recibo: " + data.ReceiptID, font));
+            doc.Add(new Paragraph("Valido hasta: " + data.ExpirationDate, font));            
             doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, font));
 
             List listItems = new List(footItems.Length);
@@ -198,6 +197,44 @@ namespace Parking.Utilities
 
             return output.Name;
         }
+
+
+        public string MonthlyPaymentExpirationReceipt(string monthlyPaymentID, int appUserID)
+        {
+            var repo = new ConfigurationRepository();
+            var dataRepo = new RegistryRepository();
+            var secureRepo = new SecurityRepository();
+
+            var config = repo.GetConfiguration();
+            var data = dataRepo.GetMonthlyPaymentByID(monthlyPaymentID);
+            var appUserData = secureRepo.GetAppUserByID(appUserID);         
+
+
+            Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
+            var output = new FileStream(@"C:\Parking\Receipts\MonthlyExpirationReceipt.pdf", FileMode.Create);
+            var writer = PdfWriter.GetInstance(doc, output);
+
+            doc.Open();
+
+            Font font = new Font(FontFactory.GetFont("Helvetica", 8, Font.NORMAL));
+
+            doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
+            doc.Add(new Paragraph("Nit: " + config.Nit, font));
+            doc.Add(new Paragraph("Dir: " + config.Address, font));
+            doc.Add(new Paragraph("Tel: " + config.Telephone, font));
+            doc.Add(new Paragraph("Horario: " + config.Schedule, font));
+            doc.Add(new Paragraph(config.Regime, font));
+            doc.Add(new Paragraph("N. Factura: " + data.ReceiptID, font));
+            doc.Add(new Paragraph("Placa: " + data.Plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));           
+            doc.Add(new Paragraph("Su mensualidad vence: " + data.ExpirationDate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));            
+            doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, font));
+
+           
+            doc.Close();
+
+            return output.Name;
+        }
+
     }
 }
 
