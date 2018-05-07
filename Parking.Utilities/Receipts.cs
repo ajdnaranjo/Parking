@@ -25,7 +25,7 @@ namespace Parking.Utilities
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
            
-            var output = new FileStream(@"C:\Parking\Receipts\EntryReceipt.pdf", FileMode.Create);
+            var output = new FileStream(@"C:\Parking\Receipts\EntryReceipt" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create);
             var writer = PdfWriter.GetInstance(doc, output);
         
             doc.Open();
@@ -73,7 +73,7 @@ namespace Parking.Utilities
 
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
-            var output = new FileStream(@"C:\Parking\Receipts\EntryReceipt.pdf", FileMode.Create);
+            var output = new FileStream(@"C:\Parking\Receipts\EntryReceipt" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create);
             var writer = PdfWriter.GetInstance(doc, output);
 
             doc.Open();
@@ -117,7 +117,7 @@ namespace Parking.Utilities
 
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
-            var output = new FileStream(@"C:\Parking\Receipts\MonthlyReceipt.pdf", FileMode.Create);
+            var output = new FileStream(@"C:\Parking\Receipts\MonthlyReceipt" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create);
             var writer = PdfWriter.GetInstance(doc, output);
 
             doc.Open();
@@ -162,7 +162,7 @@ namespace Parking.Utilities
             var config = repo.GetConfiguration();                    
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
-            var output = new FileStream(@"C:\Parking\Receipts\CloseWorkShift.pdf", FileMode.Create);
+            var output = new FileStream(@"C:\Parking\Receipts\CloseWorkShift" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create);
             var writer = PdfWriter.GetInstance(doc, output);
 
             doc.Open();
@@ -210,7 +210,7 @@ namespace Parking.Utilities
 
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
-            var output = new FileStream(@"C:\Parking\Receipts\MonthlyExpirationReceipt.pdf", FileMode.Create);
+            var output = new FileStream(@"C:\Parking\Receipts\MonthlyExpirationReceipt" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create);
             var writer = PdfWriter.GetInstance(doc, output);
 
             doc.Open();
