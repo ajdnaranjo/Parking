@@ -7,7 +7,6 @@ namespace Parking.Repositories
     public class ReportRepository
     {
 
-
         public CloseWorkShiftDto CloseWorkShift(int userID)
         {
             using (var context = new PLTOEntities())
@@ -17,15 +16,27 @@ namespace Parking.Repositories
 
                 var initalDate = DateTime.Now.AddHours(-9);
 
-                var dataRegistry = (from r in context.Registries
-                                    where r.ModifiedBy == userID && r.ExitDate != null && 
-                                    r.ExitDate <= DateTime.Now && r.ExitDate >= initalDate
+                var dataDailyRegistry = (from r in context.Registries
+                                    where r.ModifiedBy == userID && r.ExitDate != null &&
+                                    r.IsWorkShiftClosed == false
                                     select r).ToList();
 
                 var dataMonthly = (from m in context.MonthlyPayments
-                                   where m.CreatedBy == userID &&
-                                   m.PaymentDate <= DateTime.Now && m.PaymentDate >= initalDate
+                                   where m.CreatedBy == userID && m.IsWorkShiftClosed == false
                                    select m).ToList();
+
+                foreach (var item in dataDailyRegistry)
+                {
+                    item.IsWorkShiftClosed = true;
+                    item.WorkShiftCloseDate = DateTime.Now;
+                }
+                foreach (var item in dataMonthly)
+                {
+                    item.IsWorkShiftClosed = true;
+                    item.WorkShiftCloseDate = DateTime.Now;
+                }
+
+                context.SaveChanges();
 
                 var work = new CloseWorkShiftDto()
                 {
@@ -34,8 +45,8 @@ namespace Parking.Repositories
                     Name = appUser.Name,
                     MonthlyPaymentCount = dataMonthly.Count(),
                     MonthlyPaymentValue = dataMonthly.Sum(x => x.TotalPayment),
-                    DailyRegistryCount = dataRegistry.Count(),
-                    DailyRegistryValue = (decimal)dataRegistry.Sum(x => x.TotalPayment)
+                    DailyRegistryCount = dataDailyRegistry.Count(),
+                    DailyRegistryValue = (decimal)dataDailyRegistry.Sum(x => x.TotalPayment)
                 };
 
                 return work;

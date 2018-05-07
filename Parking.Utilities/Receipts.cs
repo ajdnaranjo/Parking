@@ -198,7 +198,6 @@ namespace Parking.Utilities
             return output.Name;
         }
 
-
         public string MonthlyPaymentExpirationReceipt(string monthlyPaymentID, int appUserID)
         {
             var repo = new ConfigurationRepository();

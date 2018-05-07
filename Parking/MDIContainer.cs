@@ -119,12 +119,13 @@ namespace Parking
 
         private void tsimCloseWorkShift_Click(object sender, EventArgs e)
         {
-            var repo = new ReportRepository();
-            var repoReceipts = new Receipts();
-            var data = repo.CloseWorkShift(Globals.appUserID);
-            var path = repoReceipts.CloseWorkShift(data);
-            var repoPrint = new PrintReceipts();
-            repoPrint.PrintPDFs(path);
+            if (MessageBox.Show("Esta seguro que desea realizar el cierre de turno?", "Cierre turno", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                CloseWorkShift();
+
+                Globals.appUserID = 0;
+                this.Close();
+            }
         }
 
         private void tsmiFrmUpdatePass_Click(object sender, EventArgs e)
@@ -143,6 +144,16 @@ namespace Parking
                 MdiParent = this
             };
             frm.Show();
+        }
+
+        private void CloseWorkShift()
+        {
+            var repo = new ReportRepository();
+            var repoReceipts = new Receipts();
+            var data = repo.CloseWorkShift(Globals.appUserID);
+            var path = repoReceipts.CloseWorkShift(data);
+            var repoPrint = new PrintReceipts();
+            repoPrint.PrintPDFs(path);
         }
     }
 }

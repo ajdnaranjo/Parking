@@ -30,6 +30,8 @@ namespace Parking.Repositories
         public System.DateTime PaymentDate { get; set; }
         public System.DateTime ExpirationDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
+        public Nullable<bool> IsWorkShiftClosed { get; set; }
+        public Nullable<System.DateTime> WorkShiftCloseDate { get; set; }
     
         public virtual AppUser AppUser { get; set; }
         public virtual Client Client { get; set; }
