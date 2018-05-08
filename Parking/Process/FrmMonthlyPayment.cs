@@ -50,7 +50,8 @@ namespace Parking.Process
                     TotalPayment = decimal.Parse(TxtTotalPayment.Text),
                     Refund = decimal.Parse(TxtRefund.Text),
                     PaymentDate = DateTime.Now,
-                    ExpirationDate = DateTime.Now.AddMonths(1)
+                    ExpirationDate = DateTime.Now.AddMonths(1),
+                    IsWorkShiftClosed = false
                 };
 
                 var mp = repoUser.ValidMonthlyPayment(data.Plate);

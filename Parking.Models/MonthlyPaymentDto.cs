@@ -20,5 +20,6 @@ namespace Parking.Models
         public decimal Refund { get; set; }
         public DateTime PaymentDate { get; set; }
         public DateTime ExpirationDate { get; set; }
+        public bool IsWorkShiftClosed { get; set; }
     }
 }

@@ -44,7 +44,7 @@ namespace Parking.Repositories
                     AppUserID = appUser.AppUserID,
                     Name = appUser.Name,
                     MonthlyPaymentCount = dataMonthly.Count(),
-                    MonthlyPaymentValue = dataMonthly.Sum(x => x.TotalPayment),
+                    MonthlyPaymentValue = dataMonthly.Sum(x => x.PaidValue),
                     DailyRegistryCount = dataDailyRegistry.Count(),
                     DailyRegistryValue = (decimal)dataDailyRegistry.Sum(x => x.TotalPayment)
                 };

@@ -189,7 +189,7 @@ namespace Parking.Utilities
             table.AddCell(new PdfPCell(new Phrase(data.DailyRegistryValue.ToString("N0"), font)));
             table.AddCell(new PdfPCell(new Phrase("Total", font)));
             table.AddCell(string.Empty);
-            table.AddCell(new PdfPCell(new Phrase((data.MonthlyPaymentValue + data.DailyRegistryValue).ToString(), font)));
+            table.AddCell(new PdfPCell(new Phrase((data.MonthlyPaymentValue + data.DailyRegistryValue).ToString("N0"), font)));
 
             doc.Add(table);
 

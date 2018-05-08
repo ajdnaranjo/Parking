@@ -48,7 +48,14 @@ namespace Parking.Process
             {
                 if (!string.IsNullOrEmpty(txtPlate.Text))
                 {
-                    txtPaymentKeypress();
+                if (int.Parse(txtPayment.Text) < int.Parse(txtTotalPayment.Text))
+                {
+                        MessageBox.Show("El pago ingresado es menor al valor total a pagar");                    
+                }
+                else
+                {
+                        txtPaymentKeypress();
+                    }
                 }
             }
         }
@@ -121,7 +128,8 @@ namespace Parking.Process
                 var reg = new Registry()
                 {
                     Plate = txtPlate.Text.Trim(),
-                    EntryDate = DateTime.Now
+                    EntryDate = DateTime.Now,
+                    IsWorkShiftClosed = false
                 };
 
                 var data = repo.CheckEntryExit(reg, Globals.appUserID);

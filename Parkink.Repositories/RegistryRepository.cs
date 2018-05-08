@@ -23,7 +23,8 @@ namespace Parking.Repositories
                         RegistryID = repo.GetReceiptNumber(),
                         Plate = registry.Plate,
                         EntryDate = registry.EntryDate,
-                        CreatedBy = userID
+                        CreatedBy = userID,
+                        IsWorkShiftClosed = registry.IsWorkShiftClosed
                     };
                     context.Registries.Add(reg);
 
@@ -122,7 +123,7 @@ namespace Parking.Repositories
                         Document = monthlyPaymentDTO.Document,
                         DocTypeID = monthlyPaymentDTO.DocTypeId,
                         Name = monthlyPaymentDTO.Name,
-                        CelPhone = monthlyPaymentDTO.Celphone
+                        CelPhone = monthlyPaymentDTO.Celphone,                       
                     };
                     context.Clients.Add(rec);
                 }
@@ -142,7 +143,8 @@ namespace Parking.Repositories
                     Refund = monthlyPaymentDTO.Refund,
                     PaymentDate = monthlyPaymentDTO.PaymentDate,
                     ExpirationDate = monthlyPaymentDTO.ExpirationDate,
-                    CreatedBy = userID
+                    CreatedBy = userID,
+                    IsWorkShiftClosed = monthlyPaymentDTO.IsWorkShiftClosed
                 };
 
                 context.MonthlyPayments.Add(mPayment);
