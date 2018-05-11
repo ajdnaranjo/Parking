@@ -48,12 +48,12 @@ namespace Parking.Process
             {
                 if (!string.IsNullOrEmpty(txtPlate.Text))
                 {
-                if (int.Parse(txtPayment.Text) < int.Parse(txtTotalPayment.Text))
-                {
-                        MessageBox.Show("El pago ingresado es menor al valor total a pagar");                    
-                }
-                else
-                {
+                    if (decimal.Parse(txtPayment.Text) < decimal.Parse(txtTotalPayment.Text))
+                    {
+                        MessageBox.Show("El pago ingresado es menor al valor total a pagar");
+                    }
+                    else
+                    {
                         txtPaymentKeypress();
                     }
                 }
