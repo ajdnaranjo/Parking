@@ -54,7 +54,7 @@ namespace Parking.Repositories
                     {
                         if (dif.Hours > 12)
                         {
-                            var dayHours = (24 - dif.Hours) - 12;
+                            var dayHours = (dif.Hours - 12);
 
                             if (dayHours > int.Parse(config.DayHours))                            
                                 reg.TotalPayment = reg.TotalPayment + (daysValues.Value * 2);                            
@@ -62,7 +62,7 @@ namespace Parking.Repositories
                             {
                                 reg.TotalPayment = reg.TotalPayment + daysValues.Value;
                               
-                                reg.TotalPayment = reg.TotalPayment + (reg.Hours * hoursValues.Value);
+                                reg.TotalPayment = reg.TotalPayment + (dayHours * hoursValues.Value);
                                 
                                 if (dif.Minutes > 0 && dif.Minutes < 30) reg.TotalPayment = reg.TotalPayment + minutesValues.Value;
                                 else if (dif.Minutes >= 30 && dif.Minutes < 60) reg.TotalPayment = reg.TotalPayment + (minutesValues.Value * 2);
