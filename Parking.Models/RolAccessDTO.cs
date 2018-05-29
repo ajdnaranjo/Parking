@@ -14,6 +14,7 @@ namespace Parking.Models
         public string RolName { get; set; }
         public int FormID { get; set; }
         public string FormName { get; set; }
-
+        public bool Status { get; set; }
+        public string Description { get; set; }
     }
 }

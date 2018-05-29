@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Parking.Models;
 
 namespace Parking.Repositories
 {
@@ -109,6 +110,85 @@ namespace Parking.Repositories
                 }
 
                 return flag;
+            }
+        }
+
+        public AppUser GetAppUser(string appUserID)
+        {
+            using (var context = new PLTOEntities())
+            {
+                return context.AppUsers.FirstOrDefault(x => x.AppUserID == appUserID);
+            }
+        }
+
+        public bool EditUser(AppUser appUser)
+        {
+            var flag = false;
+            using (var context = new PLTOEntities())
+            {
+                var user = context.AppUsers.FirstOrDefault(x => x.AppUserID == appUser.AppUserID);
+
+                if (user == null)
+                {
+
+                    user = new AppUser
+                    {
+                        AppUserID = appUser.AppUserID,
+                        Name = appUser.Name,
+                        Password = Encrypt(appUser.Password),
+                        Status = appUser.Status,
+                        RolID = appUser.RolID
+                    };
+                    context.AppUsers.Add(user);
+
+                    flag = true;
+
+                } else
+                {
+                    user.Name = appUser.Name;
+                    user.Password = Encrypt(user.Password);
+                    user.Status = appUser.Status;
+                    user.RolID = appUser.RolID;
+
+                    flag = true;
+                }
+
+                context.SaveChanges();
+
+                return flag;
+            }
+        }
+
+        public List<Rol> GetRols()
+        {
+            using (var context = new PLTOEntities())
+            {
+                return context.Rols.Where(x => x.Status == true).ToList();
+            }
+        }
+
+
+        public List<RolAccessDTO> GetRolsById(int rolId)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var result = context.usp_SelectRolAccessData(rolId);
+                var data = new List<RolAccessDTO>();
+
+                foreach (var item in result)
+                {
+                    var dto = new RolAccessDTO()
+                    {
+                           FormID = item.FormID,
+                           FormName = item.FormName,
+                           Description = item.Description,
+                           Status = (bool)item.Status
+                    };
+
+                    data.Add(dto);
+                }
+
+                return data;
             }
         }
     }

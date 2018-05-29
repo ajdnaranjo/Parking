@@ -101,6 +101,9 @@
     </Compile>
     <Compile Include="ConfigurationRepository.cs" />
     <Compile Include="UserRepository.cs" />
+    <Compile Include="usp_SelectRolAccessData_Result.cs">
+      <DependentUpon>MdlParking.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">

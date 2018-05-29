@@ -112,6 +112,9 @@
     <EmbeddedResource Include="MasterForms\FrmConfiguration.resx">
       <DependentUpon>FrmConfiguration.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MasterForms\FrmRolAccess.resx">
+      <DependentUpon>FrmRolAccess.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Process\FrmMonthlyPayment.resx">
       <DependentUpon>FrmMonthlyPayment.cs</DependentUpon>
     </EmbeddedResource>

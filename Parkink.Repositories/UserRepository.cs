@@ -30,7 +30,6 @@ namespace Parking.Repositories
             }
         }
 
-
         public MonthlyPayment ValidMonthlyPayment(string plate)
         {
             using (var context = new PLTOEntities())

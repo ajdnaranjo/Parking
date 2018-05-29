@@ -47,6 +47,7 @@
           </Key>
           <Property Name="FormID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FormName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="MonthlyPayment">
           <Key>
@@ -219,6 +220,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="usp_SelectRolAccessData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RolId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="PLTOModelStoreContainer">
           <EntitySet Name="AppUser" EntityType="Self.AppUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
@@ -318,6 +322,9 @@
             <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
             <End Role="Registry" EntitySet="Registries" />
           </AssociationSet>
+          <FunctionImport Name="usp_SelectRolAccessData" ReturnType="Collection(PLTOModel.usp_SelectRolAccessData_Result)">
+            <Parameter Name="RolId" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="Configuration">
           <Key>
@@ -350,6 +357,7 @@
           <Property Name="FormID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FormName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="RolForms" Relationship="PLTOModel.FK_RolForm_Form" FromRole="Form" ToRole="RolForm" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -551,6 +559,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="usp_SelectRolAccessData_Result">
+          <Property Type="Int32" Name="FormID" Nullable="false" />
+          <Property Type="String" Name="FormName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -586,6 +600,7 @@
           <EntitySetMapping Name="Forms1">
             <EntityTypeMapping TypeName="PLTOModel.Forms">
               <MappingFragment StoreEntitySet="Form">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="FormName" ColumnName="FormName" />
                 <ScalarProperty Name="FormID" ColumnName="FormID" />
               </MappingFragment>
@@ -670,6 +685,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_SelectRolAccessData" FunctionName="PLTOModel.Store.usp_SelectRolAccessData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PLTOModel.usp_SelectRolAccessData_Result">
+                <ScalarProperty Name="FormID" ColumnName="FormID" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

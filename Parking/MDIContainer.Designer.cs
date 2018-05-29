@@ -122,7 +122,7 @@
             // 
             this.tsimCloseWorkShift.Enabled = false;
             this.tsimCloseWorkShift.Name = "tsimCloseWorkShift";
-            this.tsimCloseWorkShift.Size = new System.Drawing.Size(180, 22);
+            this.tsimCloseWorkShift.Size = new System.Drawing.Size(153, 22);
             this.tsimCloseWorkShift.Text = "&Cierre de turno";
             this.tsimCloseWorkShift.Click += new System.EventHandler(this.tsimCloseWorkShift_Click);
             // 
@@ -130,7 +130,7 @@
             // 
             this.tsmiMonthlyPayments.Enabled = false;
             this.tsmiMonthlyPayments.Name = "tsmiMonthlyPayments";
-            this.tsmiMonthlyPayments.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMonthlyPayments.Size = new System.Drawing.Size(153, 22);
             this.tsmiMonthlyPayments.Text = "&Mensualidades";
             this.tsmiMonthlyPayments.Click += new System.EventHandler(this.tsmiMonthlyPayments_Click);
             // 
@@ -148,7 +148,7 @@
             // 
             this.tsmiFrmConfiguration.Enabled = false;
             this.tsmiFrmConfiguration.Name = "tsmiFrmConfiguration";
-            this.tsmiFrmConfiguration.Size = new System.Drawing.Size(177, 22);
+            this.tsmiFrmConfiguration.Size = new System.Drawing.Size(180, 22);
             this.tsmiFrmConfiguration.Text = "&Configuracion";
             this.tsmiFrmConfiguration.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -156,14 +156,15 @@
             // 
             this.tsmiFrmRolAcces.Enabled = false;
             this.tsmiFrmRolAcces.Name = "tsmiFrmRolAcces";
-            this.tsmiFrmRolAcces.Size = new System.Drawing.Size(177, 22);
+            this.tsmiFrmRolAcces.Size = new System.Drawing.Size(180, 22);
             this.tsmiFrmRolAcces.Text = "&Roles Usuario";
+            this.tsmiFrmRolAcces.Click += new System.EventHandler(this.tsmiFrmRolAcces_Click);
             // 
             // tsmiFrmUpdatePass
             // 
             this.tsmiFrmUpdatePass.Enabled = false;
             this.tsmiFrmUpdatePass.Name = "tsmiFrmUpdatePass";
-            this.tsmiFrmUpdatePass.Size = new System.Drawing.Size(177, 22);
+            this.tsmiFrmUpdatePass.Size = new System.Drawing.Size(180, 22);
             this.tsmiFrmUpdatePass.Text = "Cambio contraseña";
             this.tsmiFrmUpdatePass.Click += new System.EventHandler(this.tsmiFrmUpdatePass_Click);
             // 

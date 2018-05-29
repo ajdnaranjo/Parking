@@ -155,5 +155,14 @@ namespace Parking
             var repoPrint = new PrintReceipts();
             repoPrint.PrintPDFs(path);
         }
+
+        private void tsmiFrmRolAcces_Click(object sender, EventArgs e)
+        {
+            var frm = new MasterForms.FrmRolAccess()
+            {
+                MdiParent = this
+            };
+            frm.Show();
+        }
     }
 }

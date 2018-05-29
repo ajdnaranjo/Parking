@@ -12,6 +12,8 @@ namespace Parking.Repositories
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class PLTOEntities : DbContext
     {
@@ -35,5 +37,14 @@ namespace Parking.Repositories
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<MonthlyPayment> MonthlyPayments { get; set; }
         public virtual DbSet<Registry> Registries { get; set; }
+    
+        public virtual ObjectResult<usp_SelectRolAccessData_Result> usp_SelectRolAccessData(Nullable<int> rolId)
+        {
+            var rolIdParameter = rolId.HasValue ?
+                new ObjectParameter("RolId", rolId) :
+                new ObjectParameter("RolId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SelectRolAccessData_Result>("usp_SelectRolAccessData", rolIdParameter);
+        }
     }
 }

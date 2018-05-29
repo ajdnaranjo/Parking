@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="CloseWorkShiftDto.cs" />
     <Compile Include="ConfigurationDTO.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="MonthlyPaymentDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
