@@ -91,6 +91,7 @@ namespace Parking.Utilities
             doc.Add(new Paragraph("Placa: " + plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
             doc.Add(new Paragraph("Entra: " + exit.EntryDate, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Sale: " + exit.ExitDate, FontFactory.GetFont("helvetica", 8)));
+            doc.Add(new Paragraph("Días: " + exit.Days, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Horas: " + exit.Hours, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Minutos: " + exit.Minutes, FontFactory.GetFont("helvetica", 8)));
             doc.Add(new Paragraph("Total: " + TotalPayment.ToString(), FontFactory.GetFont("helvetica", 14, Font.BOLD)));

@@ -40,11 +40,11 @@
             this.BtnSave = new System.Windows.Forms.Button();
             this.CbRol = new System.Windows.Forms.ComboBox();
             this.DgvData = new System.Windows.Forms.DataGridView();
-            this.CbRolName = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.FormId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CbRolName = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -147,6 +147,7 @@
             this.CbRol.Size = new System.Drawing.Size(205, 21);
             this.CbRol.TabIndex = 10;
             this.CbRol.ValueMember = "RolId";
+            this.CbRol.SelectedValueChanged += new System.EventHandler(this.CbRol_SelectedValueChanged);
             // 
             // DgvData
             // 
@@ -159,26 +160,6 @@
             this.DgvData.Name = "DgvData";
             this.DgvData.Size = new System.Drawing.Size(536, 303);
             this.DgvData.TabIndex = 11;
-            // 
-            // CbRolName
-            // 
-            this.CbRolName.DisplayMember = "RolName";
-            this.CbRolName.FormattingEnabled = true;
-            this.CbRolName.Location = new System.Drawing.Point(105, 164);
-            this.CbRolName.Name = "CbRolName";
-            this.CbRolName.Size = new System.Drawing.Size(205, 21);
-            this.CbRolName.TabIndex = 13;
-            this.CbRolName.ValueMember = "RolId";
-            this.CbRolName.SelectedValueChanged += new System.EventHandler(this.CbRolName_SelectedValueChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(52, 168);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(26, 13);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Rol:";
             // 
             // FormId
             // 
@@ -201,6 +182,26 @@
             this.Status.Name = "Status";
             this.Status.Width = 80;
             // 
+            // CbRolName
+            // 
+            this.CbRolName.DisplayMember = "RolName";
+            this.CbRolName.FormattingEnabled = true;
+            this.CbRolName.Location = new System.Drawing.Point(105, 164);
+            this.CbRolName.Name = "CbRolName";
+            this.CbRolName.Size = new System.Drawing.Size(205, 21);
+            this.CbRolName.TabIndex = 13;
+            this.CbRolName.ValueMember = "RolId";
+            this.CbRolName.SelectedValueChanged += new System.EventHandler(this.CbRolName_SelectedValueChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(52, 168);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(26, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Rol:";
+            // 
             // FrmRolAccess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,7 +222,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "FrmRolAccess";
-            this.Text = "tsmiFrmRolAcces";
+            this.Text = "Roles usuarios";
             ((System.ComponentModel.ISupportInitialize)(this.DgvData)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

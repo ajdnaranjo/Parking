@@ -110,5 +110,11 @@ namespace Parking.MasterForms
                 DgvData.DataSource = data;
             }            
         }
+
+        private void CbRol_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (CbRol.SelectedValue.ToString() != "-1")
+            { }
+        }
     }
 }
