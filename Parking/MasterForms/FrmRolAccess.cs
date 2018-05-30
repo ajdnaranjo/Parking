@@ -23,13 +23,14 @@ namespace Parking.MasterForms
             rols.Add(new Rol { RolID = -1, RolName = "Seleccionar" });
             rols.OrderBy(x => x.RolName);
 
+            var rols2 = rols.ToList();
+
             CbRol.DataSource = rols;
             CbRol.SelectedValue = -1;
-            CbRolName.DataSource = rols;
+            CbRolName.DataSource = rols2;
             CbRolName.SelectedValue = -1;
         }
      
-
         private void CbStatus_CheckedChanged(object sender, EventArgs e)
         {
             if (CbStatus.Checked == false) CbStatus.Text = "Inactivo";
@@ -41,16 +42,18 @@ namespace Parking.MasterForms
             FillUser(TxtUserId.Text.Trim());
         }
 
-
         private void FillUser(string userId)
         {
             var repo = new SecurityRepository();
             var user = repo.GetAppUser(userId);
+            var secRepo = new SecurityRepository();
 
             if (user != null)
             {
                 TxtName.Text = user.Name;
                 CbStatus.Checked = user.Status;
+                CbRol.SelectedValue = user.RolID;
+                TxtPwd.Text = secRepo.Decrypt(user.Password);
             }
         }
 
@@ -76,7 +79,6 @@ namespace Parking.MasterForms
                 CleanForm();
             }
         }
-
 
         private void CleanForm()
         {

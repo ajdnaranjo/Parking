@@ -23,6 +23,12 @@ namespace Parking.Utilities
 
             var footItems = config.FootItems.Split('*');
 
+          
+            //var rec = new Rectangle(130f,880f);
+            //rec.Border = Rectangle.NO_BORDER;
+            //rec.BorderWidth = 0.5f;
+
+           // Document doc = new Document(rec);
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
            
             var output = new FileStream(@"C:\Parking\Receipts\EntryReceipt" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create);
@@ -39,8 +45,7 @@ namespace Parking.Utilities
             doc.Add(new Paragraph("Horario: " + config.Schedule, font));
             doc.Add(new Paragraph(config.Regime, font));           
             doc.Add(new Paragraph("Placa: " + plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
-            doc.Add(new Paragraph("Entra: " + entry.EntryDate, font));
-            doc.Add(new Paragraph("Sale: ", font));
+            doc.Add(new Paragraph("Entra: " + entry.EntryDate, font));           
             doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, font));         
          
             List listItems = new List(footItems.Length);
@@ -73,7 +78,7 @@ namespace Parking.Utilities
 
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
-            var output = new FileStream(@"C:\Parking\Receipts\EntryReceipt" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create);
+            var output = new FileStream(@"C:\Parking\Receipts\ExitReceipt" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create);
             var writer = PdfWriter.GetInstance(doc, output);
 
             doc.Open();
@@ -81,23 +86,22 @@ namespace Parking.Utilities
             decimal TotalPayment = (decimal)exit.TotalPayment;
             decimal Refund = (decimal)exit.Refund;
 
+            Font font = new Font(FontFactory.GetFont("Helvetica", 8, Font.NORMAL));
+
             doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
-            doc.Add(new Paragraph("Nit: " + config.Nit, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Dir: " + config.Address, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Tel: " + config.Telephone, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Horario: " + config.Schedule, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph(config.Regime, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("N. Factura: " + exit.RegistryID, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Placa: " + plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
-            doc.Add(new Paragraph("Entra: " + exit.EntryDate, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Sale: " + exit.ExitDate, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Días: " + exit.Days, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Horas: " + exit.Hours, FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Minutos: " + exit.Minutes, FontFactory.GetFont("helvetica", 8)));
+            doc.Add(new Paragraph("Nit: " + config.Nit, font));
+            doc.Add(new Paragraph("Dir: " + config.Address, font));
+            doc.Add(new Paragraph("Tel: " + config.Telephone, font));
+            doc.Add(new Paragraph("Horario: " + config.Schedule, font));
+            doc.Add(new Paragraph(config.Regime, font));
+            doc.Add(new Paragraph("N. Factura: " + exit.RegistryID, font));
+            doc.Add(new Paragraph("Placa: " + plate, font));
+            doc.Add(new Paragraph("Entra: " + exit.EntryDate, font));
+            doc.Add(new Paragraph("Sale: " + exit.ExitDate, font));
+            doc.Add(new Paragraph("Días: " + exit.Days + " Horas: " + exit.Hours + " Minutos: " + exit.Minutes, FontFactory.GetFont("helvetica", 8)));         
             doc.Add(new Paragraph("Total: " + TotalPayment.ToString(), FontFactory.GetFont("helvetica", 14, Font.BOLD)));
-            doc.Add(new Paragraph("Devuelta: " + Refund.ToString("N0"), FontFactory.GetFont("helvetica", 8)));
-            doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, FontFactory.GetFont("helvetica", 8)));
-            //doc.Add(new Paragraph(config.FootTitle, FontFactory.GetFont("helvetica", 7)));
+            doc.Add(new Paragraph("Devuelta: " + Refund.ToString("N0"), font));
+            doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, font));            
 
             doc.Close();
 
@@ -160,7 +164,13 @@ namespace Parking.Utilities
         {
             var repo = new ConfigurationRepository();           
 
-            var config = repo.GetConfiguration();                    
+            var config = repo.GetConfiguration();
+
+            //var rec = new Rectangle(130f, 880f);
+            //rec.Border = Rectangle.BOX;
+            //rec.BorderWidth = 0f;                       
+
+            //Document doc = new Document(rec);
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
             var output = new FileStream(@"C:\Parking\Receipts\CloseWorkShift" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create);

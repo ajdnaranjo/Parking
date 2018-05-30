@@ -138,12 +138,12 @@
             this.BtnSave.UseVisualStyleBackColor = true;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
-            // CbRol
+            // CbTypeR
             // 
             this.CbRol.DisplayMember = "RolName";
             this.CbRol.FormattingEnabled = true;
             this.CbRol.Location = new System.Drawing.Point(281, 74);
-            this.CbRol.Name = "CbRol";
+            this.CbRol.Name = "CbTypeR";
             this.CbRol.Size = new System.Drawing.Size(205, 21);
             this.CbRol.TabIndex = 10;
             this.CbRol.ValueMember = "RolId";
@@ -241,9 +241,9 @@
         private System.Windows.Forms.TextBox TxtPwd;
         private System.Windows.Forms.CheckBox CbStatus;
         private System.Windows.Forms.Button BtnSave;
-        private System.Windows.Forms.ComboBox CbRol;
-        private System.Windows.Forms.DataGridView DgvData;
         private System.Windows.Forms.ComboBox CbRolName;
+        private System.Windows.Forms.DataGridView DgvData;
+        private System.Windows.Forms.ComboBox CbRol;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DataGridViewTextBoxColumn FormId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;

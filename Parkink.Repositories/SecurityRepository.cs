@@ -146,7 +146,7 @@ namespace Parking.Repositories
                 } else
                 {
                     user.Name = appUser.Name;
-                    user.Password = Encrypt(user.Password);
+                    user.Password = Encrypt(appUser.Password);
                     user.Status = appUser.Status;
                     user.RolID = appUser.RolID;
 
@@ -166,7 +166,6 @@ namespace Parking.Repositories
                 return context.Rols.Where(x => x.Status == true).ToList();
             }
         }
-
 
         public List<RolAccessDTO> GetRolsById(int rolId)
         {

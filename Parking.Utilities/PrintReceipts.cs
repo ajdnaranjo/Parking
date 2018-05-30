@@ -14,7 +14,7 @@ namespace Parking.Utilities
             {
                 Process proc = new Process();
                 proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                proc.StartInfo.Verb = "print";
+                proc.StartInfo.Verb = "PrintTo";
 
                 //Define location of adobe reader/command line
                 //switches to launch adobe in "print" mode
@@ -25,10 +25,10 @@ namespace Parking.Utilities
                 proc.StartInfo.CreateNoWindow = true;
 
                 proc.Start();
-                proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                //proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 if (proc.HasExited == false)
                 {                    
-                    proc.WaitForExit(10000);
+                    proc.WaitForExit(5000);
                 }
 
                 proc.EnableRaisingEvents = true;
