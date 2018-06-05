@@ -80,6 +80,12 @@
     <Compile Include="FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Process\FrmCopyReceipts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Process\FrmCopyReceipts.Designer.cs">
+      <DependentUpon>FrmCopyReceipts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Process\FrmMonthlyPayment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MasterForms\FrmRolAccess.resx">
       <DependentUpon>FrmRolAccess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Process\FrmCopyReceipts.resx">
+      <DependentUpon>FrmCopyReceipts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Process\FrmMonthlyPayment.resx">
       <DependentUpon>FrmMonthlyPayment.cs</DependentUpon>

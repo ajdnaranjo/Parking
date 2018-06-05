@@ -40,8 +40,8 @@ namespace Parking.Repositories
                     reg.Days = dif.Days;
                     reg.Hours = dif.Hours;
                     reg.Minutes = dif.Minutes;
-                    var hours = (dif.Days * 24) /12;
-                    reg.TotalPayment = 0;                                      
+                    var hours = (dif.Days * 24) / 12;
+                    reg.TotalPayment = 0;
 
                     var daysValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 3);
                     var hoursValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 2);
@@ -56,34 +56,34 @@ namespace Parking.Repositories
                         {
                             var dayHours = (dif.Hours - 12);
 
-                            if (dayHours > int.Parse(config.DayHours))                            
-                                reg.TotalPayment = reg.TotalPayment + (daysValues.Value * 2);                            
+                            if (dayHours > int.Parse(config.DayHours))
+                                reg.TotalPayment = reg.TotalPayment + (daysValues.Value * 2);
                             else
                             {
                                 reg.TotalPayment = reg.TotalPayment + daysValues.Value;
-                              
+
                                 reg.TotalPayment = reg.TotalPayment + (dayHours * hoursValues.Value);
-                                
+
                                 if (dif.Minutes > 0 && dif.Minutes < 30) reg.TotalPayment = reg.TotalPayment + minutesValues.Value;
                                 else if (dif.Minutes >= 30 && dif.Minutes < 60) reg.TotalPayment = reg.TotalPayment + (minutesValues.Value * 2);
 
                             }
                         }
                         else
-                            reg.TotalPayment = reg.TotalPayment + daysValues.Value;                                            
+                            reg.TotalPayment = reg.TotalPayment + daysValues.Value;
                     }
                     else
-                    {                     
+                    {
                         reg.TotalPayment = reg.TotalPayment + (reg.Hours * hoursValues.Value);
-                      
+
                         if (dif.Minutes > 0 && dif.Minutes < 30) reg.TotalPayment = reg.TotalPayment + minutesValues.Value;
                         else if (dif.Minutes >= 30 && dif.Minutes < 60) reg.TotalPayment = reg.TotalPayment + (minutesValues.Value * 2);
                     }
-                   
+
                 }
                 return reg;
             }
-                
+
         }
 
         public Registry CheckExit(Registry registry, int userID)
@@ -92,7 +92,7 @@ namespace Parking.Repositories
             {
                 var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.ExitDate == null);
 
-                reg.MonthlyPaymentID = registry.MonthlyPaymentID; 
+                reg.MonthlyPaymentID = registry.MonthlyPaymentID;
                 reg.ExitDate = registry.ExitDate;
                 reg.TotalPayment = registry.TotalPayment;
                 reg.Payment = registry.Payment;
@@ -100,7 +100,7 @@ namespace Parking.Repositories
                 reg.Days = registry.Days;
                 reg.Hours = registry.Hours;
                 reg.Minutes = registry.Minutes;
-                reg.ModifiedBy = userID;                
+                reg.ModifiedBy = userID;
 
                 context.SaveChanges();
 
@@ -123,7 +123,7 @@ namespace Parking.Repositories
                         Document = monthlyPaymentDTO.Document,
                         DocTypeID = monthlyPaymentDTO.DocTypeId,
                         Name = monthlyPaymentDTO.Name,
-                        CelPhone = monthlyPaymentDTO.Celphone,                       
+                        CelPhone = monthlyPaymentDTO.Celphone,
                     };
                     context.Clients.Add(rec);
                 }
@@ -148,10 +148,10 @@ namespace Parking.Repositories
                 };
 
                 context.MonthlyPayments.Add(mPayment);
-                context.SaveChanges();            
+                context.SaveChanges();
 
                 monthlyPaymentDTO.MonthlyPaymentId = mPayment.MonthlyPaymentID;
-               
+
 
             }
             return monthlyPaymentDTO;
@@ -169,8 +169,8 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
-                var sql = (from r in context.Registries                           
-                           where r.Plate == plate && r.ExitDate != null 
+                var sql = (from r in context.Registries
+                           where r.Plate == plate && r.ExitDate != null
                            orderby r.ExitDate descending
                            select new RegistryDto()
                            {
@@ -184,12 +184,12 @@ namespace Parking.Repositories
                                Minutes = r.Minutes,
                                TotalPayment = r.TotalPayment,
                                Payment = r.Payment,
-                               Refund  = r.Refund
+                               Refund = r.Refund
                            }
                            ).FirstOrDefault();
 
 
-                return sql;                
+                return sql;
             }
         }
 
@@ -197,8 +197,8 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
-                var data = (from m  in context.MonthlyPayments                           
-                            where m.MonthlyPaymentID == monthlyPaymentID                           
+                var data = (from m in context.MonthlyPayments
+                            where m.MonthlyPaymentID == monthlyPaymentID
                             select new MonthlyPaymentDto
                             {
                                 ReceiptID = m.MonthlyPaymentID,
@@ -231,12 +231,20 @@ namespace Parking.Repositories
                                 MonthlyPaymentId = m.MonthlyPaymentID,
                                 Plate = m.Plate,
                                 PaidValue = m.PaidValue,
-                                TotalPayment = m.TotalPayment,                               
+                                TotalPayment = m.TotalPayment,
                                 PaymentDate = m.PaymentDate,
                                 ExpirationDate = m.ExpirationDate
                             }).ToList();
 
                 return data;
+            }
+        }
+
+        public Registry GetRegistryByReciptNum(string receipt)
+        {
+            using (var context = new PLTOEntities())
+            {
+                return context.Registries.FirstOrDefault(x => x.RegistryID == receipt);
             }
         }
     }

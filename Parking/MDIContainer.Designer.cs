@@ -34,6 +34,7 @@
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.tSMIFrmRegistry = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMIFrmMonthlyPayment = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmCopyReceipts = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +75,7 @@
             this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSMIFrmRegistry,
             this.tsMIFrmMonthlyPayment,
+            this.TsmCopyReceipts,
             this.toolStripSeparator3,
             this.exitToolStripMenuItem});
             this.fileMenu.ImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
@@ -85,7 +87,7 @@
             // 
             this.tSMIFrmRegistry.Enabled = false;
             this.tSMIFrmRegistry.Name = "tSMIFrmRegistry";
-            this.tSMIFrmRegistry.Size = new System.Drawing.Size(142, 22);
+            this.tSMIFrmRegistry.Size = new System.Drawing.Size(180, 22);
             this.tSMIFrmRegistry.Text = "&Registro";
             this.tSMIFrmRegistry.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
@@ -93,19 +95,27 @@
             // 
             this.tsMIFrmMonthlyPayment.Enabled = false;
             this.tsMIFrmMonthlyPayment.Name = "tsMIFrmMonthlyPayment";
-            this.tsMIFrmMonthlyPayment.Size = new System.Drawing.Size(142, 22);
+            this.tsMIFrmMonthlyPayment.Size = new System.Drawing.Size(180, 22);
             this.tsMIFrmMonthlyPayment.Text = "&Mensualidad";
             this.tsMIFrmMonthlyPayment.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // TsmCopyReceipts
+            // 
+            this.TsmCopyReceipts.Enabled = false;
+            this.TsmCopyReceipts.Name = "TsmCopyReceipts";
+            this.TsmCopyReceipts.Size = new System.Drawing.Size(180, 22);
+            this.TsmCopyReceipts.Text = "&Copia";
+            this.TsmCopyReceipts.Click += new System.EventHandler(this.TsmCopyReceipts_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(139, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolsStripMenuItem_Click);
             // 
@@ -148,7 +158,7 @@
             // 
             this.tsmiFrmConfiguration.Enabled = false;
             this.tsmiFrmConfiguration.Name = "tsmiFrmConfiguration";
-            this.tsmiFrmConfiguration.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFrmConfiguration.Size = new System.Drawing.Size(177, 22);
             this.tsmiFrmConfiguration.Text = "&Configuracion";
             this.tsmiFrmConfiguration.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -156,7 +166,7 @@
             // 
             this.tsmiFrmRolAcces.Enabled = false;
             this.tsmiFrmRolAcces.Name = "tsmiFrmRolAcces";
-            this.tsmiFrmRolAcces.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFrmRolAcces.Size = new System.Drawing.Size(177, 22);
             this.tsmiFrmRolAcces.Text = "&Roles Usuario";
             this.tsmiFrmRolAcces.Click += new System.EventHandler(this.tsmiFrmRolAcces_Click);
             // 
@@ -164,7 +174,7 @@
             // 
             this.tsmiFrmUpdatePass.Enabled = false;
             this.tsmiFrmUpdatePass.Name = "tsmiFrmUpdatePass";
-            this.tsmiFrmUpdatePass.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFrmUpdatePass.Size = new System.Drawing.Size(177, 22);
             this.tsmiFrmUpdatePass.Text = "Cambio contraseña";
             this.tsmiFrmUpdatePass.Click += new System.EventHandler(this.tsmiFrmUpdatePass_Click);
             // 
@@ -276,6 +286,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsimCloseWorkShift;
         private System.Windows.Forms.ToolStripMenuItem tsmiFrmUpdatePass;
         private System.Windows.Forms.ToolStripMenuItem tsmiMonthlyPayments;
+        private System.Windows.Forms.ToolStripMenuItem TsmCopyReceipts;
     }
 }
 

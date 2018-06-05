@@ -52,7 +52,8 @@ namespace Parking
                     ((ToolStripMenuItem)tsmiFrmUpdatePass).Enabled = true;
                 if (((ToolStripMenuItem)tsmiMonthlyPayments).Name == item.FormName)
                     ((ToolStripMenuItem)tsmiMonthlyPayments).Enabled = true;
-
+                if (((ToolStripMenuItem)TsmCopyReceipts).Name == item.FormName)
+                    ((ToolStripMenuItem)TsmCopyReceipts).Enabled = true;
             }            
         }
 
@@ -159,6 +160,15 @@ namespace Parking
         private void tsmiFrmRolAcces_Click(object sender, EventArgs e)
         {
             var frm = new MasterForms.FrmRolAccess()
+            {
+                MdiParent = this
+            };
+            frm.Show();
+        }
+
+        private void TsmCopyReceipts_Click(object sender, EventArgs e)
+        {
+            var frm = new Process.FrmCopyReceipts()
             {
                 MdiParent = this
             };
