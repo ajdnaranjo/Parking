@@ -10,6 +10,7 @@ namespace Parking.Models
     {
 
         public const string MSG_UpdateRecord = "El registro se actualizó correctamente.";
-
+        public const string MSG_NoSelectedOption = "Debe seleccionar una opción.";
+        public const string MSG_NoRecordExist = "El registro no existe.";
     }
 }

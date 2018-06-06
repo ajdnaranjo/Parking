@@ -93,6 +93,7 @@
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="IsWorkShiftClosed" Type="bit" />
           <Property Name="WorkShiftCloseDate" Type="datetime" />
+          <Property Name="Locker" Type="int" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -301,11 +302,18 @@
             <End Role="Client" EntitySet="Clients" />
           </AssociationSet>
           <EntitySet Name="MonthlyPayments" EntityType="PLTOModel.MonthlyPayment" />
-          <EntitySet Name="Registries" EntityType="PLTOModel.Registry" />
           <AssociationSet Name="FK_MonthlyPayment_AppUser" Association="PLTOModel.FK_MonthlyPayment_AppUser">
             <End Role="AppUser" EntitySet="AppUsers" />
             <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
           </AssociationSet>
+          <AssociationSet Name="FK_MonthlyPayment_User" Association="PLTOModel.FK_MonthlyPayment_User">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
+          </AssociationSet>
+          <FunctionImport Name="usp_SelectRolAccessData" ReturnType="Collection(PLTOModel.usp_SelectRolAccessData_Result)">
+          <Parameter Name="RolId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Registries" EntityType="PLTOModel.Registry" />
           <AssociationSet Name="FK_Registry_AppUser" Association="PLTOModel.FK_Registry_AppUser">
             <End Role="AppUser" EntitySet="AppUsers" />
             <End Role="Registry" EntitySet="Registries" />
@@ -314,17 +322,10 @@
             <End Role="AppUser" EntitySet="AppUsers" />
             <End Role="Registry" EntitySet="Registries" />
           </AssociationSet>
-          <AssociationSet Name="FK_MonthlyPayment_User" Association="PLTOModel.FK_MonthlyPayment_User">
-            <End Role="Client" EntitySet="Clients" />
-            <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
-          </AssociationSet>
           <AssociationSet Name="FK_Registry_MonthlyPayment" Association="PLTOModel.FK_Registry_MonthlyPayment">
             <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
             <End Role="Registry" EntitySet="Registries" />
           </AssociationSet>
-          <FunctionImport Name="usp_SelectRolAccessData" ReturnType="Collection(PLTOModel.usp_SelectRolAccessData_Result)">
-            <Parameter Name="RolId" Mode="In" Type="Int32" />
-          </FunctionImport>
           </EntityContainer>
         <EntityType Name="Configuration">
           <Key>
@@ -474,6 +475,38 @@
           <NavigationProperty Name="Client" Relationship="PLTOModel.FK_MonthlyPayment_User" FromRole="MonthlyPayment" ToRole="Client" />
           <NavigationProperty Name="Registries" Relationship="PLTOModel.FK_Registry_MonthlyPayment" FromRole="MonthlyPayment" ToRole="Registry" />
         </EntityType>
+        <Association Name="FK_MonthlyPayment_AppUser">
+          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="MonthlyPayment">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlyPayment_User">
+          <End Type="PLTOModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Document" />
+              <PropertyRef Name="DocTypeID" />
+            </Principal>
+            <Dependent Role="MonthlyPayment">
+              <PropertyRef Name="Document" />
+              <PropertyRef Name="DocTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="usp_SelectRolAccessData_Result">
+          <Property Type="Int32" Name="FormID" Nullable="false" />
+          <Property Type="String" Name="FormName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+        </ComplexType>
         <EntityType Name="Registry">
           <Key>
             <PropertyRef Name="RegistryID" />
@@ -493,22 +526,11 @@
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="IsWorkShiftClosed" Type="Boolean" />
           <Property Name="WorkShiftCloseDate" Type="DateTime" Precision="3" />
+          <Property Name="Locker" Type="Int32" />
           <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_Registry_AppUser" FromRole="Registry" ToRole="AppUser" />
           <NavigationProperty Name="AppUser1" Relationship="PLTOModel.FK_Registry_AppUser1" FromRole="Registry" ToRole="AppUser" />
           <NavigationProperty Name="MonthlyPayment" Relationship="PLTOModel.FK_Registry_MonthlyPayment" FromRole="Registry" ToRole="MonthlyPayment" />
         </EntityType>
-        <Association Name="FK_MonthlyPayment_AppUser">
-          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
-          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="MonthlyPayment">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Registry_AppUser">
           <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
           <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="*" />
@@ -533,20 +555,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MonthlyPayment_User">
-          <End Type="PLTOModel.Client" Role="Client" Multiplicity="1" />
-          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Document" />
-              <PropertyRef Name="DocTypeID" />
-            </Principal>
-            <Dependent Role="MonthlyPayment">
-              <PropertyRef Name="Document" />
-              <PropertyRef Name="DocTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Registry_MonthlyPayment">
           <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="0..1" />
           <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="*" />
@@ -559,12 +567,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="usp_SelectRolAccessData_Result">
-          <Property Type="Int32" Name="FormID" Nullable="false" />
-          <Property Type="String" Name="FormName" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="Description" Nullable="true" MaxLength="100" />
-          <Property Type="Boolean" Name="Status" Nullable="true" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -664,9 +666,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_SelectRolAccessData" FunctionName="PLTOModel.Store.usp_SelectRolAccessData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PLTOModel.usp_SelectRolAccessData_Result">
+                <ScalarProperty Name="FormID" ColumnName="FormID" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="Registries">
             <EntityTypeMapping TypeName="PLTOModel.Registry">
               <MappingFragment StoreEntitySet="Registry">
+                <ScalarProperty Name="Locker" ColumnName="Locker" />
                 <ScalarProperty Name="WorkShiftCloseDate" ColumnName="WorkShiftCloseDate" />
                 <ScalarProperty Name="IsWorkShiftClosed" ColumnName="IsWorkShiftClosed" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -685,16 +698,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_SelectRolAccessData" FunctionName="PLTOModel.Store.usp_SelectRolAccessData">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="PLTOModel.usp_SelectRolAccessData_Result">
-                <ScalarProperty Name="FormID" ColumnName="FormID" />
-                <ScalarProperty Name="FormName" ColumnName="FormName" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

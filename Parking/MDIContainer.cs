@@ -60,7 +60,7 @@ namespace Parking
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {
             Globals.appUserID = 0;
-            this.Close();
+            Application.Exit();
         }
         
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -125,7 +125,7 @@ namespace Parking
                 CloseWorkShift();
 
                 Globals.appUserID = 0;
-                this.Close();
+                Application.Exit();
             }
         }
 

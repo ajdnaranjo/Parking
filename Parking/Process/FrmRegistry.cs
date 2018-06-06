@@ -3,6 +3,7 @@ using Parking.Utilities;
 using System;
 using System.Windows.Forms;
 using Parking.Models;
+using System.Text.RegularExpressions;
 
 namespace Parking.Process
 {
@@ -32,6 +33,9 @@ namespace Parking.Process
 
         private void txtPlate_KeyPress(object sender, KeyPressEventArgs e)
         {
+
+           // ValidateOnlyNumbersAndLetters(e);
+
             e.KeyChar = Char.ToUpper(e.KeyChar);
 
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
@@ -79,7 +83,8 @@ namespace Parking.Process
                     Refund = decimal.Parse(txtRefund.Text),
                     Days = Days,
                     Hours = Hours,
-                    Minutes = Minutes
+                    Minutes = Minutes,
+                    Locker = int.Parse(TxtLocker.Text.Trim()) > 0 ? int.Parse(TxtLocker.Text.Trim()) : 0
                 };
 
                 var mp = repoUser.GetMonthlyPaymentByPlate(check.Plate);
@@ -180,7 +185,6 @@ namespace Parking.Process
             }
         }
 
-
         private void CalculateRefund()
         {
             if (!string.IsNullOrEmpty(txtPayment.Text))
@@ -197,6 +201,8 @@ namespace Parking.Process
             txtPlateKeypress();
         }
 
+        
+
         private void CleanForm()
         {
             txtPlate.Text = string.Empty;
@@ -206,6 +212,13 @@ namespace Parking.Process
             txtPayment.Text = string.Empty;
             txtRefund.Text = string.Empty;
             lblMessage.Text = string.Empty;
+        }
+
+        private void txtPlate_TextChanged(object sender, EventArgs e)
+        {
+            var text = Regex.Replace(txtPlate.Text, "[^0-9a-zA-Z]", string.Empty, RegexOptions.IgnoreCase);
+            txtPlate.Text = text;
+            txtPlate.Select(txtPlate.Text.Length, 0);
         }
 
         private bool ValidateNumber(KeyPressEventArgs e)
@@ -224,5 +237,7 @@ namespace Parking.Process
             }
             return e.Handled;
         }
+
+  
     }
 }

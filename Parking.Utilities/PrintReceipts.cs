@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-
+using System.IO;
 
 namespace Parking.Utilities
 {
@@ -35,7 +35,7 @@ namespace Parking.Utilities
 
                 proc.Close();
                 KillAdobe("AcroRd32");
-              //  File.Delete(pdfFileName);
+                File.Delete(pdfFileName);
                 return true;
             }
             catch

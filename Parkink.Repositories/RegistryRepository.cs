@@ -101,6 +101,7 @@ namespace Parking.Repositories
                 reg.Hours = registry.Hours;
                 reg.Minutes = registry.Minutes;
                 reg.ModifiedBy = userID;
+                reg.Locker = registry.Locker;
 
                 context.SaveChanges();
 
@@ -127,7 +128,8 @@ namespace Parking.Repositories
                     };
                     context.Clients.Add(rec);
                 }
-                else {
+                else
+                {
                     user.Name = monthlyPaymentDTO.Name;
                     user.CelPhone = monthlyPaymentDTO.Celphone;
                 }

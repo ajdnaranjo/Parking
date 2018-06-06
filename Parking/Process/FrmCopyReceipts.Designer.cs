@@ -50,6 +50,7 @@
             this.TxtReceipt.Name = "TxtReceipt";
             this.TxtReceipt.Size = new System.Drawing.Size(166, 20);
             this.TxtReceipt.TabIndex = 1;
+            this.TxtReceipt.Leave += new System.EventHandler(this.TxtReceipt_Leave);
             // 
             // CbExit
             // 
