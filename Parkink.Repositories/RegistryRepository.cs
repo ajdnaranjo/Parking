@@ -24,7 +24,9 @@ namespace Parking.Repositories
                         Plate = registry.Plate,
                         EntryDate = registry.EntryDate,
                         CreatedBy = userID,
-                        IsWorkShiftClosed = registry.IsWorkShiftClosed
+                        IsWorkShiftClosed = registry.IsWorkShiftClosed,
+                        Locker = registry.Locker
+                        
                     };
                     context.Registries.Add(reg);
 

@@ -145,6 +145,7 @@ namespace Parking.Process
             txtRefund.Text = string.Empty;
             lblMessage.Text = string.Empty;
             TxtLocker.Text = "0";
+            TxtLocker.Enabled = true;
         }
 
         private void txtPlate_TextChanged(object sender, EventArgs e)
@@ -170,12 +171,14 @@ namespace Parking.Process
                     {
                         Plate = txtPlate.Text.Trim(),
                         EntryDate = DateTime.Now,
-                        IsWorkShiftClosed = false
+                        IsWorkShiftClosed = false,
+                        Locker = int.Parse(TxtLocker.Text)
                     };
 
                     var data = repo.CheckEntryExit(reg, Globals.appUserID);
 
                     lblIngreso.Text = data.EntryDate.ToString();
+                    TxtLocker.Text = data.Locker.ToString();
                     var mp = repoUser.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
 
                     if (data.ExitDate == null)
@@ -217,7 +220,9 @@ namespace Parking.Process
                             Minutes = data.Minutes;
                             txtPlate.Enabled = false;
                         }
+                        TxtLocker.Enabled = false;
                     }
+                    txtPayment.Focus();
                 }
             }
         }
