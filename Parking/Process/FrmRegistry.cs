@@ -32,9 +32,7 @@ namespace Parking.Process
         }
 
         private void txtPlate_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-           // ValidateOnlyNumbersAndLetters(e);
+        {        
 
             e.KeyChar = Char.ToUpper(e.KeyChar);
 
@@ -123,6 +121,44 @@ namespace Parking.Process
 
         private void txtPlateKeypress()
         {
+            TxtLocker.Focus();
+        }
+
+        private void CalculateRefund()
+        {
+            if (!string.IsNullOrEmpty(txtPayment.Text))
+            {
+                var totalPayment = decimal.Parse(txtTotalPayment.Text.Trim());
+                var payment = decimal.Parse(txtPayment.Text.Trim());
+                var refund = payment - totalPayment;
+                txtRefund.Text = refund.ToString("N0");
+            }
+        }
+
+        private void txtPlate_Leave(object sender, EventArgs e)
+        {
+            txtPlateKeypress();
+        }        
+
+        private void CleanForm()
+        {
+            txtPlate.Text = string.Empty;
+            txtPlate.Enabled = true;
+            txtPlate.Focus();
+            txtTotalPayment.Text = string.Empty;
+            txtPayment.Text = string.Empty;
+            txtRefund.Text = string.Empty;
+            lblMessage.Text = string.Empty;
+        }
+
+        private void txtPlate_TextChanged(object sender, EventArgs e)
+        {
+            txtPlate.Text = ValidateNumbersLetters(txtPlate.Text);
+            txtPlate.Select(txtPlate.Text.Length, 0);
+        }
+
+        private void TxtLocker_KeyPress(object sender, KeyPressEventArgs e)
+        {
             if (txtPlate.Text.Trim() != string.Empty)
             {
                 lblIngreso.Text = DateTime.Now.ToString();
@@ -153,7 +189,7 @@ namespace Parking.Process
                     }
                     else
                     {
-                        MessageBox.Show("Usuario con mensualidad activa.");
+                        MessageBox.Show(Constants.MSG_ActiveMonhtlyPayment);
                     }
 
                     CleanForm();
@@ -172,7 +208,7 @@ namespace Parking.Process
                     }
                     else
                     {
-                        lblMessage.Text = "Usuario con mensualidad activa.";
+                        lblMessage.Text = Constants.MSG_ActiveMonhtlyPayment;
                         lblSalida.Text = data.ExitDate.ToString();
                         txtTotalPayment.Text = "0";
                         txtPayment.Text = "0";
@@ -183,42 +219,6 @@ namespace Parking.Process
                     }
                 }
             }
-        }
-
-        private void CalculateRefund()
-        {
-            if (!string.IsNullOrEmpty(txtPayment.Text))
-            {
-                var totalPayment = decimal.Parse(txtTotalPayment.Text.Trim());
-                var payment = decimal.Parse(txtPayment.Text.Trim());
-                var refund = payment - totalPayment;
-                txtRefund.Text = refund.ToString("N0");
-            }
-        }
-
-        private void txtPlate_Leave(object sender, EventArgs e)
-        {
-            txtPlateKeypress();
-        }
-
-        
-
-        private void CleanForm()
-        {
-            txtPlate.Text = string.Empty;
-            txtPlate.Enabled = true;
-            txtPlate.Focus();
-            txtTotalPayment.Text = string.Empty;
-            txtPayment.Text = string.Empty;
-            txtRefund.Text = string.Empty;
-            lblMessage.Text = string.Empty;
-        }
-
-        private void txtPlate_TextChanged(object sender, EventArgs e)
-        {
-            var text = Regex.Replace(txtPlate.Text, "[^0-9a-zA-Z]", string.Empty, RegexOptions.IgnoreCase);
-            txtPlate.Text = text;
-            txtPlate.Select(txtPlate.Text.Length, 0);
         }
 
         private bool ValidateNumber(KeyPressEventArgs e)
@@ -238,6 +238,9 @@ namespace Parking.Process
             return e.Handled;
         }
 
-  
+        private string ValidateNumbersLetters(string text)
+        {
+            return Regex.Replace(txtPlate.Text, "[^0-9a-zA-Z]", string.Empty, RegexOptions.IgnoreCase);            
+        }
     }
 }

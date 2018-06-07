@@ -174,5 +174,10 @@ namespace Parking
             };
             frm.Show();
         }
+
+        private void MDIContainer_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

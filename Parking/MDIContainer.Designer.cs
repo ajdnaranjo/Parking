@@ -87,7 +87,7 @@
             // 
             this.tSMIFrmRegistry.Enabled = false;
             this.tSMIFrmRegistry.Name = "tSMIFrmRegistry";
-            this.tSMIFrmRegistry.Size = new System.Drawing.Size(180, 22);
+            this.tSMIFrmRegistry.Size = new System.Drawing.Size(142, 22);
             this.tSMIFrmRegistry.Text = "&Registro";
             this.tSMIFrmRegistry.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
@@ -95,7 +95,7 @@
             // 
             this.tsMIFrmMonthlyPayment.Enabled = false;
             this.tsMIFrmMonthlyPayment.Name = "tsMIFrmMonthlyPayment";
-            this.tsMIFrmMonthlyPayment.Size = new System.Drawing.Size(180, 22);
+            this.tsMIFrmMonthlyPayment.Size = new System.Drawing.Size(142, 22);
             this.tsMIFrmMonthlyPayment.Text = "&Mensualidad";
             this.tsMIFrmMonthlyPayment.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
@@ -103,19 +103,19 @@
             // 
             this.TsmCopyReceipts.Enabled = false;
             this.TsmCopyReceipts.Name = "TsmCopyReceipts";
-            this.TsmCopyReceipts.Size = new System.Drawing.Size(180, 22);
+            this.TsmCopyReceipts.Size = new System.Drawing.Size(142, 22);
             this.TsmCopyReceipts.Text = "&Copia";
             this.TsmCopyReceipts.Click += new System.EventHandler(this.TsmCopyReceipts_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(139, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolsStripMenuItem_Click);
             // 
@@ -253,6 +253,7 @@
             this.Name = "MDIContainer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MDIContainer";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MDIContainer_FormClosed);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);

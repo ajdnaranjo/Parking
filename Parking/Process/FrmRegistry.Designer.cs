@@ -219,6 +219,7 @@
             this.TxtLocker.Name = "TxtLocker";
             this.TxtLocker.Size = new System.Drawing.Size(75, 32);
             this.TxtLocker.TabIndex = 14;
+            this.TxtLocker.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtLocker_KeyPress);
             // 
             // FrmRegistry
             // 

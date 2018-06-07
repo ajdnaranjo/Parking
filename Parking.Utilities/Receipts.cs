@@ -23,12 +23,6 @@ namespace Parking.Utilities
 
             var footItems = config.FootItems.Split('*');
 
-          
-            //var rec = new Rectangle(130f,880f);
-            //rec.Border = Rectangle.NO_BORDER;
-            //rec.BorderWidth = 0.5f;
-
-           // Document doc = new Document(rec);
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
            
             var output = new FileStream(@"C:\Parking\Receipts\EntryReceipt" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create);
@@ -43,7 +37,8 @@ namespace Parking.Utilities
             doc.Add(new Paragraph("Dir: " + config.Address,font));
             doc.Add(new Paragraph("Tel: " + config.Telephone, font));
             doc.Add(new Paragraph("Horario: " + config.Schedule, font));
-            doc.Add(new Paragraph(config.Regime, font));           
+            doc.Add(new Paragraph(config.Regime, font));
+            doc.Add(new Paragraph("N. Factura: " + entry.RegistryID, font));
             doc.Add(new Paragraph("Placa: " + plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
             doc.Add(new Paragraph("Entra: " + entry.EntryDate, font));           
             doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, font));         
@@ -100,6 +95,7 @@ namespace Parking.Utilities
             doc.Add(new Paragraph("Sale: " + exit.ExitDate, font));
             doc.Add(new Paragraph("Días: " + exit.Days + " Horas: " + exit.Hours + " Minutos: " + exit.Minutes, FontFactory.GetFont("helvetica", 8)));         
             doc.Add(new Paragraph("Total: " + TotalPayment.ToString(), FontFactory.GetFont("helvetica", 14, Font.BOLD)));
+            doc.Add(new Paragraph("Pago con: " + exit.Payment, font));
             doc.Add(new Paragraph("Devuelta: " + Refund.ToString("N0"), font));
             doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, font));            
 
