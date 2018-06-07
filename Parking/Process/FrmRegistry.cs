@@ -38,7 +38,7 @@ namespace Parking.Process
 
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                txtPlateKeypress();
+                TxtLocker.Focus(); 
             }
         }
 
@@ -119,11 +119,6 @@ namespace Parking.Process
             }
         }
 
-        private void txtPlateKeypress()
-        {
-            TxtLocker.Focus();
-        }
-
         private void CalculateRefund()
         {
             if (!string.IsNullOrEmpty(txtPayment.Text))
@@ -137,7 +132,7 @@ namespace Parking.Process
 
         private void txtPlate_Leave(object sender, EventArgs e)
         {
-            txtPlateKeypress();
+            TxtLocker.Focus();
         }        
 
         private void CleanForm()
@@ -149,6 +144,7 @@ namespace Parking.Process
             txtPayment.Text = string.Empty;
             txtRefund.Text = string.Empty;
             lblMessage.Text = string.Empty;
+            TxtLocker.Text = "0";
         }
 
         private void txtPlate_TextChanged(object sender, EventArgs e)
@@ -159,63 +155,68 @@ namespace Parking.Process
 
         private void TxtLocker_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (txtPlate.Text.Trim() != string.Empty)
+            ValidateNumber(e);
+
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                lblIngreso.Text = DateTime.Now.ToString();
-
-                var repo = new RegistryRepository();
-                var repoUser = new UserRepository();
-
-                var reg = new Registry()
+                if (txtPlate.Text.Trim() != string.Empty)
                 {
-                    Plate = txtPlate.Text.Trim(),
-                    EntryDate = DateTime.Now,
-                    IsWorkShiftClosed = false
-                };
+                    lblIngreso.Text = DateTime.Now.ToString();
 
-                var data = repo.CheckEntryExit(reg, Globals.appUserID);
+                    var repo = new RegistryRepository();
+                    var repoUser = new UserRepository();
 
-                lblIngreso.Text = data.EntryDate.ToString();
-                var mp = repoUser.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
-
-                if (data.ExitDate == null)
-                {
-                    if (mp == null)
+                    var reg = new Registry()
                     {
-                        var repoReceipts = new Receipts();
-                        var path = repoReceipts.EntryReceipt(reg.Plate, Globals.appUserID);
-                        var print = new PrintReceipts();
-                        var result = print.PrintPDFs(path);
+                        Plate = txtPlate.Text.Trim(),
+                        EntryDate = DateTime.Now,
+                        IsWorkShiftClosed = false
+                    };
+
+                    var data = repo.CheckEntryExit(reg, Globals.appUserID);
+
+                    lblIngreso.Text = data.EntryDate.ToString();
+                    var mp = repoUser.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
+
+                    if (data.ExitDate == null)
+                    {
+                        if (mp == null)
+                        {
+                            var repoReceipts = new Receipts();
+                            var path = repoReceipts.EntryReceipt(reg.Plate, Globals.appUserID);
+                            var print = new PrintReceipts();
+                            var result = print.PrintPDFs(path);
+                        }
+                        else
+                        {
+                            MessageBox.Show(Constants.MSG_ActiveMonhtlyPayment);
+                        }
+
+                        CleanForm();
                     }
                     else
                     {
-                        MessageBox.Show(Constants.MSG_ActiveMonhtlyPayment);
-                    }
-
-                    CleanForm();
-                }
-                else
-                {
-                    if (mp == null)
-                    {
-                        lblSalida.Text = data.ExitDate.ToString();
-                        decimal totalPayment = (decimal)data.TotalPayment;
-                        txtTotalPayment.Text = totalPayment.ToString("N0");
-                        Days = data.Days;
-                        Hours = data.Hours;
-                        Minutes = data.Minutes;
-                        txtPlate.Enabled = false;
-                    }
-                    else
-                    {
-                        lblMessage.Text = Constants.MSG_ActiveMonhtlyPayment;
-                        lblSalida.Text = data.ExitDate.ToString();
-                        txtTotalPayment.Text = "0";
-                        txtPayment.Text = "0";
-                        Days = data.Days;
-                        Hours = data.Hours;
-                        Minutes = data.Minutes;
-                        txtPlate.Enabled = false;
+                        if (mp == null)
+                        {
+                            lblSalida.Text = data.ExitDate.ToString();
+                            decimal totalPayment = (decimal)data.TotalPayment;
+                            txtTotalPayment.Text = totalPayment.ToString("N0");
+                            Days = data.Days;
+                            Hours = data.Hours;
+                            Minutes = data.Minutes;
+                            txtPlate.Enabled = false;
+                        }
+                        else
+                        {
+                            lblMessage.Text = Constants.MSG_ActiveMonhtlyPayment;
+                            lblSalida.Text = data.ExitDate.ToString();
+                            txtTotalPayment.Text = "0";
+                            txtPayment.Text = "0";
+                            Days = data.Days;
+                            Hours = data.Hours;
+                            Minutes = data.Minutes;
+                            txtPlate.Enabled = false;
+                        }
                     }
                 }
             }

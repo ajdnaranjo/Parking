@@ -216,9 +216,12 @@
             // 
             this.TxtLocker.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtLocker.Location = new System.Drawing.Point(754, 312);
+            this.TxtLocker.MaxLength = 2;
             this.TxtLocker.Name = "TxtLocker";
             this.TxtLocker.Size = new System.Drawing.Size(75, 32);
             this.TxtLocker.TabIndex = 14;
+            this.TxtLocker.Tag = "";
+            this.TxtLocker.Text = "0";
             this.TxtLocker.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtLocker_KeyPress);
             // 
             // FrmRegistry
