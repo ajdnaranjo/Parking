@@ -33,7 +33,6 @@ namespace Parking.Reports
            
         }
 
-
         private void ExportDataGridViewExcel(DataGridView grd)
         {
             SaveFileDialog file = new SaveFileDialog();

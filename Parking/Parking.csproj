@@ -62,6 +62,12 @@
     <Compile Include="MasterForms\FrmConfiguration.Designer.cs">
       <DependentUpon>FrmConfiguration.cs</DependentUpon>
     </Compile>
+    <Compile Include="MasterForms\FrmEditClients.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MasterForms\FrmEditClients.Designer.cs">
+      <DependentUpon>FrmEditClients.cs</DependentUpon>
+    </Compile>
     <Compile Include="MasterForms\FrmRolAccess.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MasterForms\FrmConfiguration.resx">
       <DependentUpon>FrmConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MasterForms\FrmEditClients.resx">
+      <DependentUpon>FrmEditClients.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MasterForms\FrmRolAccess.resx">
       <DependentUpon>FrmRolAccess.cs</DependentUpon>

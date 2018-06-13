@@ -172,7 +172,7 @@ namespace Parking.Process
                         Plate = txtPlate.Text.Trim(),
                         EntryDate = DateTime.Now,
                         IsWorkShiftClosed = false,
-                        Locker = int.Parse(TxtLocker.Text)
+                        Locker = string.IsNullOrEmpty(TxtLocker.Text.Trim()) ? 0 : int.Parse(TxtLocker.Text)
                     };
 
                     var data = repo.CheckEntryExit(reg, Globals.appUserID);

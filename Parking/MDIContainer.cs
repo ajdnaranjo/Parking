@@ -54,6 +54,9 @@ namespace Parking
                     ((ToolStripMenuItem)tsmiMonthlyPayments).Enabled = true;
                 if (((ToolStripMenuItem)TsmCopyReceipts).Name == item.FormName)
                     ((ToolStripMenuItem)TsmCopyReceipts).Enabled = true;
+                if (((ToolStripMenuItem)TsmEditClient).Name == item.FormName)
+                    ((ToolStripMenuItem)TsmEditClient).Enabled = true;
+                
             }            
         }
 
