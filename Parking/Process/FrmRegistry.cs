@@ -177,8 +177,7 @@ namespace Parking.Process
 
                     var data = repo.CheckEntryExit(reg, Globals.appUserID);
 
-                    lblIngreso.Text = data.EntryDate.ToString();
-                    TxtLocker.Text = data.Locker.ToString();
+                    lblIngreso.Text = data.EntryDate.ToString();                
                     var mp = repoUser.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
 
                     if (data.ExitDate == null)
@@ -208,6 +207,8 @@ namespace Parking.Process
                             Hours = data.Hours;
                             Minutes = data.Minutes;
                             txtPlate.Enabled = false;
+                            TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
+                            TxtLocker.Enabled = false;
                         }
                         else
                         {
@@ -219,6 +220,8 @@ namespace Parking.Process
                             Hours = data.Hours;
                             Minutes = data.Minutes;
                             txtPlate.Enabled = false;
+                            TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
+                            TxtLocker.Enabled = false
                         }
                         TxtLocker.Enabled = false;
                     }
