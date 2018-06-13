@@ -221,7 +221,7 @@ namespace Parking.Process
                             Minutes = data.Minutes;
                             txtPlate.Enabled = false;
                             TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
-                            TxtLocker.Enabled = false
+                            TxtLocker.Enabled = false;
                         }
                         TxtLocker.Enabled = false;
                     }

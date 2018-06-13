@@ -21,5 +21,6 @@ namespace Parking.Models
         public DateTime PaymentDate { get; set; }
         public DateTime ExpirationDate { get; set; }
         public bool IsWorkShiftClosed { get; set; }
+        public string CellPhone  { get; set; }
     }
 }

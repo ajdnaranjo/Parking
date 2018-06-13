@@ -53,7 +53,7 @@ namespace Parking.Reports
                     sheets.Cells[1, i + 1] = grd.Columns[i].HeaderText;
                 }
                 
-                for (int i = 0; i < grd.Rows.Count - 1; i++)
+                for (int i = 0; i < grd.Rows.Count ; i++)
                 {
                     for (int j = 0; j < grd.Columns.Count; j++)
                     {
@@ -69,6 +69,14 @@ namespace Parking.Reports
         private void BtnExport_Click(object sender, EventArgs e)
         {
             ExportDataGridViewExcel(DgvReport);
+        }
+
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            var repo = new RegistryRepository();
+
+            DgvReport.AutoGenerateColumns = false;
+            DgvReport.DataSource = repo.GetActiveMonthlyPayments(TxtSearch.Text.Trim());
         }
     }
 }

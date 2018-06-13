@@ -221,25 +221,49 @@ namespace Parking.Repositories
 
         }
 
-        public List<MonthlyPaymentDto> GetActiveMonthlyPayments()
+        public List<MonthlyPaymentDto> GetActiveMonthlyPayments(string search = null)
         {
             using (var context = new PLTOEntities())
             {
-                var data = (from m in context.MonthlyPayments
-                            join c in context.Clients on m.Document equals c.Document
-                            select new MonthlyPaymentDto
-                            {
-                                ReceiptID = m.MonthlyPaymentID,
-                                Document = m.Document,
-                                Name = c.Name,
-                                MonthlyPaymentId = m.MonthlyPaymentID,
-                                Plate = m.Plate,
-                                PaidValue = m.PaidValue,
-                                TotalPayment = m.TotalPayment,
-                                PaymentDate = m.PaymentDate,
-                                ExpirationDate = m.ExpirationDate
-                            }).ToList();
+                var data = new List<MonthlyPaymentDto>();
+                if (string.IsNullOrEmpty(search))
+                {
+                    data  = (from m in context.MonthlyPayments
+                                join c in context.Clients on m.Document equals c.Document                                
+                                select new MonthlyPaymentDto
+                                {
+                                    ReceiptID = m.MonthlyPaymentID,
+                                    Document = m.Document,
+                                    Name = c.Name,
+                                    MonthlyPaymentId = m.MonthlyPaymentID,
+                                    Plate = m.Plate,
+                                    PaidValue = m.PaidValue,
+                                    TotalPayment = m.TotalPayment,
+                                    PaymentDate = m.PaymentDate,
+                                    ExpirationDate = m.ExpirationDate,
+                                    CellPhone = c.CelPhone
+                                }).ToList();
+                }
+                else
+                {
+                     data = (from m in context.MonthlyPayments
+                                join c in context.Clients on m.Document equals c.Document
+                             where c.Name.Contains(search) || m.Plate.Contains(search) || c.Document.Contains(search)
+                             select new MonthlyPaymentDto
+                                {
+                                    ReceiptID = m.MonthlyPaymentID,
+                                    Document = m.Document,
+                                    Name = c.Name,
+                                    MonthlyPaymentId = m.MonthlyPaymentID,
+                                    Plate = m.Plate,
+                                    PaidValue = m.PaidValue,
+                                    TotalPayment = m.TotalPayment,
+                                    PaymentDate = m.PaymentDate,
+                                    ExpirationDate = m.ExpirationDate,
+                                    CellPhone = c.CelPhone
+                                }).ToList();
 
+                }
                 return data;
             }
         }
