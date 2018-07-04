@@ -182,5 +182,14 @@ namespace Parking
         {
             Application.Exit();
         }
+
+        private void TsmEditClient_Click(object sender, EventArgs e)
+        {
+            var frm = new MasterForms.FrmEditClient()
+            {
+                MdiParent = this
+            };
+            frm.Show();
+        }
     }
 }

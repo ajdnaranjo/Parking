@@ -15,7 +15,6 @@ namespace Parking.Repositories
     public partial class Registry
     {
         public string RegistryID { get; set; }
-        public string MonthlyPaymentID { get; set; }
         public string Plate { get; set; }
         public System.DateTime EntryDate { get; set; }
         public Nullable<System.DateTime> ExitDate { get; set; }
@@ -33,6 +32,6 @@ namespace Parking.Repositories
     
         public virtual AppUser AppUser { get; set; }
         public virtual AppUser AppUser1 { get; set; }
-        public virtual MonthlyPayment MonthlyPayment { get; set; }
+        public virtual Client Client { get; set; }
     }
 }

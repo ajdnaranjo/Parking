@@ -35,7 +35,7 @@ namespace Parking.Utilities
 
                 proc.Close();
                 KillAdobe("AcroRd32");
-                File.Delete(pdfFileName);
+                //eFile.Delete(pdfFileName);
                 return true;
             }
             catch

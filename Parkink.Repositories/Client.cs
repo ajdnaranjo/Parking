@@ -18,15 +18,19 @@ namespace Parking.Repositories
         public Client()
         {
             this.MonthlyPayments = new HashSet<MonthlyPayment>();
+            this.Registries = new HashSet<Registry>();
         }
     
+        public string Plate { get; set; }
         public string Document { get; set; }
         public int DocTypeID { get; set; }
         public string Name { get; set; }
         public string CelPhone { get; set; }
     
-        public virtual DocType DocType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonthlyPayment> MonthlyPayments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Registry> Registries { get; set; }
+        public virtual DocType DocType { get; set; }
     }
 }

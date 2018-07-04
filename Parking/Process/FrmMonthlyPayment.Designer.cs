@@ -88,6 +88,7 @@
             this.TxtDocument.Size = new System.Drawing.Size(148, 23);
             this.TxtDocument.TabIndex = 5;
             this.TxtDocument.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtDocument_KeyPress);
+            this.TxtDocument.Leave += new System.EventHandler(this.TxtDocument_Leave);
             // 
             // label5
             // 
@@ -147,6 +148,7 @@
             this.TxtPlate.Size = new System.Drawing.Size(148, 30);
             this.TxtPlate.TabIndex = 10;
             this.TxtPlate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtPlate_KeyPress);
+            this.TxtPlate.Leave += new System.EventHandler(this.TxtPlate_Leave);
             // 
             // label6
             // 

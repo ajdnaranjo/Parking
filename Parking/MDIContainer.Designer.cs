@@ -44,6 +44,7 @@
             this.tsmiFrmConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFrmRolAcces = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFrmUpdatePass = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmEditClient = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +54,6 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.TsmEditClient = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -88,7 +88,7 @@
             // 
             this.tSMIFrmRegistry.Enabled = false;
             this.tSMIFrmRegistry.Name = "tSMIFrmRegistry";
-            this.tSMIFrmRegistry.Size = new System.Drawing.Size(180, 22);
+            this.tSMIFrmRegistry.Size = new System.Drawing.Size(142, 22);
             this.tSMIFrmRegistry.Text = "&Registro";
             this.tSMIFrmRegistry.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
@@ -96,7 +96,7 @@
             // 
             this.tsMIFrmMonthlyPayment.Enabled = false;
             this.tsMIFrmMonthlyPayment.Name = "tsMIFrmMonthlyPayment";
-            this.tsMIFrmMonthlyPayment.Size = new System.Drawing.Size(180, 22);
+            this.tsMIFrmMonthlyPayment.Size = new System.Drawing.Size(142, 22);
             this.tsMIFrmMonthlyPayment.Text = "&Mensualidad";
             this.tsMIFrmMonthlyPayment.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
@@ -104,19 +104,19 @@
             // 
             this.TsmCopyReceipts.Enabled = false;
             this.TsmCopyReceipts.Name = "TsmCopyReceipts";
-            this.TsmCopyReceipts.Size = new System.Drawing.Size(180, 22);
+            this.TsmCopyReceipts.Size = new System.Drawing.Size(142, 22);
             this.TsmCopyReceipts.Text = "&Copia";
             this.TsmCopyReceipts.Click += new System.EventHandler(this.TsmCopyReceipts_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(139, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolsStripMenuItem_Click);
             // 
@@ -180,6 +180,14 @@
             this.tsmiFrmUpdatePass.Text = "Cambio contraseña";
             this.tsmiFrmUpdatePass.Click += new System.EventHandler(this.tsmiFrmUpdatePass_Click);
             // 
+            // TsmEditClient
+            // 
+            this.TsmEditClient.Enabled = false;
+            this.TsmEditClient.Name = "TsmEditClient";
+            this.TsmEditClient.Size = new System.Drawing.Size(180, 22);
+            this.TsmEditClient.Text = "&Editar Cliente";
+            this.TsmEditClient.Click += new System.EventHandler(this.TsmEditClient_Click);
+            // 
             // helpMenu
             // 
             this.helpMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -242,13 +250,6 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
-            // 
-            // TsmEditClient
-            // 
-            this.TsmEditClient.Enabled = false;
-            this.TsmEditClient.Name = "TsmEditClient";
-            this.TsmEditClient.Size = new System.Drawing.Size(180, 22);
-            this.TsmEditClient.Text = "Editar Cliente";
             // 
             // MDIContainer
             // 

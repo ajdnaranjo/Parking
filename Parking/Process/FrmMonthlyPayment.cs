@@ -55,7 +55,7 @@ namespace Parking.Process
                 };
 
                 var mp = repoUser.ValidMonthlyPayment(data.Plate);
-                var result = new MonthlyPaymentDto(); ;
+                var result = new MonthlyPaymentDto(); 
                 if (mp == null)
                 {
                     result = repo.SaveMonthlyPayment(data, Globals.appUserID);
@@ -63,7 +63,7 @@ namespace Parking.Process
                 }
                 else
                 {
-                    data.PaymentDate = mp.ExpirationDate.AddDays(1);
+                    data.PaymentDate = mp.ExpirationDate;
                     data.ExpirationDate = data.PaymentDate.AddMonths(1);
 
                     result = repo.SaveMonthlyPayment(data, Globals.appUserID);
@@ -105,16 +105,7 @@ namespace Parking.Process
 
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                var repo = new UserRepository();
-                var result = repo.GetUserByPlate(TxtPlate.Text.Trim());
-
-                if (result != null)
-                {
-                    TxtDocument.Text = result.Document;
-                    TxtName.Text = result.Name;
-                    CbDocType.SelectedValue = result.DocTypeID;
-                    TxtCelPhone.Text = result.CelPhone;
-                }
+                FillUserByPlate(TxtPlate.Text.Trim());
 
                 TxtPayment.Focus();
             }
@@ -145,13 +136,20 @@ namespace Parking.Process
 
         private void FillUser(string document)
         {
-            var repo = new UserRepository();
-            var result = repo.GetUserById(document);
+            if (!string.IsNullOrEmpty(document))
+            {
+                var repo = new UserRepository();
+                var result = repo.GetUserById(document);
 
-            CbDocType.SelectedValue = result.DocTypeID;
-            TxtName.Text = result.Name;
-            TxtCelPhone.Text = result.CelPhone;
-            TxtPlate.Focus();
+                if (result != null)
+                {
+                    CbDocType.SelectedValue = result.DocTypeID;
+                    TxtName.Text = result.Name;
+                    TxtCelPhone.Text = result.CelPhone;
+                    TxtPlate.Text = result.Plate;
+                    TxtPlate.Focus();
+                }
+            }
         }
 
         private bool ValidateNumber(KeyPressEventArgs e)
@@ -180,5 +178,34 @@ namespace Parking.Process
             TxtPayment.Text = string.Empty;
             TxtRefund.Text = string.Empty;
         }
+
+        private void TxtDocument_Leave(object sender, EventArgs e)
+        {
+            FillUser(TxtDocument.Text.Trim());
+        }
+
+        private void TxtPlate_Leave(object sender, EventArgs e)
+        {
+            FillUserByPlate(TxtPlate.Text.Trim());
+
+            TxtPayment.Focus();
+        }
+
+        private void FillUserByPlate(string plate)
+        {
+            var repo = new UserRepository();
+            var result = repo.GetUserByPlate(plate);
+
+            if (result != null)
+            {
+                TxtDocument.Text = result.Document;
+                TxtName.Text = result.Name;
+                CbDocType.SelectedValue = result.DocTypeID;
+                TxtCelPhone.Text = result.CelPhone;
+            }
+
+            TxtPayment.Focus();
+        }
+
     }
 }

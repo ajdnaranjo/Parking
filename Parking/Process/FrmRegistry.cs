@@ -98,7 +98,7 @@ namespace Parking.Process
                 }
                 else
                 {                    
-                    check.MonthlyPaymentID = mp.MonthlyPaymentID;
+                    check.Plate = mp.Plate;
                     check.TotalPayment = 0;
                     check.Payment = 0;
                     check.Refund = 0;

@@ -94,14 +94,14 @@ namespace Parking.Repositories
             {
                 var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.ExitDate == null);
 
-                reg.MonthlyPaymentID = registry.MonthlyPaymentID;
+                reg.Plate = registry.Plate;
                 reg.ExitDate = registry.ExitDate;
-                reg.TotalPayment = registry.TotalPayment;
-                reg.Payment = registry.Payment;
-                reg.Refund = registry.Refund;
                 reg.Days = registry.Days;
                 reg.Hours = registry.Hours;
                 reg.Minutes = registry.Minutes;
+                reg.TotalPayment = registry.TotalPayment;
+                reg.Payment = registry.Payment;
+                reg.Refund = registry.Refund;                
                 reg.ModifiedBy = userID;
                 reg.Locker = registry.Locker;
 
@@ -117,12 +117,13 @@ namespace Parking.Repositories
             {
                 var repo = new ConfigurationRepository();
 
-                var user = context.Clients.FirstOrDefault(r => r.DocTypeID == monthlyPaymentDTO.DocTypeId && r.Document == monthlyPaymentDTO.Document);
+                var user = context.Clients.FirstOrDefault(r => r.Plate == monthlyPaymentDTO.Plate);
 
                 if (user == null)
                 {
                     var rec = new Client()
                     {
+                        Plate = monthlyPaymentDTO.Plate,
                         Document = monthlyPaymentDTO.Document,
                         DocTypeID = monthlyPaymentDTO.DocTypeId,
                         Name = monthlyPaymentDTO.Name,
@@ -132,18 +133,17 @@ namespace Parking.Repositories
                 }
                 else
                 {
+                    user.Document = monthlyPaymentDTO.Document;
                     user.Name = monthlyPaymentDTO.Name;
                     user.CelPhone = monthlyPaymentDTO.Celphone;
                 }
 
                 var mPayment = new MonthlyPayment()
                 {
-                    MonthlyPaymentID = repo.GetReceiptNumber(),
-                    Document = monthlyPaymentDTO.Document,
-                    DocTypeID = monthlyPaymentDTO.DocTypeId,
+                    MonthlyPaymentID = repo.GetReceiptNumber(),                    
                     Plate = monthlyPaymentDTO.Plate,
-                    PaidValue = monthlyPaymentDTO.PaidValue,
                     TotalPayment = monthlyPaymentDTO.TotalPayment,
+                    PaidValue = monthlyPaymentDTO.PaidValue,                    
                     Refund = monthlyPaymentDTO.Refund,
                     PaymentDate = monthlyPaymentDTO.PaymentDate,
                     ExpirationDate = monthlyPaymentDTO.ExpirationDate,
@@ -178,8 +178,7 @@ namespace Parking.Repositories
                            orderby r.ExitDate descending
                            select new RegistryDto()
                            {
-                               RegistryID = r.RegistryID,
-                               MonthlyPaymentID = r.MonthlyPaymentID,
+                               RegistryID = r.RegistryID,                              
                                Plate = r.Plate,
                                EntryDate = r.EntryDate,
                                ExitDate = r.ExitDate,
@@ -202,11 +201,12 @@ namespace Parking.Repositories
             using (var context = new PLTOEntities())
             {
                 var data = (from m in context.MonthlyPayments
+                            join c in context.Clients on m.Plate equals c.Plate
                             where m.MonthlyPaymentID == monthlyPaymentID
                             select new MonthlyPaymentDto
                             {
                                 ReceiptID = m.MonthlyPaymentID,
-                                Document = m.Document,
+                                Document = c.Document,
                                 MonthlyPaymentId = m.MonthlyPaymentID,
                                 Plate = m.Plate,
                                 PaidValue = m.PaidValue,
@@ -229,11 +229,11 @@ namespace Parking.Repositories
                 if (string.IsNullOrEmpty(search))
                 {
                     data  = (from m in context.MonthlyPayments
-                                join c in context.Clients on m.Document equals c.Document                                
+                                join c in context.Clients on m.Plate equals c.Plate                                
                                 select new MonthlyPaymentDto
                                 {
                                     ReceiptID = m.MonthlyPaymentID,
-                                    Document = m.Document,
+                                    Document = c.Document,
                                     Name = c.Name,
                                     MonthlyPaymentId = m.MonthlyPaymentID,
                                     Plate = m.Plate,
@@ -247,12 +247,12 @@ namespace Parking.Repositories
                 else
                 {
                      data = (from m in context.MonthlyPayments
-                                join c in context.Clients on m.Document equals c.Document
+                                join c in context.Clients on m.Plate equals c.Plate
                              where c.Name.Contains(search) || m.Plate.Contains(search) || c.Document.Contains(search)
                              select new MonthlyPaymentDto
                                 {
                                     ReceiptID = m.MonthlyPaymentID,
-                                    Document = m.Document,
+                                    Document = c.Document,
                                     Name = c.Name,
                                     MonthlyPaymentId = m.MonthlyPaymentID,
                                     Plate = m.Plate,
@@ -273,6 +273,34 @@ namespace Parking.Repositories
             using (var context = new PLTOEntities())
             {
                 return context.Registries.FirstOrDefault(x => x.RegistryID == receipt);
+            }
+        }
+
+        public MonthlyPayment GetMonthlyPaymentByReciptNum(string receipt)
+        {
+            using (var context = new PLTOEntities())
+            {
+                return context.MonthlyPayments.FirstOrDefault(x => x.MonthlyPaymentID == receipt);
+            }
+        }
+
+        public Registry GetLastRegistryReceiptByPlate(string plate)
+        {
+            using (var context = new PLTOEntities())
+            {
+
+                return context.Registries.Where(z => z.Plate == plate).OrderByDescending(z => z.RegistryID).FirstOrDefault();
+
+            }
+        }
+
+        public MonthlyPayment GetLasMonthlyPaymentReceiptByPlate(string plate)
+        {
+            using (var context = new PLTOEntities())
+            {
+
+                return context.MonthlyPayments.Where(z => z.Plate == plate).OrderByDescending(x => x.MonthlyPaymentID).FirstOrDefault();
+
             }
         }
     }

@@ -47,12 +47,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client.cs">
+      <DependentUpon>MdlParking.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MonthlyPayment.cs">
+      <DependentUpon>MdlParking.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Registry.cs">
+      <DependentUpon>MdlParking.tt</DependentUpon>
+    </Compile>
     <Compile Include="ReportRepository.cs" />
     <Compile Include="SecurityRepository.cs" />
     <Compile Include="AppUser.cs">
-      <DependentUpon>MdlParking.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Client.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
     <Compile Include="Configuration.cs">
@@ -83,13 +89,7 @@
       <DependentUpon>MdlParking.edmx</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="MonthlyPayment.cs">
-      <DependentUpon>MdlParking.tt</DependentUpon>
-    </Compile>
     <Compile Include="PaymentMethod.cs">
-      <DependentUpon>MdlParking.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Registry.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
     <Compile Include="RegistryRepository.cs" />

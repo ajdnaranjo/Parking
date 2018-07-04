@@ -42,9 +42,8 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
-                var user = (from u in context.Clients
-                           join mp in context.MonthlyPayments on u.Document equals mp.Document
-                           where mp.Plate == plate
+                var user = (from u in context.Clients                         
+                           where u.Plate == plate
                            select u).FirstOrDefault();
 
                 return user;
@@ -56,6 +55,52 @@ namespace Parking.Repositories
             using (var context = new PLTOEntities())
             {
                 return context.MonthlyPayments.FirstOrDefault(x => x.Plate == plate && DateTime.Now <= x.ExpirationDate);
+            }
+        }
+
+        public List<Client> GetUserByPlateOrDocument(string search)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var users = (from u in context.Clients
+                            where u.Plate.Contains(search) || u.Document.Contains(search) || u.Name.Contains(search)
+                            select u).ToList();
+
+                return users;
+            }
+        }
+
+        public Client EditClient(Client client)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var user = context.Clients.FirstOrDefault(x => x.Plate == client.Plate);
+
+                if (user == null)
+                {
+                    user = new Client
+                    {
+                        Plate = client.Plate,
+                        Document = client.Document,
+                        DocTypeID = client.DocTypeID,
+                        Name = client.Name,
+                        CelPhone = client.CelPhone
+                    };
+                    context.Clients.Add(client);
+                }
+                else
+                {
+                    client.Document = client.Document;
+                    client.DocTypeID = client.DocTypeID;
+                    client.Name = client.Name;
+                    client.CelPhone = client.CelPhone;
+
+                }
+
+                context.SaveChanges();
+
+
+                return context.Clients.FirstOrDefault(x => x.Plate == client.Plate);
             }
         }
     }

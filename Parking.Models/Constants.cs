@@ -13,5 +13,7 @@ namespace Parking.Models
         public const string MSG_NoSelectedOption = "Debe seleccionar una opción.";
         public const string MSG_NoRecordExist = "El registro no existe.";
         public const string MSG_ActiveMonhtlyPayment = "Usuario con mensualidad activa.";
+        public const string MSG_ValidateForm = "Debe ingresar toda la información requerida.";
+        public const string MSG_CopyReceipts = "Copia(s) impresas correctamente.";
     }
 }
