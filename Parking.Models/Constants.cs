@@ -15,5 +15,6 @@ namespace Parking.Models
         public const string MSG_ActiveMonhtlyPayment = "Usuario con mensualidad activa.";
         public const string MSG_ValidateForm = "Debe ingresar toda la información requerida.";
         public const string MSG_CopyReceipts = "Copia(s) impresas correctamente.";
+        public const string MSG_NoRolSelected = "Debe seleccionar un rol para editarlo.";
     }
 }

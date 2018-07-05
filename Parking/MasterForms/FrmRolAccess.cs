@@ -4,6 +4,7 @@ using System;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Parking.MasterForms
 {
@@ -110,13 +111,86 @@ namespace Parking.MasterForms
 
                 DgvData.AutoGenerateColumns = false;
                 DgvData.DataSource = data;
-            }            
+            }
+            else
+            {
+                DgvData.DataSource = null;
+            }
         }
 
         private void CbRol_SelectedValueChanged(object sender, EventArgs e)
         {
             if (CbRol.SelectedValue.ToString() != "-1")
             { }
+        }
+
+        private void BtnSaveRol_Click(object sender, EventArgs e)
+        {
+            if (CbRolName.SelectedValue.ToString() == "-1")
+            {
+                MessageBox.Show(Constants.MSG_NoRolSelected);
+            }
+            else
+            {
+                var data = new DataTable();
+                data.Columns.Add("FormId");
+                data.Columns.Add("Status");
+
+                foreach (DataGridViewRow row in DgvData.Rows)
+                {
+                    DataRow r = data.NewRow();
+                    r["FormId"] = row.Cells["FormId"].Value.ToString();
+                    r["Status"] = row.Cells["Status"].Value.ToString();
+
+                    data.Rows.Add(r);
+
+                }
+
+                int rolId = int.Parse(CbRolName.SelectedValue.ToString());
+                var repo = new SecurityRepository();
+                var rolForm = new List<RolForm>();
+
+                foreach (DataRow item in data.Rows)
+                {
+                    if (bool.Parse(item.ItemArray[1].ToString()) == true)
+                    {
+                        rolForm.Add(new RolForm
+                        {
+                            RolID = rolId,
+                            FormID = int.Parse(item.ItemArray[0].ToString())
+                        });
+                    }
+                }
+
+                var result = repo.EditRolForm(rolForm, rolId);
+
+                if (result != null) MessageBox.Show(Constants.MSG_UpdateRecord);
+
+            }
+        }
+
+        private void BtnEditRol_Click(object sender, EventArgs e)
+        {
+            var repo = new SecurityRepository();
+
+            var rol = new Rol() {
+                RolName = TxtRolName.Text.Trim(),
+                Status = CbRolStatus.Checked
+            };
+
+            var result = repo.EditRol(rol);
+
+            if (result != null)
+            {
+                InitialLoad();
+                TxtRolName.Text = string.Empty;
+                MessageBox.Show(Constants.MSG_UpdateRecord);
+            }
+        }
+
+        private void TxtRolName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = Char.ToUpper(e.KeyChar);
         }
     }
 }

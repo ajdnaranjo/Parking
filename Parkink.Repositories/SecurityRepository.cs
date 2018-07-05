@@ -190,5 +190,55 @@ namespace Parking.Repositories
                 return data;
             }
         }
+
+        public List<RolForm> EditRolForm(List<RolForm> rolForm, int rolId)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var rols = context.RolForms.Where(x => x.RolID == rolId).ToList();
+
+                foreach (var rol in rols)
+                {
+                    context.RolForms.Remove(rol);                    
+                }
+                context.SaveChanges();
+
+                foreach (var rol in rolForm)
+                {
+                    context.RolForms.Add(rol);
+                }
+
+                context.SaveChanges();
+
+                return context.RolForms.Where(x => x.RolID == rolId).ToList();
+            }
+        }
+
+        public Rol EditRol(Rol rol)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var r = context.Rols.FirstOrDefault(x => x.RolName == rol.RolName);
+
+                if (r == null)
+                {
+                    r = new Rol
+                    {
+                      RolName = rol.RolName,
+                      Status = rol.Status
+                    };
+                    context.Rols.Add(r);                    
+                }
+                else
+                {
+                    r.RolName = rol.RolName;
+                    r.Status = rol.Status;
+                }
+
+                context.SaveChanges();
+
+                return context.Rols.FirstOrDefault(x => x.RolName == rol.RolName);
+            }
+        }
     }
 }
