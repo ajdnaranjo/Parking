@@ -86,6 +86,12 @@
     <Compile Include="FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Process\FrmCloseWorkshiftCopy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Process\FrmCloseWorkshiftCopy.Designer.cs">
+      <DependentUpon>FrmCloseWorkshiftCopy.cs</DependentUpon>
+    </Compile>
     <Compile Include="Process\FrmCopyReceipts.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MasterForms\FrmRolAccess.resx">
       <DependentUpon>FrmRolAccess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Process\FrmCloseWorkshiftCopy.resx">
+      <DependentUpon>FrmCloseWorkshiftCopy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Process\FrmCopyReceipts.resx">
       <DependentUpon>FrmCopyReceipts.cs</DependentUpon>

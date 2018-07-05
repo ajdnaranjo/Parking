@@ -54,6 +54,7 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.TsmiCloseWorkShiftCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -124,7 +125,8 @@
             // 
             this.reportMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsimCloseWorkShift,
-            this.tsmiMonthlyPayments});
+            this.tsmiMonthlyPayments,
+            this.TsmiCloseWorkShiftCopy});
             this.reportMenu.Name = "reportMenu";
             this.reportMenu.Size = new System.Drawing.Size(65, 20);
             this.reportMenu.Text = "&Reportes";
@@ -133,7 +135,7 @@
             // 
             this.tsimCloseWorkShift.Enabled = false;
             this.tsimCloseWorkShift.Name = "tsimCloseWorkShift";
-            this.tsimCloseWorkShift.Size = new System.Drawing.Size(153, 22);
+            this.tsimCloseWorkShift.Size = new System.Drawing.Size(180, 22);
             this.tsimCloseWorkShift.Text = "&Cierre de turno";
             this.tsimCloseWorkShift.Click += new System.EventHandler(this.tsimCloseWorkShift_Click);
             // 
@@ -141,7 +143,7 @@
             // 
             this.tsmiMonthlyPayments.Enabled = false;
             this.tsmiMonthlyPayments.Name = "tsmiMonthlyPayments";
-            this.tsmiMonthlyPayments.Size = new System.Drawing.Size(153, 22);
+            this.tsmiMonthlyPayments.Size = new System.Drawing.Size(180, 22);
             this.tsmiMonthlyPayments.Text = "&Mensualidades";
             this.tsmiMonthlyPayments.Click += new System.EventHandler(this.tsmiMonthlyPayments_Click);
             // 
@@ -160,7 +162,7 @@
             // 
             this.tsmiFrmConfiguration.Enabled = false;
             this.tsmiFrmConfiguration.Name = "tsmiFrmConfiguration";
-            this.tsmiFrmConfiguration.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFrmConfiguration.Size = new System.Drawing.Size(177, 22);
             this.tsmiFrmConfiguration.Text = "&Configuracion";
             this.tsmiFrmConfiguration.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -168,7 +170,7 @@
             // 
             this.tsmiFrmRolAcces.Enabled = false;
             this.tsmiFrmRolAcces.Name = "tsmiFrmRolAcces";
-            this.tsmiFrmRolAcces.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFrmRolAcces.Size = new System.Drawing.Size(177, 22);
             this.tsmiFrmRolAcces.Text = "&Roles Usuario";
             this.tsmiFrmRolAcces.Click += new System.EventHandler(this.tsmiFrmRolAcces_Click);
             // 
@@ -176,7 +178,7 @@
             // 
             this.tsmiFrmUpdatePass.Enabled = false;
             this.tsmiFrmUpdatePass.Name = "tsmiFrmUpdatePass";
-            this.tsmiFrmUpdatePass.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFrmUpdatePass.Size = new System.Drawing.Size(177, 22);
             this.tsmiFrmUpdatePass.Text = "Cambio contraseña";
             this.tsmiFrmUpdatePass.Click += new System.EventHandler(this.tsmiFrmUpdatePass_Click);
             // 
@@ -184,7 +186,7 @@
             // 
             this.TsmEditClient.Enabled = false;
             this.TsmEditClient.Name = "TsmEditClient";
-            this.TsmEditClient.Size = new System.Drawing.Size(180, 22);
+            this.TsmEditClient.Size = new System.Drawing.Size(177, 22);
             this.TsmEditClient.Text = "&Editar Cliente";
             this.TsmEditClient.Click += new System.EventHandler(this.TsmEditClient_Click);
             // 
@@ -251,6 +253,14 @@
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
             // 
+            // TsmiCloseWorkShiftCopy
+            // 
+            this.TsmiCloseWorkShiftCopy.Enabled = false;
+            this.TsmiCloseWorkShiftCopy.Name = "TsmiCloseWorkShiftCopy";
+            this.TsmiCloseWorkShiftCopy.Size = new System.Drawing.Size(180, 22);
+            this.TsmiCloseWorkShiftCopy.Text = "Copia cierre turno";
+            this.TsmiCloseWorkShiftCopy.Click += new System.EventHandler(this.TsmiCloseWorkShiftCopy_Click);
+            // 
             // MDIContainer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -299,6 +309,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiMonthlyPayments;
         private System.Windows.Forms.ToolStripMenuItem TsmCopyReceipts;
         private System.Windows.Forms.ToolStripMenuItem TsmEditClient;
+        private System.Windows.Forms.ToolStripMenuItem TsmiCloseWorkShiftCopy;
     }
 }
 

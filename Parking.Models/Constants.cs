@@ -16,5 +16,8 @@ namespace Parking.Models
         public const string MSG_ValidateForm = "Debe ingresar toda la información requerida.";
         public const string MSG_CopyReceipts = "Copia(s) impresas correctamente.";
         public const string MSG_NoRolSelected = "Debe seleccionar un rol para editarlo.";
+        public const string MSG_PaidLess= "El pago ingresado es menor al valor total a pagar.";
+        public const string MSG_FillPayment = "Debe ingresar un valor a pagar.";
+
     }
 }

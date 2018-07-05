@@ -46,5 +46,14 @@ namespace Parking.Repositories
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SelectRolAccessData_Result>("usp_SelectRolAccessData", rolIdParameter);
         }
+    
+        public virtual ObjectResult<usp_SelectCloseWorkSfhitDates_Result> usp_SelectCloseWorkSfhitDates(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SelectCloseWorkSfhitDates_Result>("usp_SelectCloseWorkSfhitDates", userIdParameter);
+        }
     }
 }

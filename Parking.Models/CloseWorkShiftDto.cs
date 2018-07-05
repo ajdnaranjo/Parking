@@ -16,7 +16,7 @@ namespace Parking.Models
         public decimal MonthlyPaymentValue { get; set; }
         public int DailyRegistryCount { get; set; }
         public decimal DailyRegistryValue { get; set; }
-
+        public DateTime CloseWorkShitDate { get; set; }
     }
 }
  

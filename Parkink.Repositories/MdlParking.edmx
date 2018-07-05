@@ -168,18 +168,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Registry_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Registry" Type="Self.Registry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Plate" />
-            </Principal>
-            <Dependent Role="Registry">
-              <PropertyRef Name="Plate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_RolForm_Form">
           <End Role="Form" Type="Self.Form" Multiplicity="1" />
           <End Role="RolForm" Type="Self.RolForm" Multiplicity="*" />
@@ -216,6 +204,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="usp_SelectCloseWorkSfhitDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_SelectRolAccessData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RolId" Type="int" Mode="In" />
         </Function>
@@ -248,10 +239,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Registry_AppUser1" Association="Self.FK_Registry_AppUser1">
             <End Role="AppUser" EntitySet="AppUser" />
-            <End Role="Registry" EntitySet="Registry" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Registry_Client" Association="Self.FK_Registry_Client">
-            <End Role="Client" EntitySet="Client" />
             <End Role="Registry" EntitySet="Registry" />
           </AssociationSet>
           <AssociationSet Name="FK_RolForm_Form" Association="Self.FK_RolForm_Form">
@@ -321,6 +308,9 @@
             <End Role="DocType" EntitySet="DocTypes" />
             <End Role="Client" EntitySet="Clients" />
           </AssociationSet>
+          <FunctionImport Name="usp_SelectCloseWorkSfhitDates" ReturnType="Collection(PLTOModel.usp_SelectCloseWorkSfhitDates_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="Configuration">
           <Key>
@@ -557,6 +547,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="usp_SelectCloseWorkSfhitDates_Result">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="WorkShiftCloseDate" Nullable="true" Precision="23" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -686,6 +680,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_SelectCloseWorkSfhitDates" FunctionName="PLTOModel.Store.usp_SelectCloseWorkSfhitDates">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PLTOModel.usp_SelectCloseWorkSfhitDates_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="WorkShiftCloseDate" ColumnName="WorkShiftCloseDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

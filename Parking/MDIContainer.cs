@@ -56,6 +56,8 @@ namespace Parking
                     ((ToolStripMenuItem)TsmCopyReceipts).Enabled = true;
                 if (((ToolStripMenuItem)TsmEditClient).Name == item.FormName)
                     ((ToolStripMenuItem)TsmEditClient).Enabled = true;
+                if (((ToolStripMenuItem)TsmiCloseWorkShiftCopy).Name == item.FormName)
+                    ((ToolStripMenuItem)TsmiCloseWorkShiftCopy).Enabled = true;
                 
             }            
         }
@@ -186,6 +188,15 @@ namespace Parking
         private void TsmEditClient_Click(object sender, EventArgs e)
         {
             var frm = new MasterForms.FrmEditClient()
+            {
+                MdiParent = this
+            };
+            frm.Show();
+        }
+
+        private void TsmiCloseWorkShiftCopy_Click(object sender, EventArgs e)
+        {
+            var frm = new Process.FrmCloseWorkshiftCopy
             {
                 MdiParent = this
             };
