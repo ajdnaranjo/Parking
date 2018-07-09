@@ -14,13 +14,28 @@ namespace Parking.Process
         public FrmRegistry()
         {
             InitializeComponent();
+            LoadLastMovements();
         }
 
         private void tHour_Tick(object sender, EventArgs e)
         {
+            TickLoad();
+        }
+
+        private void TickLoad()
+        {
             lblHour.Text = DateTime.Now.Hour.ToString() + ":" +
-                DateTime.Now.Minute.ToString() + ":" +
-                DateTime.Now.Second.ToString();
+            DateTime.Now.Minute.ToString() + ":" +
+            DateTime.Now.Second.ToString();
+
+            //LoadLastMovements();
+        }
+
+        private void LoadLastMovements()
+        {
+            var repo = new RegistryRepository();
+            DgvLastMovements.AutoGenerateColumns = false;
+            DgvLastMovements.DataSource = repo.GetLastRegistryMovements();
         }
 
         private void txtPayment_TextChanged(object sender, EventArgs e)
@@ -124,6 +139,8 @@ namespace Parking.Process
                 }
 
                 CleanForm();
+                txtPlate.Focus();
+                LoadLastMovements();
             }
         }
 
@@ -202,7 +219,9 @@ namespace Parking.Process
                             MessageBox.Show(Constants.MSG_ActiveMonhtlyPayment);
                         }
 
+                        txtPlate.Focus();
                         CleanForm();
+                        LoadLastMovements();
                     }
                     else
                     {
@@ -232,8 +251,8 @@ namespace Parking.Process
                             TxtLocker.Enabled = false;
                         }
                         TxtLocker.Enabled = false;
-                    }
-                    txtPayment.Focus();
+                        txtPayment.Focus();
+                    }                                     
                 }
             }
         }

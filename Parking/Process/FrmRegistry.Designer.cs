@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPlate = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,6 +53,16 @@
             this.lblMessage = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.TxtLocker = new System.Windows.Forms.TextBox();
+            this.DgvLastMovements = new System.Windows.Forms.DataGridView();
+            this.RegistryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Plate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ExitDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Locker = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Payment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Refund = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvLastMovements)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -65,7 +81,7 @@
             this.txtPlate.Location = new System.Drawing.Point(168, 95);
             this.txtPlate.MaxLength = 6;
             this.txtPlate.Name = "txtPlate";
-            this.txtPlate.Size = new System.Drawing.Size(661, 189);
+            this.txtPlate.Size = new System.Drawing.Size(682, 189);
             this.txtPlate.TabIndex = 1;
             this.txtPlate.TextChanged += new System.EventHandler(this.txtPlate_TextChanged);
             this.txtPlate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPlate_KeyPress);
@@ -119,7 +135,7 @@
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(50, 400);
+            this.label5.Location = new System.Drawing.Point(57, 395);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(240, 31);
             this.label5.TabIndex = 5;
@@ -148,7 +164,7 @@
             // 
             this.txtTotalPayment.Enabled = false;
             this.txtTotalPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalPayment.Location = new System.Drawing.Point(50, 448);
+            this.txtTotalPayment.Location = new System.Drawing.Point(57, 443);
             this.txtTotalPayment.Name = "txtTotalPayment";
             this.txtTotalPayment.Size = new System.Drawing.Size(240, 68);
             this.txtTotalPayment.TabIndex = 0;
@@ -156,7 +172,7 @@
             // txtPayment
             // 
             this.txtPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPayment.Location = new System.Drawing.Point(309, 448);
+            this.txtPayment.Location = new System.Drawing.Point(316, 443);
             this.txtPayment.Name = "txtPayment";
             this.txtPayment.Size = new System.Drawing.Size(240, 68);
             this.txtPayment.TabIndex = 2;
@@ -167,7 +183,7 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(309, 400);
+            this.label6.Location = new System.Drawing.Point(316, 395);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(240, 31);
             this.label6.TabIndex = 9;
@@ -178,7 +194,7 @@
             // 
             this.txtRefund.Enabled = false;
             this.txtRefund.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRefund.Location = new System.Drawing.Point(566, 448);
+            this.txtRefund.Location = new System.Drawing.Point(573, 443);
             this.txtRefund.Name = "txtRefund";
             this.txtRefund.Size = new System.Drawing.Size(240, 68);
             this.txtRefund.TabIndex = 0;
@@ -186,7 +202,7 @@
             // label7
             // 
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(566, 400);
+            this.label7.Location = new System.Drawing.Point(573, 395);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(240, 31);
             this.label7.TabIndex = 11;
@@ -197,7 +213,7 @@
             // 
             this.lblMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMessage.ForeColor = System.Drawing.Color.Red;
-            this.lblMessage.Location = new System.Drawing.Point(32, 534);
+            this.lblMessage.Location = new System.Drawing.Point(39, 529);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(797, 38);
             this.lblMessage.TabIndex = 12;
@@ -207,7 +223,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(658, 315);
+            this.label8.Location = new System.Drawing.Point(679, 315);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(90, 26);
             this.label8.TabIndex = 13;
@@ -216,7 +232,7 @@
             // TxtLocker
             // 
             this.TxtLocker.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtLocker.Location = new System.Drawing.Point(754, 312);
+            this.TxtLocker.Location = new System.Drawing.Point(775, 312);
             this.TxtLocker.MaxLength = 2;
             this.TxtLocker.Name = "TxtLocker";
             this.TxtLocker.Size = new System.Drawing.Size(75, 32);
@@ -225,11 +241,109 @@
             this.TxtLocker.Text = "0";
             this.TxtLocker.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtLocker_KeyPress);
             // 
+            // DgvLastMovements
+            // 
+            this.DgvLastMovements.AllowUserToAddRows = false;
+            this.DgvLastMovements.AllowUserToDeleteRows = false;
+            this.DgvLastMovements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvLastMovements.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.RegistryID,
+            this.Plate,
+            this.EntryDate,
+            this.ExitDate,
+            this.Locker,
+            this.TotalPayment,
+            this.Payment,
+            this.Refund});
+            this.DgvLastMovements.Location = new System.Drawing.Point(57, 529);
+            this.DgvLastMovements.Name = "DgvLastMovements";
+            this.DgvLastMovements.ReadOnly = true;
+            this.DgvLastMovements.Size = new System.Drawing.Size(756, 209);
+            this.DgvLastMovements.TabIndex = 15;
+            // 
+            // RegistryID
+            // 
+            this.RegistryID.DataPropertyName = "RegistryID";
+            this.RegistryID.HeaderText = "No Factura";
+            this.RegistryID.Name = "RegistryID";
+            this.RegistryID.ReadOnly = true;
+            this.RegistryID.Width = 90;
+            // 
+            // Plate
+            // 
+            this.Plate.DataPropertyName = "Plate";
+            this.Plate.HeaderText = "Placa";
+            this.Plate.Name = "Plate";
+            this.Plate.ReadOnly = true;
+            this.Plate.Width = 70;
+            // 
+            // EntryDate
+            // 
+            this.EntryDate.DataPropertyName = "EntryDate";
+            dataGridViewCellStyle7.Format = "g";
+            dataGridViewCellStyle7.NullValue = null;
+            this.EntryDate.DefaultCellStyle = dataGridViewCellStyle7;
+            this.EntryDate.HeaderText = "Fecha Entrada";
+            this.EntryDate.Name = "EntryDate";
+            this.EntryDate.ReadOnly = true;
+            this.EntryDate.Width = 110;
+            // 
+            // ExitDate
+            // 
+            this.ExitDate.DataPropertyName = "ExitDate";
+            dataGridViewCellStyle8.Format = "g";
+            dataGridViewCellStyle8.NullValue = null;
+            this.ExitDate.DefaultCellStyle = dataGridViewCellStyle8;
+            this.ExitDate.HeaderText = "Fecha  Salida";
+            this.ExitDate.Name = "ExitDate";
+            this.ExitDate.ReadOnly = true;
+            this.ExitDate.Width = 110;
+            // 
+            // Locker
+            // 
+            this.Locker.DataPropertyName = "Locker";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Locker.DefaultCellStyle = dataGridViewCellStyle9;
+            this.Locker.HeaderText = "Locker";
+            this.Locker.Name = "Locker";
+            this.Locker.ReadOnly = true;
+            this.Locker.Width = 50;
+            // 
+            // TotalPayment
+            // 
+            this.TotalPayment.DataPropertyName = "TotalPayment";
+            dataGridViewCellStyle10.Format = "C0";
+            this.TotalPayment.DefaultCellStyle = dataGridViewCellStyle10;
+            this.TotalPayment.HeaderText = "Total a Pagar";
+            this.TotalPayment.Name = "TotalPayment";
+            this.TotalPayment.ReadOnly = true;
+            // 
+            // Payment
+            // 
+            this.Payment.DataPropertyName = "Payment";
+            dataGridViewCellStyle11.Format = "C0";
+            this.Payment.DefaultCellStyle = dataGridViewCellStyle11;
+            this.Payment.HeaderText = "Pagó";
+            this.Payment.Name = "Payment";
+            this.Payment.ReadOnly = true;
+            this.Payment.Width = 90;
+            // 
+            // Refund
+            // 
+            this.Refund.DataPropertyName = "Refund";
+            dataGridViewCellStyle12.Format = "C0";
+            this.Refund.DefaultCellStyle = dataGridViewCellStyle12;
+            this.Refund.HeaderText = "Devuelta";
+            this.Refund.Name = "Refund";
+            this.Refund.ReadOnly = true;
+            this.Refund.Width = 90;
+            // 
             // FrmRegistry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(862, 574);
+            this.ClientSize = new System.Drawing.Size(862, 750);
+            this.Controls.Add(this.DgvLastMovements);
             this.Controls.Add(this.TxtLocker);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.lblMessage);
@@ -250,6 +364,7 @@
             this.MaximizeBox = false;
             this.Name = "FrmRegistry";
             this.Text = "Registro";
+            ((System.ComponentModel.ISupportInitialize)(this.DgvLastMovements)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,5 +390,14 @@
         private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox TxtLocker;
+        private System.Windows.Forms.DataGridView DgvLastMovements;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RegistryID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Plate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EntryDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ExitDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Locker;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TotalPayment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Payment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Refund;
     }
 }

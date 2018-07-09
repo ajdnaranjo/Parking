@@ -54,8 +54,9 @@ namespace Parking.MasterForms
                 TxtDocument.Text = data.Document;
                 TxtFullName.Text = data.Name;
                 TxtCelPhone.Text = data.CelPhone;
-                TxtPlate.Text = data.Plate;
+                TxtPlate.Text = data.Plate;                
                 CbDocType.SelectedValue = data.DocTypeID;
+
             }
         }
 
@@ -101,7 +102,7 @@ namespace Parking.MasterForms
             TxtFullName.Text = string.Empty;
             TxtPlate.Text =  string.Empty;
             TxtCelPhone.Text = string.Empty;
-            TxtSearch.Text = string.Empty;
+            TxtSearch.Text = string.Empty;            
         }
 
         private void TxtPlate_KeyPress(object sender, KeyPressEventArgs e)

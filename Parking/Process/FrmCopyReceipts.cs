@@ -67,28 +67,30 @@ namespace Parking.Process
         {
             var repo = new RegistryRepository();
 
-            var data = repo.GetLastRegistryReceiptByPlate(TxtReceipt.Text.Trim());
+            var eData = repo.GetLasMonthlyPaymentReceiptByPlate(TxtReceipt.Text.Trim());
 
-            if (data != null)
+            if (eData != null)
             {
-                CbEntry.Enabled = true;
-                if (data.ExitDate != null) CbExit.Enabled = true;
-                cbMonthly.Enabled = false;
-                cbMonthly.Checked = false;
+                CbEntry.Enabled = false;
+                CbEntry.Checked = false;
+                CbExit.Enabled = false;
+                CbExit.Checked = false;
+                cbMonthly.Enabled = true;
+                cbMonthly.Checked = true;
             }
             else
             {
-                var eData = repo.GetLasMonthlyPaymentReceiptByPlate(TxtReceipt.Text.Trim());
 
-                if (eData != null)
+                var data = repo.GetLastRegistryReceiptByPlate(TxtReceipt.Text.Trim());
+
+                if (data != null)
                 {
-                    CbEntry.Enabled = false;
-                    CbEntry.Checked = false;
-                    CbExit.Enabled = false;
-                    CbExit.Checked = false;
-                    cbMonthly.Enabled = true;
-                    cbMonthly.Checked = true;
+                    CbEntry.Enabled = true;
+                    if (data.ExitDate != null) CbExit.Enabled = true;
+                    cbMonthly.Enabled = false;
+                    cbMonthly.Checked = false;
                 }
+
                 else MessageBox.Show(Constants.MSG_NoRecordExist);
             }
         }

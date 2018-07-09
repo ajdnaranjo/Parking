@@ -40,6 +40,7 @@
             this.reportMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.tsimCloseWorkShift = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMonthlyPayments = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiCloseWorkShiftCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFrmConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFrmRolAcces = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +55,6 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.TsmiCloseWorkShiftCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -135,7 +135,7 @@
             // 
             this.tsimCloseWorkShift.Enabled = false;
             this.tsimCloseWorkShift.Name = "tsimCloseWorkShift";
-            this.tsimCloseWorkShift.Size = new System.Drawing.Size(180, 22);
+            this.tsimCloseWorkShift.Size = new System.Drawing.Size(169, 22);
             this.tsimCloseWorkShift.Text = "&Cierre de turno";
             this.tsimCloseWorkShift.Click += new System.EventHandler(this.tsimCloseWorkShift_Click);
             // 
@@ -143,9 +143,17 @@
             // 
             this.tsmiMonthlyPayments.Enabled = false;
             this.tsmiMonthlyPayments.Name = "tsmiMonthlyPayments";
-            this.tsmiMonthlyPayments.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMonthlyPayments.Size = new System.Drawing.Size(169, 22);
             this.tsmiMonthlyPayments.Text = "&Mensualidades";
             this.tsmiMonthlyPayments.Click += new System.EventHandler(this.tsmiMonthlyPayments_Click);
+            // 
+            // TsmiCloseWorkShiftCopy
+            // 
+            this.TsmiCloseWorkShiftCopy.Enabled = false;
+            this.TsmiCloseWorkShiftCopy.Name = "TsmiCloseWorkShiftCopy";
+            this.TsmiCloseWorkShiftCopy.Size = new System.Drawing.Size(169, 22);
+            this.TsmiCloseWorkShiftCopy.Text = "Copia cierre turno";
+            this.TsmiCloseWorkShiftCopy.Click += new System.EventHandler(this.TsmiCloseWorkShiftCopy_Click);
             // 
             // toolsMenu
             // 
@@ -241,7 +249,7 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 764);
+            this.statusStrip.Location = new System.Drawing.Point(0, 824);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(1153, 22);
             this.statusStrip.TabIndex = 2;
@@ -253,19 +261,11 @@
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
             // 
-            // TsmiCloseWorkShiftCopy
-            // 
-            this.TsmiCloseWorkShiftCopy.Enabled = false;
-            this.TsmiCloseWorkShiftCopy.Name = "TsmiCloseWorkShiftCopy";
-            this.TsmiCloseWorkShiftCopy.Size = new System.Drawing.Size(180, 22);
-            this.TsmiCloseWorkShiftCopy.Text = "Copia cierre turno";
-            this.TsmiCloseWorkShiftCopy.Click += new System.EventHandler(this.TsmiCloseWorkShiftCopy_Click);
-            // 
             // MDIContainer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1153, 786);
+            this.ClientSize = new System.Drawing.Size(1153, 846);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;

@@ -303,5 +303,28 @@ namespace Parking.Repositories
 
             }
         }
+
+        public List<RegistryDto> GetLastRegistryMovements()
+        {
+            using (var context = new PLTOEntities())
+            {
+                var data = (from r in context.Registries
+                            orderby r.RegistryID descending
+                            select new RegistryDto()
+                            {
+                                RegistryID = r.RegistryID,
+                                Plate = r.Plate,
+                                EntryDate = r.EntryDate,
+                                ExitDate = r.ExitDate,
+                                Locker = (int)r.Locker,
+                                TotalPayment = r.TotalPayment,
+                                Payment = r.Payment,
+                                Refund = r.Refund
+                            }
+                            ).Take(20).ToList();
+
+                return data;
+            }
+        }
     }
 }

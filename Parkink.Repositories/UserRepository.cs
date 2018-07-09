@@ -89,16 +89,14 @@ namespace Parking.Repositories
                     context.Clients.Add(client);
                 }
                 else
-                {
-                    client.Document = client.Document;
-                    client.DocTypeID = client.DocTypeID;
-                    client.Name = client.Name;
-                    client.CelPhone = client.CelPhone;
-
+                {                    
+                    user.Document = client.Document;
+                    user.DocTypeID = client.DocTypeID;
+                    user.Name = client.Name;
+                    user.CelPhone = client.CelPhone;
                 }
 
                 context.SaveChanges();
-
 
                 return context.Clients.FirstOrDefault(x => x.Plate == client.Plate);
             }
