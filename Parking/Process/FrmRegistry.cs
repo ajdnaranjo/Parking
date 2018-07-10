@@ -236,6 +236,7 @@ namespace Parking.Process
                             txtPlate.Enabled = false;
                             TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
                             TxtLocker.Enabled = false;
+                            txtPayment.Text = "0";
                         }
                         else
                         {
@@ -249,6 +250,7 @@ namespace Parking.Process
                             txtPlate.Enabled = false;
                             TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
                             TxtLocker.Enabled = false;
+                            txtPayment.Text = "0";
                         }
                         TxtLocker.Enabled = false;
                         txtPayment.Focus();
