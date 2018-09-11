@@ -17,13 +17,12 @@
         <AssociationConnector Association="PLTOModel.FK_AppUser_Rol" />
         <EntityTypeShape EntityType="PLTOModel.Client" Width="1.5" PointX="7.625" PointY="2.25" />
         <EntityTypeShape EntityType="PLTOModel.MonthlyPayment" Width="1.5" PointX="9.875" PointY="5.75" />
-        <EntityTypeShape EntityType="PLTOModel.Registry" Width="1.5" PointX="12.875" PointY="5.25" />
         <AssociationConnector Association="PLTOModel.FK_MonthlyPayment_AppUser" />
+        <AssociationConnector Association="PLTOModel.FK_MonthlyPayment_Client" />
+        <AssociationConnector Association="PLTOModel.FK_User_DocType" />
+        <EntityTypeShape EntityType="PLTOModel.Registry" Width="1.5" PointX="9.875" PointY="10.25" />
         <AssociationConnector Association="PLTOModel.FK_Registry_AppUser" />
         <AssociationConnector Association="PLTOModel.FK_Registry_AppUser1" />
-        <AssociationConnector Association="PLTOModel.FK_MonthlyPayment_Client" />
-        <AssociationConnector Association="PLTOModel.FK_Registry_Client" />
-        <AssociationConnector Association="PLTOModel.FK_User_DocType" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

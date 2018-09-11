@@ -91,6 +91,7 @@
           <Property Name="IsWorkShiftClosed" Type="bit" />
           <Property Name="WorkShiftCloseDate" Type="datetime" />
           <Property Name="Locker" Type="int" />
+          <Property Name="DayPayment" Type="bit" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -204,9 +205,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="usp_SelectCloseWorkSfhitDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserId" Type="int" Mode="In" />
-        </Function>
         <Function Name="usp_SelectRolAccessData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RolId" Type="int" Mode="In" />
         </Function>
@@ -283,26 +281,13 @@
           </FunctionImport>
           <EntitySet Name="Clients" EntityType="PLTOModel.Client" />
           <EntitySet Name="MonthlyPayments" EntityType="PLTOModel.MonthlyPayment" />
-          <EntitySet Name="Registries" EntityType="PLTOModel.Registry" />
           <AssociationSet Name="FK_MonthlyPayment_AppUser" Association="PLTOModel.FK_MonthlyPayment_AppUser">
             <End Role="AppUser" EntitySet="AppUsers" />
             <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
           </AssociationSet>
-          <AssociationSet Name="FK_Registry_AppUser" Association="PLTOModel.FK_Registry_AppUser">
-            <End Role="AppUser" EntitySet="AppUsers" />
-            <End Role="Registry" EntitySet="Registries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Registry_AppUser1" Association="PLTOModel.FK_Registry_AppUser1">
-            <End Role="AppUser" EntitySet="AppUsers" />
-            <End Role="Registry" EntitySet="Registries" />
-          </AssociationSet>
           <AssociationSet Name="FK_MonthlyPayment_Client" Association="PLTOModel.FK_MonthlyPayment_Client">
             <End Role="Client" EntitySet="Clients" />
             <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Registry_Client" Association="PLTOModel.FK_Registry_Client">
-            <End Role="Client" EntitySet="Clients" />
-            <End Role="Registry" EntitySet="Registries" />
           </AssociationSet>
           <AssociationSet Name="FK_User_DocType" Association="PLTOModel.FK_User_DocType">
             <End Role="DocType" EntitySet="DocTypes" />
@@ -311,6 +296,15 @@
           <FunctionImport Name="usp_SelectCloseWorkSfhitDates" ReturnType="Collection(PLTOModel.usp_SelectCloseWorkSfhitDates_Result)">
             <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Registries" EntityType="PLTOModel.Registry" />
+          <AssociationSet Name="FK_Registry_AppUser" Association="PLTOModel.FK_Registry_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Registry" EntitySet="Registries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Registry_AppUser1" Association="PLTOModel.FK_Registry_AppUser1">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Registry" EntitySet="Registries" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Configuration">
           <Key>
@@ -432,7 +426,6 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CelPhone" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="MonthlyPayments" Relationship="PLTOModel.FK_MonthlyPayment_Client" FromRole="Client" ToRole="MonthlyPayment" />
-          <NavigationProperty Name="Registries" Relationship="PLTOModel.FK_Registry_Client" FromRole="Client" ToRole="Registry" />
           <NavigationProperty Name="DocType" Relationship="PLTOModel.FK_User_DocType" FromRole="Client" ToRole="DocType" />
         </EntityType>
         <EntityType Name="MonthlyPayment">
@@ -452,6 +445,46 @@
           <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_MonthlyPayment_AppUser" FromRole="MonthlyPayment" ToRole="AppUser" />
           <NavigationProperty Name="Client" Relationship="PLTOModel.FK_MonthlyPayment_Client" FromRole="MonthlyPayment" ToRole="Client" />
         </EntityType>
+        <Association Name="FK_MonthlyPayment_AppUser">
+          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="MonthlyPayment">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlyPayment_Client">
+          <End Type="PLTOModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Plate" />
+            </Principal>
+            <Dependent Role="MonthlyPayment">
+              <PropertyRef Name="Plate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_DocType">
+          <End Type="PLTOModel.DocType" Role="DocType" Multiplicity="1" />
+          <End Type="PLTOModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocType">
+              <PropertyRef Name="DocTypeID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="DocTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="usp_SelectCloseWorkSfhitDates_Result">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="WorkShiftCloseDate" Nullable="true" Precision="23" />
+        </ComplexType>
         <EntityType Name="Registry">
           <Key>
             <PropertyRef Name="RegistryID" />
@@ -471,22 +504,10 @@
           <Property Name="IsWorkShiftClosed" Type="Boolean" />
           <Property Name="WorkShiftCloseDate" Type="DateTime" Precision="3" />
           <Property Name="Locker" Type="Int32" />
+          <Property Name="DayPayment" Type="Boolean" />
           <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_Registry_AppUser" FromRole="Registry" ToRole="AppUser" />
           <NavigationProperty Name="AppUser1" Relationship="PLTOModel.FK_Registry_AppUser1" FromRole="Registry" ToRole="AppUser" />
-          <NavigationProperty Name="Client" Relationship="PLTOModel.FK_Registry_Client" FromRole="Registry" ToRole="Client" />
         </EntityType>
-        <Association Name="FK_MonthlyPayment_AppUser">
-          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
-          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="MonthlyPayment">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Registry_AppUser">
           <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
           <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="*" />
@@ -511,46 +532,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MonthlyPayment_Client">
-          <End Type="PLTOModel.Client" Role="Client" Multiplicity="1" />
-          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Plate" />
-            </Principal>
-            <Dependent Role="MonthlyPayment">
-              <PropertyRef Name="Plate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Registry_Client">
-          <End Type="PLTOModel.Client" Role="Client" Multiplicity="1" />
-          <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Plate" />
-            </Principal>
-            <Dependent Role="Registry">
-              <PropertyRef Name="Plate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_DocType">
-          <End Type="PLTOModel.DocType" Role="DocType" Multiplicity="1" />
-          <End Type="PLTOModel.Client" Role="Client" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DocType">
-              <PropertyRef Name="DocTypeID" />
-            </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="DocTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <ComplexType Name="usp_SelectCloseWorkSfhitDates_Result">
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
-          <Property Type="DateTime" Name="WorkShiftCloseDate" Nullable="true" Precision="23" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -662,6 +643,7 @@
           <EntitySetMapping Name="Registries">
             <EntityTypeMapping TypeName="PLTOModel.Registry">
               <MappingFragment StoreEntitySet="Registry">
+                <ScalarProperty Name="DayPayment" ColumnName="DayPayment" />
                 <ScalarProperty Name="Locker" ColumnName="Locker" />
                 <ScalarProperty Name="WorkShiftCloseDate" ColumnName="WorkShiftCloseDate" />
                 <ScalarProperty Name="IsWorkShiftClosed" ColumnName="IsWorkShiftClosed" />
@@ -680,14 +662,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_SelectCloseWorkSfhitDates" FunctionName="PLTOModel.Store.usp_SelectCloseWorkSfhitDates">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="PLTOModel.usp_SelectCloseWorkSfhitDates_Result">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="WorkShiftCloseDate" ColumnName="WorkShiftCloseDate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
