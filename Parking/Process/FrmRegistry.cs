@@ -53,7 +53,7 @@ namespace Parking.Process
 
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                TxtLocker.Focus(); 
+                CbDayPayment.Focus(); 
             }
         }
 
@@ -157,7 +157,7 @@ namespace Parking.Process
 
         private void txtPlate_Leave(object sender, EventArgs e)
         {
-            TxtLocker.Focus();
+            CbDayPayment.Focus();
         }        
 
         private void CleanForm()
@@ -171,6 +171,7 @@ namespace Parking.Process
             lblMessage.Text = string.Empty;
             TxtLocker.Text = "0";
             TxtLocker.Enabled = true;
+            CbDayPayment.Checked = false;
         }
 
         private void txtPlate_TextChanged(object sender, EventArgs e)
@@ -197,7 +198,8 @@ namespace Parking.Process
                         Plate = txtPlate.Text.Trim(),
                         EntryDate = DateTime.Now,
                         IsWorkShiftClosed = false,
-                        Locker = string.IsNullOrEmpty(TxtLocker.Text.Trim()) ? 0 : int.Parse(TxtLocker.Text)
+                        Locker = string.IsNullOrEmpty(TxtLocker.Text.Trim()) ? 0 : int.Parse(TxtLocker.Text),
+                        DayPayment = CbDayPayment.Checked
                     };
 
                     var data = repo.CheckEntryExit(reg, Globals.appUserID);
@@ -237,6 +239,7 @@ namespace Parking.Process
                             TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
                             TxtLocker.Enabled = false;
                             txtPayment.Text = "0";
+                            CbDayPayment.Checked = (bool)data.DayPayment;
                         }
                         else
                         {
@@ -257,6 +260,11 @@ namespace Parking.Process
                     }                                     
                 }
             }
+        }
+
+        private void CbDayPayment_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
 
         private bool ValidateNumber(KeyPressEventArgs e)

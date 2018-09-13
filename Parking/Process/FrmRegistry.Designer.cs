@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPlate = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -62,6 +62,7 @@
             this.TotalPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Payment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Refund = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CbDayPayment = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLastMovements)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,10 +79,10 @@
             // txtPlate
             // 
             this.txtPlate.Font = new System.Drawing.Font("Microsoft Sans Serif", 120F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPlate.Location = new System.Drawing.Point(168, 95);
+            this.txtPlate.Location = new System.Drawing.Point(168, 105);
             this.txtPlate.MaxLength = 6;
             this.txtPlate.Name = "txtPlate";
-            this.txtPlate.Size = new System.Drawing.Size(682, 189);
+            this.txtPlate.Size = new System.Drawing.Size(645, 189);
             this.txtPlate.TabIndex = 1;
             this.txtPlate.TextChanged += new System.EventHandler(this.txtPlate_TextChanged);
             this.txtPlate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPlate_KeyPress);
@@ -175,7 +176,7 @@
             this.txtPayment.Location = new System.Drawing.Point(316, 443);
             this.txtPayment.Name = "txtPayment";
             this.txtPayment.Size = new System.Drawing.Size(240, 68);
-            this.txtPayment.TabIndex = 2;
+            this.txtPayment.TabIndex = 4;
             this.txtPayment.Text = "0";
             this.txtPayment.TextChanged += new System.EventHandler(this.txtPayment_TextChanged);
             this.txtPayment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPayment_KeyPress);
@@ -223,20 +224,21 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(679, 315);
+            this.label8.Location = new System.Drawing.Point(642, 355);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(90, 26);
             this.label8.TabIndex = 13;
             this.label8.Text = "Locker:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TxtLocker
             // 
             this.TxtLocker.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtLocker.Location = new System.Drawing.Point(775, 312);
+            this.TxtLocker.Location = new System.Drawing.Point(738, 352);
             this.TxtLocker.MaxLength = 2;
             this.TxtLocker.Name = "TxtLocker";
             this.TxtLocker.Size = new System.Drawing.Size(75, 32);
-            this.TxtLocker.TabIndex = 14;
+            this.TxtLocker.TabIndex = 3;
             this.TxtLocker.Tag = "";
             this.TxtLocker.Text = "0";
             this.TxtLocker.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtLocker_KeyPress);
@@ -280,9 +282,9 @@
             // EntryDate
             // 
             this.EntryDate.DataPropertyName = "EntryDate";
-            dataGridViewCellStyle7.Format = "g";
-            dataGridViewCellStyle7.NullValue = null;
-            this.EntryDate.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle13.Format = "g";
+            dataGridViewCellStyle13.NullValue = null;
+            this.EntryDate.DefaultCellStyle = dataGridViewCellStyle13;
             this.EntryDate.HeaderText = "Fecha Entrada";
             this.EntryDate.Name = "EntryDate";
             this.EntryDate.ReadOnly = true;
@@ -291,9 +293,9 @@
             // ExitDate
             // 
             this.ExitDate.DataPropertyName = "ExitDate";
-            dataGridViewCellStyle8.Format = "g";
-            dataGridViewCellStyle8.NullValue = null;
-            this.ExitDate.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle14.Format = "g";
+            dataGridViewCellStyle14.NullValue = null;
+            this.ExitDate.DefaultCellStyle = dataGridViewCellStyle14;
             this.ExitDate.HeaderText = "Fecha  Salida";
             this.ExitDate.Name = "ExitDate";
             this.ExitDate.ReadOnly = true;
@@ -302,8 +304,8 @@
             // Locker
             // 
             this.Locker.DataPropertyName = "Locker";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Locker.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Locker.DefaultCellStyle = dataGridViewCellStyle15;
             this.Locker.HeaderText = "Locker";
             this.Locker.Name = "Locker";
             this.Locker.ReadOnly = true;
@@ -312,8 +314,8 @@
             // TotalPayment
             // 
             this.TotalPayment.DataPropertyName = "TotalPayment";
-            dataGridViewCellStyle10.Format = "C0";
-            this.TotalPayment.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle16.Format = "C0";
+            this.TotalPayment.DefaultCellStyle = dataGridViewCellStyle16;
             this.TotalPayment.HeaderText = "Total a Pagar";
             this.TotalPayment.Name = "TotalPayment";
             this.TotalPayment.ReadOnly = true;
@@ -321,8 +323,8 @@
             // Payment
             // 
             this.Payment.DataPropertyName = "Payment";
-            dataGridViewCellStyle11.Format = "C0";
-            this.Payment.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle17.Format = "C0";
+            this.Payment.DefaultCellStyle = dataGridViewCellStyle17;
             this.Payment.HeaderText = "Pagó";
             this.Payment.Name = "Payment";
             this.Payment.ReadOnly = true;
@@ -331,18 +333,33 @@
             // Refund
             // 
             this.Refund.DataPropertyName = "Refund";
-            dataGridViewCellStyle12.Format = "C0";
-            this.Refund.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle18.Format = "C0";
+            this.Refund.DefaultCellStyle = dataGridViewCellStyle18;
             this.Refund.HeaderText = "Devuelta";
             this.Refund.Name = "Refund";
             this.Refund.ReadOnly = true;
             this.Refund.Width = 90;
             // 
+            // CbDayPayment
+            // 
+            this.CbDayPayment.AutoSize = true;
+            this.CbDayPayment.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.CbDayPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CbDayPayment.Location = new System.Drawing.Point(688, 313);
+            this.CbDayPayment.Name = "CbDayPayment";
+            this.CbDayPayment.Size = new System.Drawing.Size(125, 30);
+            this.CbDayPayment.TabIndex = 2;
+            this.CbDayPayment.Text = "Pago día";
+            this.CbDayPayment.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CbDayPayment.UseVisualStyleBackColor = true;
+            this.CbDayPayment.CheckedChanged += new System.EventHandler(this.CbDayPayment_CheckedChanged);
+            // 
             // FrmRegistry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(862, 750);
+            this.ClientSize = new System.Drawing.Size(848, 750);
+            this.Controls.Add(this.CbDayPayment);
             this.Controls.Add(this.DgvLastMovements);
             this.Controls.Add(this.TxtLocker);
             this.Controls.Add(this.label8);
@@ -399,5 +416,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalPayment;
         private System.Windows.Forms.DataGridViewTextBoxColumn Payment;
         private System.Windows.Forms.DataGridViewTextBoxColumn Refund;
+        private System.Windows.Forms.CheckBox CbDayPayment;
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Parking.Repositories
 {
@@ -18,25 +19,36 @@ namespace Parking.Repositories
 
                 if (reg == null)
                 {
-                    reg = new Registry
-                    {
-                        RegistryID = repo.GetReceiptNumber(),
-                        Plate = registry.Plate,
-                        EntryDate = registry.EntryDate,
-                        CreatedBy = userID,
-                        IsWorkShiftClosed = registry.IsWorkShiftClosed,
-                        Locker = registry.Locker
-                        
-                    };
-                    context.Registries.Add(reg);
+                    reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true && DbFunctions.DiffHours(r.ExitDate,r.EntryDate).Value <= 12 );
 
-                    context.SaveChanges();
-                    registry.RegistryID = reg.RegistryID;
+                    if (reg == null)
+                    {
+
+                        reg = new Registry
+                        {
+                            RegistryID = repo.GetReceiptNumber(),
+                            Plate = registry.Plate,
+                            EntryDate = registry.EntryDate,
+                            CreatedBy = userID,
+                            IsWorkShiftClosed = registry.IsWorkShiftClosed,
+                            Locker = registry.Locker,
+                            DayPayment = registry.DayPayment
+
+                        };
+                        context.Registries.Add(reg);
+
+                        context.SaveChanges();
+                        registry.RegistryID = reg.RegistryID;
+                    }
+                    else {
+                        reg.TotalPayment = 0;
+                    }
 
 
                 }
                 else
                 {
+
                     reg.ExitDate = DateTime.Now;
                     var dif = DateTime.Now.Subtract(reg.EntryDate);
                     reg.Days = dif.Days;
@@ -85,6 +97,12 @@ namespace Parking.Repositories
 
                         reg.TotalPayment =  reg.TotalPayment + day;
                     }
+
+                    if (reg.DayPayment == true && reg.TotalPayment < daysValues.Value)
+                    {
+                        reg.TotalPayment = daysValues.Value;
+                    }
+
 
                 }
                 return reg;
