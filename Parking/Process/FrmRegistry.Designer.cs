@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPlate = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -54,7 +54,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.TxtLocker = new System.Windows.Forms.TextBox();
             this.DgvLastMovements = new System.Windows.Forms.DataGridView();
-            this.CbDayPayment = new System.Windows.Forms.CheckBox();
             this.RegistryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Plate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,6 +62,7 @@
             this.TotalPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Payment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Refund = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CbDayPayment = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLastMovements)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,7 +70,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(24, 95);
+            this.label1.Location = new System.Drawing.Point(24, 170);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(138, 46);
             this.label1.TabIndex = 0;
@@ -263,20 +263,6 @@
             this.DgvLastMovements.Size = new System.Drawing.Size(756, 209);
             this.DgvLastMovements.TabIndex = 15;
             // 
-            // CbDayPayment
-            // 
-            this.CbDayPayment.AutoSize = true;
-            this.CbDayPayment.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CbDayPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CbDayPayment.Location = new System.Drawing.Point(688, 313);
-            this.CbDayPayment.Name = "CbDayPayment";
-            this.CbDayPayment.Size = new System.Drawing.Size(125, 30);
-            this.CbDayPayment.TabIndex = 2;
-            this.CbDayPayment.Text = "Pago día";
-            this.CbDayPayment.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CbDayPayment.UseVisualStyleBackColor = true;
-            this.CbDayPayment.CheckedChanged += new System.EventHandler(this.CbDayPayment_CheckedChanged);
-            // 
             // RegistryID
             // 
             this.RegistryID.DataPropertyName = "RegistryID";
@@ -296,9 +282,9 @@
             // EntryDate
             // 
             this.EntryDate.DataPropertyName = "EntryDate";
-            dataGridViewCellStyle1.Format = "g";
-            dataGridViewCellStyle1.NullValue = null;
-            this.EntryDate.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Format = "g";
+            dataGridViewCellStyle7.NullValue = null;
+            this.EntryDate.DefaultCellStyle = dataGridViewCellStyle7;
             this.EntryDate.HeaderText = "Fecha Entrada";
             this.EntryDate.Name = "EntryDate";
             this.EntryDate.ReadOnly = true;
@@ -307,9 +293,9 @@
             // ExitDate
             // 
             this.ExitDate.DataPropertyName = "ExitDate";
-            dataGridViewCellStyle2.Format = "g";
-            dataGridViewCellStyle2.NullValue = null;
-            this.ExitDate.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Format = "g";
+            dataGridViewCellStyle8.NullValue = null;
+            this.ExitDate.DefaultCellStyle = dataGridViewCellStyle8;
             this.ExitDate.HeaderText = "Fecha  Salida";
             this.ExitDate.Name = "ExitDate";
             this.ExitDate.ReadOnly = true;
@@ -318,8 +304,8 @@
             // Locker
             // 
             this.Locker.DataPropertyName = "Locker";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Locker.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Locker.DefaultCellStyle = dataGridViewCellStyle9;
             this.Locker.HeaderText = "Locker";
             this.Locker.Name = "Locker";
             this.Locker.ReadOnly = true;
@@ -328,8 +314,8 @@
             // TotalPayment
             // 
             this.TotalPayment.DataPropertyName = "TotalPayment";
-            dataGridViewCellStyle4.Format = "N0";
-            this.TotalPayment.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Format = "N0";
+            this.TotalPayment.DefaultCellStyle = dataGridViewCellStyle10;
             this.TotalPayment.HeaderText = "Total a Pagar";
             this.TotalPayment.Name = "TotalPayment";
             this.TotalPayment.ReadOnly = true;
@@ -337,8 +323,8 @@
             // Payment
             // 
             this.Payment.DataPropertyName = "Payment";
-            dataGridViewCellStyle5.Format = "N0";
-            this.Payment.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Format = "N0";
+            this.Payment.DefaultCellStyle = dataGridViewCellStyle11;
             this.Payment.HeaderText = "Pagó";
             this.Payment.Name = "Payment";
             this.Payment.ReadOnly = true;
@@ -347,12 +333,27 @@
             // Refund
             // 
             this.Refund.DataPropertyName = "Refund";
-            dataGridViewCellStyle6.Format = "N0";
-            this.Refund.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Format = "N0";
+            this.Refund.DefaultCellStyle = dataGridViewCellStyle12;
             this.Refund.HeaderText = "Devuelta";
             this.Refund.Name = "Refund";
             this.Refund.ReadOnly = true;
             this.Refund.Width = 90;
+            // 
+            // CbDayPayment
+            // 
+            this.CbDayPayment.AutoSize = true;
+            this.CbDayPayment.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.CbDayPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CbDayPayment.Location = new System.Drawing.Point(688, 313);
+            this.CbDayPayment.Name = "CbDayPayment";
+            this.CbDayPayment.Size = new System.Drawing.Size(125, 30);
+            this.CbDayPayment.TabIndex = 2;
+            this.CbDayPayment.Text = "Pago día";
+            this.CbDayPayment.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CbDayPayment.UseVisualStyleBackColor = true;
+            this.CbDayPayment.CheckedChanged += new System.EventHandler(this.CbDayPayment_CheckedChanged);
+            this.CbDayPayment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CbDayPayment_KeyPress);
             // 
             // FrmRegistry
             // 

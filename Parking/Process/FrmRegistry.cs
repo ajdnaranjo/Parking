@@ -105,7 +105,8 @@ namespace Parking.Process
                     Days = Days,
                     Hours = Hours,
                     Minutes = Minutes,
-                    Locker = int.Parse(TxtLocker.Text.Trim()) > 0 ? int.Parse(TxtLocker.Text.Trim()) : 0
+                    Locker = int.Parse(TxtLocker.Text.Trim()) > 0 ? int.Parse(TxtLocker.Text.Trim()) : 0,
+                    DayPayment = CbDayPayment.Checked                    
                 };
 
                 var mp = repoUser.GetMonthlyPaymentByPlate(check.Plate);
@@ -186,97 +187,111 @@ namespace Parking.Process
 
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                if (txtPlate.Text.Trim() != string.Empty)
+                CheckEntryExit();
+            }
+        }
+
+        private void CbDayPayment_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckEntryExit();
+        }
+
+        private void CbDayPayment_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = Char.ToUpper(e.KeyChar);
+
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                TxtLocker.Focus();
+            }
+        }
+
+        private void CheckEntryExit()
+        {
+            if (txtPlate.Text.Trim() != string.Empty)
+            {
+                lblIngreso.Text = DateTime.Now.ToString();
+
+                var repo = new RegistryRepository();
+                var repoUser = new UserRepository();
+
+                var reg = new Registry()
                 {
-                    lblIngreso.Text = DateTime.Now.ToString();
+                    Plate = txtPlate.Text.Trim(),
+                    EntryDate = DateTime.Now,
+                    IsWorkShiftClosed = false,
+                    Locker = string.IsNullOrEmpty(TxtLocker.Text.Trim()) ? 0 : int.Parse(TxtLocker.Text),
+                    DayPayment = CbDayPayment.Checked
+                };
 
-                    var repo = new RegistryRepository();
-                    var repoUser = new UserRepository();
+                var data = repo.CheckEntryExit(reg, Globals.appUserID);
 
-                    var reg = new Registry()
+                lblIngreso.Text = data.EntryDate.ToString();
+                var mp = repoUser.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
+
+                if (data.ExitDate == null)
+                {
+                    if (mp == null)
                     {
-                        Plate = txtPlate.Text.Trim(),
-                        EntryDate = DateTime.Now,
-                        IsWorkShiftClosed = false,
-                        Locker = string.IsNullOrEmpty(TxtLocker.Text.Trim()) ? 0 : int.Parse(TxtLocker.Text),
-                        DayPayment = CbDayPayment.Checked
-                    };
-
-                    var data = repo.CheckEntryExit(reg, Globals.appUserID);
-
-                    lblIngreso.Text = data.EntryDate.ToString();                
-                    var mp = repoUser.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
-
-                    if (data.ExitDate == null)
-                    {
-                        if (mp == null)
-                        {
-                            var repoReceipts = new Receipts();
-                            var path = repoReceipts.EntryReceipt(reg.Plate, Globals.appUserID);
-                            var print = new PrintReceipts();
-                            var result = print.PrintPDFs(path);
-                        }
-                        else
-                        {
-                            MessageBox.Show(Constants.MSG_ActiveMonhtlyPayment);
-                        }
-
-                        txtPlate.Focus();
-                        CleanForm();
-                        LoadLastMovements();
+                        var repoReceipts = new Receipts();
+                        var path = repoReceipts.EntryReceipt(reg.Plate, Globals.appUserID);
+                        var print = new PrintReceipts();
+                        var result = print.PrintPDFs(path);
                     }
                     else
                     {
-                        if (mp == null)
+                        MessageBox.Show(Constants.MSG_ActiveMonhtlyPayment);
+                    }
+
+                    txtPlate.Focus();
+                    CleanForm();
+                    LoadLastMovements();
+                }
+                else
+                {
+                    if (mp == null)
+                    {
+                        if (data.DayPayment == true && data.Hours <= 12 && data.ModifiedBy != null)
                         {
-                            if (data.DayPayment == true && data.Hours <= 12 && data.ModifiedBy != null)
+                            DialogResult result = MessageBox.Show(Constants.MSG_DayPayment, Constants.MSG_OK, MessageBoxButtons.OK);
+                            if (result == DialogResult.OK)
                             {
-                                DialogResult result = MessageBox.Show("Pagó Día.", "Aceptar", MessageBoxButtons.OK);
-                                if (result == DialogResult.OK)
-                                {
-                                    CleanForm();
-                                }
-                              
+                                CleanForm();
                             }
-                            else
-                            {
-                                lblSalida.Text = data.ExitDate.ToString();
-                                decimal totalPayment = (decimal)data.TotalPayment;
-                                txtTotalPayment.Text = totalPayment.ToString("N0");
-                                Days = data.Days;
-                                Hours = data.Hours;
-                                Minutes = data.Minutes;
-                                txtPlate.Enabled = false;
-                                TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
-                                TxtLocker.Enabled = false;
-                                txtPayment.Text = "0";
-                               // CbDayPayment.Checked = (bool)data.DayPayment;
-                            }
+
                         }
                         else
                         {
-                            lblMessage.Text = Constants.MSG_ActiveMonhtlyPayment;
                             lblSalida.Text = data.ExitDate.ToString();
-                            txtTotalPayment.Text = "0";
-                            txtPayment.Text = "0";
+                            decimal totalPayment = (decimal)data.TotalPayment;
+                            txtTotalPayment.Text = totalPayment.ToString("N0");
                             Days = data.Days;
                             Hours = data.Hours;
                             Minutes = data.Minutes;
                             txtPlate.Enabled = false;
                             TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
                             TxtLocker.Enabled = false;
-                            txtPayment.Text = "0";
+                            txtPayment.Text = "0";                        
                         }
+                    }
+                    else
+                    {
+                        lblMessage.Text = Constants.MSG_ActiveMonhtlyPayment;
+                        lblSalida.Text = data.ExitDate.ToString();
+                        txtTotalPayment.Text = "0";
+                        txtPayment.Text = "0";
+                        Days = data.Days;
+                        Hours = data.Hours;
+                        Minutes = data.Minutes;
+                        txtPlate.Enabled = false;
+                        TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
                         TxtLocker.Enabled = false;
-                        txtPayment.Focus();
-                    }                                     
+                        txtPayment.Text = "0";
+                    }
+                    TxtLocker.Enabled = false;
+                    txtPayment.Focus();
                 }
             }
-        }
-
-        private void CbDayPayment_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private bool ValidateNumber(KeyPressEventArgs e)

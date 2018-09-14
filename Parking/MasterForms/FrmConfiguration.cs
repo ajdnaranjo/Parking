@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Parking.Repositories;
+using Parking.Models;
 
 namespace Parking.MasterForms
 {
@@ -58,7 +59,7 @@ namespace Parking.MasterForms
 
             var result = repo.SaveConfiguration(data);
 
-            if (result != null) MessageBox.Show("Datos ingresados correctamente");
+            if (result != null) MessageBox.Show(Constants.MSG_UpdateRecord);
 
             ClearForm();
 

@@ -19,11 +19,12 @@ namespace Parking.Repositories
 
                 if (reg == null)
                 {
-                    reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true && DbFunctions.DiffHours(r.EntryDate, r.ExitDate).Value <= 12);
+                    reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true 
+                            && DbFunctions.DiffHours(r.EntryDate, r.ExitDate).Value <= 12
+                            && r.ExitDate.Value.Day == DateTime.Now.Day);
 
                     if (reg == null)
                     {
-
                         reg = new Registry
                         {
                             RegistryID = repo.GetReceiptNumber(),
@@ -126,6 +127,7 @@ namespace Parking.Repositories
                 reg.Refund = registry.Refund;                
                 reg.ModifiedBy = userID;
                 reg.Locker = registry.Locker;
+                reg.DayPayment = registry.DayPayment;
 
                 context.SaveChanges();
 
