@@ -229,17 +229,29 @@ namespace Parking.Process
                     {
                         if (mp == null)
                         {
-                            lblSalida.Text = data.ExitDate.ToString();
-                            decimal totalPayment = (decimal)data.TotalPayment;
-                            txtTotalPayment.Text = totalPayment.ToString("N0");
-                            Days = data.Days;
-                            Hours = data.Hours;
-                            Minutes = data.Minutes;
-                            txtPlate.Enabled = false;
-                            TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
-                            TxtLocker.Enabled = false;
-                            txtPayment.Text = "0";
-                            CbDayPayment.Checked = (bool)data.DayPayment;
+                            if (data.DayPayment == true && data.Hours <= 12 && data.ModifiedBy != null)
+                            {
+                                DialogResult result = MessageBox.Show("Pagó Día.", "Aceptar", MessageBoxButtons.OK);
+                                if (result == DialogResult.OK)
+                                {
+                                    CleanForm();
+                                }
+                              
+                            }
+                            else
+                            {
+                                lblSalida.Text = data.ExitDate.ToString();
+                                decimal totalPayment = (decimal)data.TotalPayment;
+                                txtTotalPayment.Text = totalPayment.ToString("N0");
+                                Days = data.Days;
+                                Hours = data.Hours;
+                                Minutes = data.Minutes;
+                                txtPlate.Enabled = false;
+                                TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
+                                TxtLocker.Enabled = false;
+                                txtPayment.Text = "0";
+                               // CbDayPayment.Checked = (bool)data.DayPayment;
+                            }
                         }
                         else
                         {

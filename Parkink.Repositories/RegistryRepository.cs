@@ -19,7 +19,7 @@ namespace Parking.Repositories
 
                 if (reg == null)
                 {
-                    reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true && DbFunctions.DiffHours(r.ExitDate,r.EntryDate).Value <= 12 );
+                    reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true && DbFunctions.DiffHours(r.EntryDate, r.ExitDate).Value <= 12);
 
                     if (reg == null)
                     {
@@ -95,10 +95,10 @@ namespace Parking.Repositories
 
                         if (day > daysValues.Value) day = daysValues.Value;
 
-                        reg.TotalPayment =  reg.TotalPayment + day;
+                        reg.TotalPayment = reg.TotalPayment + day;
                     }
 
-                    if (reg.DayPayment == true && reg.TotalPayment < daysValues.Value)
+                    if ((reg.DayPayment == true || registry.DayPayment == true)  && reg.TotalPayment < daysValues.Value )
                     {
                         reg.TotalPayment = daysValues.Value;
                     }
