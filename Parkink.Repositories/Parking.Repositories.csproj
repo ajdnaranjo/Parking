@@ -53,6 +53,7 @@
     <Compile Include="MonthlyPayment.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
+    <Compile Include="MonthlyRepository.cs" />
     <Compile Include="Registry.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>

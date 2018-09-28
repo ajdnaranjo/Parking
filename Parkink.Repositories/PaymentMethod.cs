@@ -14,8 +14,18 @@ namespace Parking.Repositories
     
     public partial class PaymentMethod
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PaymentMethod()
+        {
+            this.MonthlyPayments = new HashSet<MonthlyPayment>();
+        }
+    
         public int PaymentMethodID { get; set; }
         public string Description { get; set; }
         public decimal Value { get; set; }
+        public bool LongTermPayment { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MonthlyPayment> MonthlyPayments { get; set; }
     }
 }

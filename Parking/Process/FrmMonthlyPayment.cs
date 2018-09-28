@@ -30,6 +30,17 @@ namespace Parking.Process
 
             TxtTotalPayment.Text =  repo.GetMonthlyPayment().Value.ToString("N0");
 
+            var repoPayments = new MonthlyRepository();
+
+            var result = repoPayments.GetLongTermPayments();
+
+            result.Add(new PaymentMethod { PaymentMethodID = -1, Description = "Seleccionar" });           
+
+            CbPaymentType.DataSource = result;
+            CbPaymentType.ValueMember = "PaymentMethodID";
+            CbPaymentType.DisplayMember = "Description";
+            CbPaymentType.SelectedValue = -1;
+
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -207,5 +218,21 @@ namespace Parking.Process
             TxtPayment.Focus();
         }
 
+        private void CbPaymentType_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (CbPaymentType.SelectedValue.ToString() != "-1")
+            {
+                var repo = new MonthlyRepository();
+                var result = repo.GetPaymentByID((int)CbPaymentType.SelectedValue);
+
+                TxtTotalPayment.Text = result.Value.ToString("N0");
+            }
+            else
+            {
+                TxtTotalPayment.Text = "0";
+
+            }
+
+        }
     }
 }

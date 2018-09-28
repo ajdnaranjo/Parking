@@ -63,6 +63,7 @@
           <Property Name="CreatedBy" Type="int" />
           <Property Name="IsWorkShiftClosed" Type="bit" />
           <Property Name="WorkShiftCloseDate" Type="datetime" />
+          <Property Name="PaymentMethodID" Type="int" />
         </EntityType>
         <EntityType Name="PaymentMethod">
           <Key>
@@ -71,6 +72,7 @@
           <Property Name="PaymentMethodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Value" Type="money" Nullable="false" />
+          <Property Name="LongTermPayment" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Registry">
           <Key>
@@ -142,6 +144,18 @@
             </Principal>
             <Dependent Role="MonthlyPayment">
               <PropertyRef Name="Plate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlyPayment_PaymentMethod">
+          <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="0..1" />
+          <End Role="MonthlyPayment" Type="Self.MonthlyPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="PaymentMethodID" />
+            </Principal>
+            <Dependent Role="MonthlyPayment">
+              <PropertyRef Name="PaymentMethodID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -231,6 +245,10 @@
             <End Role="Client" EntitySet="Client" />
             <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
           </AssociationSet>
+          <AssociationSet Name="FK_MonthlyPayment_PaymentMethod" Association="Self.FK_MonthlyPayment_PaymentMethod">
+            <End Role="PaymentMethod" EntitySet="PaymentMethod" />
+            <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
+          </AssociationSet>
           <AssociationSet Name="FK_Registry_AppUser" Association="Self.FK_Registry_AppUser">
             <End Role="AppUser" EntitySet="AppUser" />
             <End Role="Registry" EntitySet="Registry" />
@@ -259,7 +277,6 @@
         <EntityContainer Name="PLTOEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Configurations" EntityType="PLTOModel.Configuration" />
           <EntitySet Name="DocTypes" EntityType="PLTOModel.DocType" />
-          <EntitySet Name="PaymentMethods" EntityType="PLTOModel.PaymentMethod" />
           <EntitySet Name="Forms1" EntityType="PLTOModel.Forms" />
           <EntitySet Name="Rols" EntityType="PLTOModel.Rol" />
           <EntitySet Name="RolForms" EntityType="PLTOModel.RolForm" />
@@ -280,15 +297,6 @@
           <Parameter Name="RolId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Clients" EntityType="PLTOModel.Client" />
-          <EntitySet Name="MonthlyPayments" EntityType="PLTOModel.MonthlyPayment" />
-          <AssociationSet Name="FK_MonthlyPayment_AppUser" Association="PLTOModel.FK_MonthlyPayment_AppUser">
-            <End Role="AppUser" EntitySet="AppUsers" />
-            <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MonthlyPayment_Client" Association="PLTOModel.FK_MonthlyPayment_Client">
-            <End Role="Client" EntitySet="Clients" />
-            <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
-          </AssociationSet>
           <AssociationSet Name="FK_User_DocType" Association="PLTOModel.FK_User_DocType">
             <End Role="DocType" EntitySet="DocTypes" />
             <End Role="Client" EntitySet="Clients" />
@@ -304,6 +312,20 @@
           <AssociationSet Name="FK_Registry_AppUser1" Association="PLTOModel.FK_Registry_AppUser1">
             <End Role="AppUser" EntitySet="AppUsers" />
             <End Role="Registry" EntitySet="Registries" />
+          </AssociationSet>
+          <EntitySet Name="MonthlyPayments" EntityType="PLTOModel.MonthlyPayment" />
+          <EntitySet Name="PaymentMethods" EntityType="PLTOModel.PaymentMethod" />
+          <AssociationSet Name="FK_MonthlyPayment_AppUser" Association="PLTOModel.FK_MonthlyPayment_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlyPayment_Client" Association="PLTOModel.FK_MonthlyPayment_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlyPayment_PaymentMethod" Association="PLTOModel.FK_MonthlyPayment_PaymentMethod">
+            <End Role="PaymentMethod" EntitySet="PaymentMethods" />
+            <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Configuration">
@@ -321,14 +343,6 @@
           <Property Name="DocTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Clients" Relationship="PLTOModel.FK_User_DocType" FromRole="DocType" ToRole="Client" />
-        </EntityType>
-        <EntityType Name="PaymentMethod">
-          <Key>
-            <PropertyRef Name="PaymentMethodID" />
-          </Key>
-          <Property Name="PaymentMethodID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Value" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="Forms">
           <Key>
@@ -394,9 +408,9 @@
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="RolID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Rol" Relationship="PLTOModel.FK_AppUser_Rol" FromRole="AppUser" ToRole="Rol" />
-          <NavigationProperty Name="MonthlyPayments" Relationship="PLTOModel.FK_MonthlyPayment_AppUser" FromRole="AppUser" ToRole="MonthlyPayment" />
           <NavigationProperty Name="Registries" Relationship="PLTOModel.FK_Registry_AppUser" FromRole="AppUser" ToRole="Registry" />
           <NavigationProperty Name="Registries1" Relationship="PLTOModel.FK_Registry_AppUser1" FromRole="AppUser" ToRole="Registry" />
+          <NavigationProperty Name="MonthlyPayments" Relationship="PLTOModel.FK_MonthlyPayment_AppUser" FromRole="AppUser" ToRole="MonthlyPayment" />
           </EntityType>
         <Association Name="FK_AppUser_Rol">
           <End Type="PLTOModel.Rol" Role="Rol" Multiplicity="1" />
@@ -425,50 +439,9 @@
           <Property Name="DocTypeID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CelPhone" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="MonthlyPayments" Relationship="PLTOModel.FK_MonthlyPayment_Client" FromRole="Client" ToRole="MonthlyPayment" />
           <NavigationProperty Name="DocType" Relationship="PLTOModel.FK_User_DocType" FromRole="Client" ToRole="DocType" />
+          <NavigationProperty Name="MonthlyPayments" Relationship="PLTOModel.FK_MonthlyPayment_Client" FromRole="Client" ToRole="MonthlyPayment" />
         </EntityType>
-        <EntityType Name="MonthlyPayment">
-          <Key>
-            <PropertyRef Name="MonthlyPaymentID" />
-          </Key>
-          <Property Name="MonthlyPaymentID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Plate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="TotalPayment" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="PaidValue" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Refund" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="IsWorkShiftClosed" Type="Boolean" />
-          <Property Name="WorkShiftCloseDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_MonthlyPayment_AppUser" FromRole="MonthlyPayment" ToRole="AppUser" />
-          <NavigationProperty Name="Client" Relationship="PLTOModel.FK_MonthlyPayment_Client" FromRole="MonthlyPayment" ToRole="Client" />
-        </EntityType>
-        <Association Name="FK_MonthlyPayment_AppUser">
-          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
-          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="MonthlyPayment">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MonthlyPayment_Client">
-          <End Type="PLTOModel.Client" Role="Client" Multiplicity="1" />
-          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Plate" />
-            </Principal>
-            <Dependent Role="MonthlyPayment">
-              <PropertyRef Name="Plate" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_User_DocType">
           <End Type="PLTOModel.DocType" Role="DocType" Multiplicity="1" />
           <End Type="PLTOModel.Client" Role="Client" Multiplicity="*" />
@@ -532,6 +505,71 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="MonthlyPayment">
+          <Key>
+            <PropertyRef Name="MonthlyPaymentID" />
+          </Key>
+          <Property Name="MonthlyPaymentID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Plate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TotalPayment" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="PaidValue" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Refund" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="IsWorkShiftClosed" Type="Boolean" />
+          <Property Name="WorkShiftCloseDate" Type="DateTime" Precision="3" />
+          <Property Name="PaymentMethodID" Type="Int32" />
+          <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_MonthlyPayment_AppUser" FromRole="MonthlyPayment" ToRole="AppUser" />
+          <NavigationProperty Name="Client" Relationship="PLTOModel.FK_MonthlyPayment_Client" FromRole="MonthlyPayment" ToRole="Client" />
+          <NavigationProperty Name="PaymentMethod" Relationship="PLTOModel.FK_MonthlyPayment_PaymentMethod" FromRole="MonthlyPayment" ToRole="PaymentMethod" />
+        </EntityType>
+        <EntityType Name="PaymentMethod">
+          <Key>
+            <PropertyRef Name="PaymentMethodID" />
+          </Key>
+          <Property Name="PaymentMethodID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="LongTermPayment" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MonthlyPayments" Relationship="PLTOModel.FK_MonthlyPayment_PaymentMethod" FromRole="PaymentMethod" ToRole="MonthlyPayment" />
+        </EntityType>
+        <Association Name="FK_MonthlyPayment_AppUser">
+          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="MonthlyPayment">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlyPayment_Client">
+          <End Type="PLTOModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Plate" />
+            </Principal>
+            <Dependent Role="MonthlyPayment">
+              <PropertyRef Name="Plate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlyPayment_PaymentMethod">
+          <End Type="PLTOModel.PaymentMethod" Role="PaymentMethod" Multiplicity="0..1" />
+          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="PaymentMethodID" />
+            </Principal>
+            <Dependent Role="MonthlyPayment">
+              <PropertyRef Name="PaymentMethodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -552,15 +590,6 @@
               <MappingFragment StoreEntitySet="DocType">
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="DocTypeID" ColumnName="DocTypeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PaymentMethods">
-            <EntityTypeMapping TypeName="PLTOModel.PaymentMethod">
-              <MappingFragment StoreEntitySet="PaymentMethod">
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -624,22 +653,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MonthlyPayments">
-            <EntityTypeMapping TypeName="PLTOModel.MonthlyPayment">
-              <MappingFragment StoreEntitySet="MonthlyPayment">
-                <ScalarProperty Name="WorkShiftCloseDate" ColumnName="WorkShiftCloseDate" />
-                <ScalarProperty Name="IsWorkShiftClosed" ColumnName="IsWorkShiftClosed" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
-                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
-                <ScalarProperty Name="Refund" ColumnName="Refund" />
-                <ScalarProperty Name="PaidValue" ColumnName="PaidValue" />
-                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
-                <ScalarProperty Name="Plate" ColumnName="Plate" />
-                <ScalarProperty Name="MonthlyPaymentID" ColumnName="MonthlyPaymentID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Registries">
             <EntityTypeMapping TypeName="PLTOModel.Registry">
               <MappingFragment StoreEntitySet="Registry">
@@ -659,6 +672,33 @@
                 <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
                 <ScalarProperty Name="Plate" ColumnName="Plate" />
                 <ScalarProperty Name="RegistryID" ColumnName="RegistryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthlyPayments">
+            <EntityTypeMapping TypeName="PLTOModel.MonthlyPayment">
+              <MappingFragment StoreEntitySet="MonthlyPayment">
+                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+                <ScalarProperty Name="WorkShiftCloseDate" ColumnName="WorkShiftCloseDate" />
+                <ScalarProperty Name="IsWorkShiftClosed" ColumnName="IsWorkShiftClosed" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="Refund" ColumnName="Refund" />
+                <ScalarProperty Name="PaidValue" ColumnName="PaidValue" />
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="Plate" ColumnName="Plate" />
+                <ScalarProperty Name="MonthlyPaymentID" ColumnName="MonthlyPaymentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentMethods">
+            <EntityTypeMapping TypeName="PLTOModel.PaymentMethod">
+              <MappingFragment StoreEntitySet="PaymentMethod">
+                <ScalarProperty Name="LongTermPayment" ColumnName="LongTermPayment" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

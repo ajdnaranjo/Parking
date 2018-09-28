@@ -45,6 +45,8 @@
             this.TxtTotalPayment = new System.Windows.Forms.TextBox();
             this.TxtRefund = new System.Windows.Forms.TextBox();
             this.BtnSave = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.CbPaymentType = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -224,11 +226,31 @@
             this.BtnSave.UseVisualStyleBackColor = true;
             this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(295, 156);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(114, 17);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "Tipo de pago: ";
+            // 
+            // CbPaymentType
+            // 
+            this.CbPaymentType.FormattingEnabled = true;
+            this.CbPaymentType.Location = new System.Drawing.Point(415, 152);
+            this.CbPaymentType.Name = "CbPaymentType";
+            this.CbPaymentType.Size = new System.Drawing.Size(158, 24);
+            this.CbPaymentType.TabIndex = 19;
+            this.CbPaymentType.SelectionChangeCommitted += new System.EventHandler(this.CbPaymentType_SelectionChangeCommitted);
+            // 
             // FrmMonthlyPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(638, 356);
+            this.Controls.Add(this.CbPaymentType);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.BtnSave);
             this.Controls.Add(this.TxtRefund);
             this.Controls.Add(this.TxtTotalPayment);
@@ -274,5 +296,7 @@
         private System.Windows.Forms.TextBox TxtTotalPayment;
         private System.Windows.Forms.TextBox TxtRefund;
         private System.Windows.Forms.Button BtnSave;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox CbPaymentType;
     }
 }
