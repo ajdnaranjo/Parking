@@ -132,7 +132,7 @@ namespace Parking.Utilities
             doc.Add(new Paragraph("Tel: " + config.Telephone, font));
             doc.Add(new Paragraph("Horario: " + config.Schedule, font));
             doc.Add(new Paragraph(config.Regime, font));
-            doc.Add(new Paragraph("N. Factura: " + data.ReceiptID, font));
+            doc.Add(new Paragraph("N. Factura: " + data.MonthlyPaymentID, font));
             doc.Add(new Paragraph("Placa: " + data.Plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
             doc.Add(new Paragraph("Total: " + data.TotalPayment.ToString("N0"), FontFactory.GetFont("helvetica", 14, Font.BOLD)));
             doc.Add(new Paragraph("Pago con: " + data.PaidValue.ToString("N0"), font));
@@ -232,7 +232,7 @@ namespace Parking.Utilities
             doc.Add(new Paragraph("Tel: " + config.Telephone, font));
             doc.Add(new Paragraph("Horario: " + config.Schedule, font));
             doc.Add(new Paragraph(config.Regime, font));
-            doc.Add(new Paragraph("N. Factura: " + data.ReceiptID, font));
+            doc.Add(new Paragraph("N. Factura: " + data.MonthlyPaymentID, font));
             doc.Add(new Paragraph("Placa: " + data.Plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));           
             doc.Add(new Paragraph("Su mensualidad vence: " + data.ExpirationDate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));            
             doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, font));

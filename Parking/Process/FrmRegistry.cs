@@ -240,7 +240,7 @@ namespace Parking.Process
                     }
                     else
                     {
-                        MessageBox.Show(Constants.MSG_ActiveMonhtlyPayment);
+                        MessageBox.Show(string.Format(Constants.MSG_ActiveMonhtlyPayment, mp.PaymentDescriptiion));
                     }
 
                     txtPlate.Focus();
@@ -276,7 +276,7 @@ namespace Parking.Process
                     }
                     else
                     {
-                        lblMessage.Text = Constants.MSG_ActiveMonhtlyPayment;
+                        lblMessage.Text =  string.Format(Constants.MSG_ActiveMonhtlyPayment, mp.PaymentDescriptiion);
                         lblSalida.Text = data.ExitDate.ToString();
                         txtTotalPayment.Text = "0";
                         txtPayment.Text = "0";
@@ -287,6 +287,17 @@ namespace Parking.Process
                         TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
                         TxtLocker.Enabled = false;
                         txtPayment.Text = "0";
+
+                        //reg.ExitDate = data.ExitDate;
+                        //reg.Days = data.Days;
+                        //reg.Hours = data.Hours;
+                        //reg.Minutes = data.Minutes;
+                        //reg.TotalPayment = 0;
+                        //reg.Refund = 0;
+                        //reg.Payment = 0;
+                        
+
+                        //repo.CheckExit(reg, Globals.appUserID);
                     }
                     TxtLocker.Enabled = false;
                     txtPayment.Focus();

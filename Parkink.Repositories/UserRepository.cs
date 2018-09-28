@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Parking.Models;
 
 namespace Parking.Repositories
 {
@@ -50,11 +51,21 @@ namespace Parking.Repositories
             }
         }
 
-        public MonthlyPayment GetMonthlyPaymentByPlate(string plate)
+        public MonthlyPaymentDto GetMonthlyPaymentByPlate(string plate)
         {
             using (var context = new PLTOEntities())
             {
-                return context.MonthlyPayments.FirstOrDefault(x => x.Plate == plate && DateTime.Now <= x.ExpirationDate);
+                return (from mp in context.MonthlyPayments
+                        join pm in context.PaymentMethods on mp.PaymentMethodID equals pm.PaymentMethodID
+                        where mp.Plate == plate && DateTime.Now <= mp.ExpirationDate
+                        select new MonthlyPaymentDto
+                        {
+                            MonthlyPaymentID = mp.MonthlyPaymentID,
+                            ExpirationDate = mp.ExpirationDate,
+                            PaymentDescriptiion = pm.Description,
+                            Plate = mp.Plate
+                        }).FirstOrDefault();
+               
             }
         }
 

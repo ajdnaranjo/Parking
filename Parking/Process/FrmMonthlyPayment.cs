@@ -62,7 +62,8 @@ namespace Parking.Process
                     Refund = decimal.Parse(TxtRefund.Text),
                     PaymentDate = DateTime.Now,
                     ExpirationDate = DateTime.Now.AddMonths(1),
-                    IsWorkShiftClosed = false
+                    IsWorkShiftClosed = false,
+                    PaymentMethodID = (int)CbPaymentType.SelectedValue
                 };
 
                 var mp = repoUser.ValidMonthlyPayment(data.Plate);
@@ -82,7 +83,7 @@ namespace Parking.Process
 
                 var repoReceipts = new Receipts();
                 var repoPrint = new PrintReceipts();
-                var path = repoReceipts.MonthlyPaymentReceipt(result.MonthlyPaymentId, Globals.appUserID);
+                var path = repoReceipts.MonthlyPaymentReceipt(result.MonthlyPaymentID, Globals.appUserID);
                 repoPrint.PrintPDFs(path);
 
                 MessageBox.Show("Mensualidad guardada exitosamente.");

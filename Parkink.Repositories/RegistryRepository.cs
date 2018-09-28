@@ -172,13 +172,14 @@ namespace Parking.Repositories
                     PaymentDate = monthlyPaymentDTO.PaymentDate,
                     ExpirationDate = monthlyPaymentDTO.ExpirationDate,
                     CreatedBy = userID,
-                    IsWorkShiftClosed = monthlyPaymentDTO.IsWorkShiftClosed
+                    IsWorkShiftClosed = monthlyPaymentDTO.IsWorkShiftClosed,
+                    PaymentMethodID = monthlyPaymentDTO.PaymentMethodID
                 };
 
                 context.MonthlyPayments.Add(mPayment);
                 context.SaveChanges();
 
-                monthlyPaymentDTO.MonthlyPaymentId = mPayment.MonthlyPaymentID;
+                monthlyPaymentDTO.MonthlyPaymentID = mPayment.MonthlyPaymentID;
 
 
             }
@@ -229,9 +230,9 @@ namespace Parking.Repositories
                             where m.MonthlyPaymentID == monthlyPaymentID
                             select new MonthlyPaymentDto
                             {
-                                ReceiptID = m.MonthlyPaymentID,
+                                MonthlyPaymentID = m.MonthlyPaymentID,
                                 Document = c.Document,
-                                MonthlyPaymentId = m.MonthlyPaymentID,
+                                //MonthlyPaymentID = m.MonthlyPaymentID,
                                 Plate = m.Plate,
                                 PaidValue = m.PaidValue,
                                 TotalPayment = m.TotalPayment,
@@ -256,10 +257,10 @@ namespace Parking.Repositories
                                 join c in context.Clients on m.Plate equals c.Plate                                
                                 select new MonthlyPaymentDto
                                 {
-                                    ReceiptID = m.MonthlyPaymentID,
+                                    MonthlyPaymentID = m.MonthlyPaymentID,
                                     Document = c.Document,
                                     Name = c.Name,
-                                    MonthlyPaymentId = m.MonthlyPaymentID,
+                                    //MonthlyPaymentID = m.MonthlyPaymentID,
                                     Plate = m.Plate,
                                     PaidValue = m.PaidValue,
                                     TotalPayment = m.TotalPayment,
@@ -274,18 +275,18 @@ namespace Parking.Repositories
                                 join c in context.Clients on m.Plate equals c.Plate
                              where c.Name.Contains(search) || m.Plate.Contains(search) || c.Document.Contains(search)
                              select new MonthlyPaymentDto
-                                {
-                                    ReceiptID = m.MonthlyPaymentID,
-                                    Document = c.Document,
-                                    Name = c.Name,
-                                    MonthlyPaymentId = m.MonthlyPaymentID,
-                                    Plate = m.Plate,
-                                    PaidValue = m.PaidValue,
-                                    TotalPayment = m.TotalPayment,
-                                    PaymentDate = m.PaymentDate,
-                                    ExpirationDate = m.ExpirationDate,
-                                    CellPhone = c.CelPhone
-                                }).ToList();
+                             {
+                                 MonthlyPaymentID = m.MonthlyPaymentID,
+                                 Document = c.Document,
+                                 Name = c.Name,
+                                 //MonthlyPaymentID = m.MonthlyPaymentID,
+                                 Plate = m.Plate,
+                                 PaidValue = m.PaidValue,
+                                 TotalPayment = m.TotalPayment,
+                                 PaymentDate = m.PaymentDate,
+                                 ExpirationDate = m.ExpirationDate,
+                                 CellPhone = c.CelPhone
+                             }).ToList();
 
                 }
                 return data;
