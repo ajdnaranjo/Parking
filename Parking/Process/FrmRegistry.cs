@@ -4,6 +4,7 @@ using System;
 using System.Windows.Forms;
 using Parking.Models;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace Parking.Process
 {
@@ -299,7 +300,7 @@ namespace Parking.Process
 
                         //repo.CheckExit(reg, Globals.appUserID);
                     }
-                    TxtLocker.Enabled = false;
+                    //TxtLocker.Enabled = false;
                     txtPayment.Focus();
                 }
             }
@@ -324,7 +325,16 @@ namespace Parking.Process
 
         private string ValidateNumbersLetters(string text)
         {
-            return Regex.Replace(txtPlate.Text, "[^0-9a-zA-Z]", string.Empty, RegexOptions.IgnoreCase);            
+            // return Regex.Replace(txtPlate.Text, "[^0-9a-zA-Z]", string.Empty, RegexOptions.IgnoreCase);            
+            // var result =  Regex.IsMatch(text, "[A-Z]{3}[0-9]{2}[A-Z]{0,1}");
+            var size = text.Length;
+            var list = new List<string>();
+
+            for (int i = 0; i <= size; i++) {
+                list.Add(text.Substring(i, i));
+            }
+
+            return string.Empty;
         }
     }
 }
