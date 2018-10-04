@@ -164,13 +164,13 @@ namespace Parking.Process
                 CbDayPayment.Focus();
             else
             {
-                MessageBox.Show("Formato placa incorrecto.");
+                MessageBox.Show("Formato de placa incorrecto.");
                 txtPlate.Focus();
             }
         }        
 
         private void CleanForm()
-        {
+        {  
             txtPlate.Text = string.Empty;
             txtPlate.Enabled = true;
             txtPlate.Focus();

@@ -12,18 +12,18 @@
         <EntityTypeShape EntityType="PLTOModel.RolForm" Width="1.5" PointX="7.625" PointY="10.5" />
         <AssociationConnector Association="PLTOModel.FK_RolForm_Form" />
         <AssociationConnector Association="PLTOModel.FK_RolForm_Rol" />
-        <EntityTypeShape EntityType="PLTOModel.AppUser" Width="1.5" PointX="7.625" PointY="6" />
-        <AssociationConnector Association="PLTOModel.FK_AppUser_Rol" />
         <EntityTypeShape EntityType="PLTOModel.Client" Width="1.5" PointX="7.625" PointY="2.25" />
         <AssociationConnector Association="PLTOModel.FK_User_DocType" />
         <EntityTypeShape EntityType="PLTOModel.Registry" Width="1.5" PointX="9.875" PointY="10.25" />
-        <AssociationConnector Association="PLTOModel.FK_Registry_AppUser" />
-        <AssociationConnector Association="PLTOModel.FK_Registry_AppUser1" />
         <EntityTypeShape EntityType="PLTOModel.MonthlyPayment" Width="1.5" PointX="9.875" PointY="3.75" />
         <EntityTypeShape EntityType="PLTOModel.PaymentMethod" Width="1.5" PointX="7.625" PointY="13.625" />
-        <AssociationConnector Association="PLTOModel.FK_MonthlyPayment_AppUser" />
         <AssociationConnector Association="PLTOModel.FK_MonthlyPayment_Client" />
         <AssociationConnector Association="PLTOModel.FK_MonthlyPayment_PaymentMethod" />
+        <EntityTypeShape EntityType="PLTOModel.AppUser" Width="1.5" PointX="7.625" PointY="6" />
+        <AssociationConnector Association="PLTOModel.FK_AppUser_Rol" />
+        <AssociationConnector Association="PLTOModel.FK_MonthlyPayment_AppUser" />
+        <AssociationConnector Association="PLTOModel.FK_Registry_AppUser" />
+        <AssociationConnector Association="PLTOModel.FK_Registry_AppUser1" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

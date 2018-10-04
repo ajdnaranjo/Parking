@@ -176,6 +176,8 @@ namespace Parking.Repositories
                     PaymentMethodID = monthlyPaymentDTO.PaymentMethodID
                 };
 
+                monthlyPaymentDTO.PaymentDescriptiion = context.PaymentMethods.FirstOrDefault(x => x.PaymentMethodID == mPayment.PaymentMethodID).Description;
+
                 context.MonthlyPayments.Add(mPayment);
                 context.SaveChanges();
 
@@ -254,7 +256,8 @@ namespace Parking.Repositories
                 if (string.IsNullOrEmpty(search))
                 {
                     data  = (from m in context.MonthlyPayments
-                                join c in context.Clients on m.Plate equals c.Plate                                
+                                join c in context.Clients on m.Plate equals c.Plate             
+                                join pm in context.PaymentMethods on m.PaymentMethodID equals pm.PaymentMethodID
                                 select new MonthlyPaymentDto
                                 {
                                     MonthlyPaymentID = m.MonthlyPaymentID,
@@ -266,7 +269,8 @@ namespace Parking.Repositories
                                     TotalPayment = m.TotalPayment,
                                     PaymentDate = m.PaymentDate,
                                     ExpirationDate = m.ExpirationDate,
-                                    CellPhone = c.CelPhone
+                                    CellPhone = c.CelPhone,
+                                    PaymentDescriptiion = pm.Description
                                 }).ToList();
                 }
                 else

@@ -26,8 +26,8 @@ namespace Parking.Repositories
         public Nullable<System.DateTime> WorkShiftCloseDate { get; set; }
         public Nullable<int> PaymentMethodID { get; set; }
     
-        public virtual AppUser AppUser { get; set; }
         public virtual Client Client { get; set; }
         public virtual PaymentMethod PaymentMethod { get; set; }
+        public virtual AppUser AppUser { get; set; }
     }
 }

@@ -147,18 +147,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MonthlyPayment_PaymentMethod">
-          <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="0..1" />
-          <End Role="MonthlyPayment" Type="Self.MonthlyPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PaymentMethod">
-              <PropertyRef Name="PaymentMethodID" />
-            </Principal>
-            <Dependent Role="MonthlyPayment">
-              <PropertyRef Name="PaymentMethodID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Registry_AppUser">
           <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
           <End Role="Registry" Type="Self.Registry" Multiplicity="*" />
@@ -219,6 +207,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="usp_SelectCloseWorkSfhitDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_SelectRolAccessData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RolId" Type="int" Mode="In" />
         </Function>
@@ -243,10 +234,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_MonthlyPayment_Client" Association="Self.FK_MonthlyPayment_Client">
             <End Role="Client" EntitySet="Client" />
-            <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MonthlyPayment_PaymentMethod" Association="Self.FK_MonthlyPayment_PaymentMethod">
-            <End Role="PaymentMethod" EntitySet="PaymentMethod" />
             <End Role="MonthlyPayment" EntitySet="MonthlyPayment" />
           </AssociationSet>
           <AssociationSet Name="FK_Registry_AppUser" Association="Self.FK_Registry_AppUser">
@@ -288,11 +275,6 @@
             <End Role="Rol" EntitySet="Rols" />
             <End Role="RolForm" EntitySet="RolForms" />
           </AssociationSet>
-          <EntitySet Name="AppUsers" EntityType="PLTOModel.AppUser" />
-          <AssociationSet Name="FK_AppUser_Rol" Association="PLTOModel.FK_AppUser_Rol">
-            <End Role="Rol" EntitySet="Rols" />
-            <End Role="AppUser" EntitySet="AppUsers" />
-          </AssociationSet>
           <FunctionImport Name="usp_SelectRolAccessData" ReturnType="Collection(PLTOModel.usp_SelectRolAccessData_Result)">
           <Parameter Name="RolId" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -302,23 +284,11 @@
             <End Role="Client" EntitySet="Clients" />
           </AssociationSet>
           <FunctionImport Name="usp_SelectCloseWorkSfhitDates" ReturnType="Collection(PLTOModel.usp_SelectCloseWorkSfhitDates_Result)">
-            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Registries" EntityType="PLTOModel.Registry" />
-          <AssociationSet Name="FK_Registry_AppUser" Association="PLTOModel.FK_Registry_AppUser">
-            <End Role="AppUser" EntitySet="AppUsers" />
-            <End Role="Registry" EntitySet="Registries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Registry_AppUser1" Association="PLTOModel.FK_Registry_AppUser1">
-            <End Role="AppUser" EntitySet="AppUsers" />
-            <End Role="Registry" EntitySet="Registries" />
-          </AssociationSet>
           <EntitySet Name="MonthlyPayments" EntityType="PLTOModel.MonthlyPayment" />
           <EntitySet Name="PaymentMethods" EntityType="PLTOModel.PaymentMethod" />
-          <AssociationSet Name="FK_MonthlyPayment_AppUser" Association="PLTOModel.FK_MonthlyPayment_AppUser">
-            <End Role="AppUser" EntitySet="AppUsers" />
-            <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
-          </AssociationSet>
           <AssociationSet Name="FK_MonthlyPayment_Client" Association="PLTOModel.FK_MonthlyPayment_Client">
             <End Role="Client" EntitySet="Clients" />
             <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
@@ -326,6 +296,23 @@
           <AssociationSet Name="FK_MonthlyPayment_PaymentMethod" Association="PLTOModel.FK_MonthlyPayment_PaymentMethod">
             <End Role="PaymentMethod" EntitySet="PaymentMethods" />
             <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
+          </AssociationSet>
+          <EntitySet Name="AppUsers" EntityType="PLTOModel.AppUser" />
+          <AssociationSet Name="FK_AppUser_Rol" Association="PLTOModel.FK_AppUser_Rol">
+            <End Role="Rol" EntitySet="Rols" />
+            <End Role="AppUser" EntitySet="AppUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlyPayment_AppUser" Association="PLTOModel.FK_MonthlyPayment_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Registry_AppUser" Association="PLTOModel.FK_Registry_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Registry" EntitySet="Registries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Registry_AppUser1" Association="PLTOModel.FK_Registry_AppUser1">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Registry" EntitySet="Registries" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Configuration">
@@ -397,33 +384,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="AppUser">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AppUserID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
-          <Property Name="RolID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Rol" Relationship="PLTOModel.FK_AppUser_Rol" FromRole="AppUser" ToRole="Rol" />
-          <NavigationProperty Name="Registries" Relationship="PLTOModel.FK_Registry_AppUser" FromRole="AppUser" ToRole="Registry" />
-          <NavigationProperty Name="Registries1" Relationship="PLTOModel.FK_Registry_AppUser1" FromRole="AppUser" ToRole="Registry" />
-          <NavigationProperty Name="MonthlyPayments" Relationship="PLTOModel.FK_MonthlyPayment_AppUser" FromRole="AppUser" ToRole="MonthlyPayment" />
-          </EntityType>
-        <Association Name="FK_AppUser_Rol">
-          <End Type="PLTOModel.Rol" Role="Rol" Multiplicity="1" />
-          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Rol">
-              <PropertyRef Name="RolID" />
-            </Principal>
-            <Dependent Role="AppUser">
-              <PropertyRef Name="RolID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="usp_SelectRolAccessData_Result">
           <Property Type="Int32" Name="FormID" Nullable="false" />
           <Property Type="String" Name="FormName" Nullable="false" MaxLength="100" />
@@ -480,31 +440,7 @@
           <Property Name="DayPayment" Type="Boolean" />
           <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_Registry_AppUser" FromRole="Registry" ToRole="AppUser" />
           <NavigationProperty Name="AppUser1" Relationship="PLTOModel.FK_Registry_AppUser1" FromRole="Registry" ToRole="AppUser" />
-        </EntityType>
-        <Association Name="FK_Registry_AppUser">
-          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
-          <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Registry">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Registry_AppUser1">
-          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
-          <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Registry">
-              <PropertyRef Name="ModifiedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+          </EntityType>
         <EntityType Name="MonthlyPayment">
           <Key>
             <PropertyRef Name="MonthlyPaymentID" />
@@ -520,9 +456,9 @@
           <Property Name="IsWorkShiftClosed" Type="Boolean" />
           <Property Name="WorkShiftCloseDate" Type="DateTime" Precision="3" />
           <Property Name="PaymentMethodID" Type="Int32" />
-          <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_MonthlyPayment_AppUser" FromRole="MonthlyPayment" ToRole="AppUser" />
           <NavigationProperty Name="Client" Relationship="PLTOModel.FK_MonthlyPayment_Client" FromRole="MonthlyPayment" ToRole="Client" />
           <NavigationProperty Name="PaymentMethod" Relationship="PLTOModel.FK_MonthlyPayment_PaymentMethod" FromRole="MonthlyPayment" ToRole="PaymentMethod" />
+          <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_MonthlyPayment_AppUser" FromRole="MonthlyPayment" ToRole="AppUser" />
         </EntityType>
         <EntityType Name="PaymentMethod">
           <Key>
@@ -534,18 +470,6 @@
           <Property Name="LongTermPayment" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="MonthlyPayments" Relationship="PLTOModel.FK_MonthlyPayment_PaymentMethod" FromRole="PaymentMethod" ToRole="MonthlyPayment" />
         </EntityType>
-        <Association Name="FK_MonthlyPayment_AppUser">
-          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
-          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="MonthlyPayment">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MonthlyPayment_Client">
           <End Type="PLTOModel.Client" Role="Client" Multiplicity="1" />
           <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
@@ -567,6 +491,69 @@
             </Principal>
             <Dependent Role="MonthlyPayment">
               <PropertyRef Name="PaymentMethodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AppUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppUserID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="RolID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rol" Relationship="PLTOModel.FK_AppUser_Rol" FromRole="AppUser" ToRole="Rol" />
+          <NavigationProperty Name="MonthlyPayments" Relationship="PLTOModel.FK_MonthlyPayment_AppUser" FromRole="AppUser" ToRole="MonthlyPayment" />
+          <NavigationProperty Name="Registries" Relationship="PLTOModel.FK_Registry_AppUser" FromRole="AppUser" ToRole="Registry" />
+          <NavigationProperty Name="Registries1" Relationship="PLTOModel.FK_Registry_AppUser1" FromRole="AppUser" ToRole="Registry" />
+        </EntityType>
+        <Association Name="FK_AppUser_Rol">
+          <End Type="PLTOModel.Rol" Role="Rol" Multiplicity="1" />
+          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="RolID" />
+            </Principal>
+            <Dependent Role="AppUser">
+              <PropertyRef Name="RolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlyPayment_AppUser">
+          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="PLTOModel.MonthlyPayment" Role="MonthlyPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="MonthlyPayment">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Registry_AppUser">
+          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Registry">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Registry_AppUser1">
+          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Registry">
+              <PropertyRef Name="ModifiedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -617,18 +604,6 @@
                 <ScalarProperty Name="FormID" ColumnName="FormID" />
                 <ScalarProperty Name="RolID" ColumnName="RolID" />
                 <ScalarProperty Name="RolFormID" ColumnName="RolFormID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AppUsers">
-            <EntityTypeMapping TypeName="PLTOModel.AppUser">
-              <MappingFragment StoreEntitySet="AppUser">
-                <ScalarProperty Name="RolID" ColumnName="RolID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="AppUserID" ColumnName="AppUserID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -702,6 +677,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AppUsers">
+            <EntityTypeMapping TypeName="PLTOModel.AppUser">
+              <MappingFragment StoreEntitySet="AppUser">
+                <ScalarProperty Name="RolID" ColumnName="RolID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AppUserID" ColumnName="AppUserID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_SelectCloseWorkSfhitDates" FunctionName="PLTOModel.Store.usp_SelectCloseWorkSfhitDates">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PLTOModel.usp_SelectCloseWorkSfhitDates_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="WorkShiftCloseDate" ColumnName="WorkShiftCloseDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

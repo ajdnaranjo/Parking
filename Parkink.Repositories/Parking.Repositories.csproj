@@ -50,6 +50,11 @@
     <Compile Include="Client.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
+    <Compile Include="MdlParking1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MdlParking.tt</DependentUpon>
+    </Compile>
     <Compile Include="MonthlyPayment.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
@@ -133,8 +138,8 @@
     <Content Include="MdlParking.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MdlParking.edmx</DependentUpon>
-      <LastGenOutput>MdlParking.cs</LastGenOutput>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LastGenOutput>MdlParking1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

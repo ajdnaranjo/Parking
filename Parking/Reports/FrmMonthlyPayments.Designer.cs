@@ -32,6 +32,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DgvReport = new System.Windows.Forms.DataGridView();
             this.BtnExport = new System.Windows.Forms.Button();
+            this.TxtSearch = new System.Windows.Forms.TextBox();
+            this.BtnSearch = new System.Windows.Forms.Button();
             this.ReceiptID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Document = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ClientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,8 +41,7 @@
             this.Plate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ExpirationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TxtSearch = new System.Windows.Forms.TextBox();
-            this.BtnSearch = new System.Windows.Forms.Button();
+            this.PaymentDescriptiion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DgvReport)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,22 +57,40 @@
             this.CellPhone,
             this.Plate,
             this.PaymentDate,
-            this.ExpirationDate});
+            this.ExpirationDate,
+            this.PaymentDescriptiion});
             this.DgvReport.Location = new System.Drawing.Point(12, 53);
             this.DgvReport.Name = "DgvReport";
             this.DgvReport.ReadOnly = true;
-            this.DgvReport.Size = new System.Drawing.Size(1008, 486);
+            this.DgvReport.Size = new System.Drawing.Size(1105, 486);
             this.DgvReport.TabIndex = 0;
             // 
             // BtnExport
             // 
-            this.BtnExport.Location = new System.Drawing.Point(919, 552);
+            this.BtnExport.Location = new System.Drawing.Point(1042, 552);
             this.BtnExport.Name = "BtnExport";
             this.BtnExport.Size = new System.Drawing.Size(75, 23);
             this.BtnExport.TabIndex = 1;
             this.BtnExport.Text = "Exportar";
             this.BtnExport.UseVisualStyleBackColor = true;
             this.BtnExport.Click += new System.EventHandler(this.BtnExport_Click);
+            // 
+            // TxtSearch
+            // 
+            this.TxtSearch.Location = new System.Drawing.Point(12, 19);
+            this.TxtSearch.Name = "TxtSearch";
+            this.TxtSearch.Size = new System.Drawing.Size(233, 20);
+            this.TxtSearch.TabIndex = 3;
+            // 
+            // BtnSearch
+            // 
+            this.BtnSearch.Location = new System.Drawing.Point(251, 17);
+            this.BtnSearch.Name = "BtnSearch";
+            this.BtnSearch.Size = new System.Drawing.Size(75, 23);
+            this.BtnSearch.TabIndex = 4;
+            this.BtnSearch.Text = "Buscar";
+            this.BtnSearch.UseVisualStyleBackColor = true;
+            this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
             // ReceiptID
             // 
@@ -112,7 +131,7 @@
             // PaymentDate
             // 
             this.PaymentDate.DataPropertyName = "PaymentDate";
-            dataGridViewCellStyle1.Format = "d";
+            dataGridViewCellStyle1.Format = "dd/MM/yyyy";
             dataGridViewCellStyle1.NullValue = null;
             this.PaymentDate.DefaultCellStyle = dataGridViewCellStyle1;
             this.PaymentDate.HeaderText = "Fecha Ingreso";
@@ -131,28 +150,18 @@
             this.ExpirationDate.ReadOnly = true;
             this.ExpirationDate.Width = 150;
             // 
-            // TxtSearch
+            // PaymentDescriptiion
             // 
-            this.TxtSearch.Location = new System.Drawing.Point(12, 19);
-            this.TxtSearch.Name = "TxtSearch";
-            this.TxtSearch.Size = new System.Drawing.Size(233, 20);
-            this.TxtSearch.TabIndex = 3;
-            // 
-            // BtnSearch
-            // 
-            this.BtnSearch.Location = new System.Drawing.Point(251, 17);
-            this.BtnSearch.Name = "BtnSearch";
-            this.BtnSearch.Size = new System.Drawing.Size(75, 23);
-            this.BtnSearch.TabIndex = 4;
-            this.BtnSearch.Text = "Buscar";
-            this.BtnSearch.UseVisualStyleBackColor = true;
-            this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
+            this.PaymentDescriptiion.DataPropertyName = "PaymentDescriptiion";
+            this.PaymentDescriptiion.HeaderText = "Tipo de pago";
+            this.PaymentDescriptiion.Name = "PaymentDescriptiion";
+            this.PaymentDescriptiion.ReadOnly = true;
             // 
             // FrmMonthlyPayments
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1031, 587);
+            this.ClientSize = new System.Drawing.Size(1137, 587);
             this.Controls.Add(this.BtnSearch);
             this.Controls.Add(this.TxtSearch);
             this.Controls.Add(this.BtnExport);
@@ -170,6 +179,8 @@
         private System.Windows.Forms.DataGridView DgvReport;
         private System.Windows.Forms.DataGridViewTextBoxColumn Names;
         private System.Windows.Forms.Button BtnExport;
+        private System.Windows.Forms.TextBox TxtSearch;
+        private System.Windows.Forms.Button BtnSearch;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReceiptID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Document;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClientName;
@@ -177,7 +188,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Plate;
         private System.Windows.Forms.DataGridViewTextBoxColumn PaymentDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn ExpirationDate;
-        private System.Windows.Forms.TextBox TxtSearch;
-        private System.Windows.Forms.Button BtnSearch;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PaymentDescriptiion;
     }
 }

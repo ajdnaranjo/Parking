@@ -48,7 +48,7 @@ namespace Parking.Process
             if (ValidateForm())
             {
                 var repo = new RegistryRepository();
-                var repoUser = new UserRepository();
+                var repoUser = new UserRepository();                
 
                 var data = new MonthlyPaymentDto()
                 {
@@ -61,10 +61,13 @@ namespace Parking.Process
                     TotalPayment = decimal.Parse(TxtTotalPayment.Text),
                     Refund = decimal.Parse(TxtRefund.Text),
                     PaymentDate = DateTime.Now,
-                    ExpirationDate = DateTime.Now.AddMonths(1),
+                   // ExpirationDate = DateTime.Now.AddMonths(1),
                     IsWorkShiftClosed = false,
                     PaymentMethodID = (int)CbPaymentType.SelectedValue
                 };
+
+                if (data.PaymentMethodID == 5) data.ExpirationDate = DateTime.Now.AddMonths(1);
+                if (data.PaymentMethodID == 6) data.ExpirationDate = DateTime.Now.AddDays(15);
 
                 var mp = repoUser.ValidMonthlyPayment(data.Plate);
                 var result = new MonthlyPaymentDto(); 
@@ -76,7 +79,9 @@ namespace Parking.Process
                 else
                 {
                     data.PaymentDate = mp.ExpirationDate;
-                    data.ExpirationDate = data.PaymentDate.AddMonths(1);
+                    //data.ExpirationDate = data.PaymentDate.AddMonths(1);
+                    if (data.PaymentMethodID == 5) data.ExpirationDate = data.PaymentDate.AddMonths(1);
+                    if (data.PaymentMethodID == 6) data.ExpirationDate = data.PaymentDate.AddDays(15);
 
                     result = repo.SaveMonthlyPayment(data, Globals.appUserID);
                 }
@@ -86,7 +91,7 @@ namespace Parking.Process
                 var path = repoReceipts.MonthlyPaymentReceipt(result.MonthlyPaymentID, Globals.appUserID);
                 repoPrint.PrintPDFs(path);
 
-                MessageBox.Show("Mensualidad guardada exitosamente.");
+                MessageBox.Show(string.Format("{0} guardada exitosamente.", result.PaymentDescriptiion));
 
                 CleanForm();
             }
@@ -99,6 +104,7 @@ namespace Parking.Process
             var flag = true;
 
             if (string.IsNullOrEmpty(TxtPayment.Text.Trim())) flag = false;
+            if (CbPaymentType.SelectedValue.ToString() == "-1") flag = false;
 
             return flag;
         }
@@ -189,6 +195,7 @@ namespace Parking.Process
             TxtPlate.Text = string.Empty;
             TxtPayment.Text = string.Empty;
             TxtRefund.Text = string.Empty;
+            CbPaymentType.SelectedValue = -1;
         }
 
         private void TxtDocument_Leave(object sender, EventArgs e)
