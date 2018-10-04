@@ -159,7 +159,14 @@ namespace Parking.Process
 
         private void txtPlate_Leave(object sender, EventArgs e)
         {
-            CbDayPayment.Focus();
+            var result = ValidateNumbersLetters(txtPlate.Text);
+            if (result)
+                CbDayPayment.Focus();
+            else
+            {
+                MessageBox.Show("Formato placa incorrecto.");
+                txtPlate.Focus();
+            }
         }        
 
         private void CleanForm()
@@ -178,8 +185,8 @@ namespace Parking.Process
 
         private void txtPlate_TextChanged(object sender, EventArgs e)
         {
-            txtPlate.Text = ValidateNumbersLetters(txtPlate.Text);
-            txtPlate.Select(txtPlate.Text.Length, 0);
+            //txtPlate.Text = ValidateNumbersLetters(txtPlate.Text);
+            //txtPlate.Select(txtPlate.Text.Length, 0);
         }
 
         private void TxtLocker_KeyPress(object sender, KeyPressEventArgs e)
@@ -323,18 +330,11 @@ namespace Parking.Process
             return e.Handled;
         }
 
-        private string ValidateNumbersLetters(string text)
+        private bool ValidateNumbersLetters(string text)
         {
-            // return Regex.Replace(txtPlate.Text, "[^0-9a-zA-Z]", string.Empty, RegexOptions.IgnoreCase);            
-            // var result =  Regex.IsMatch(text, "[A-Z]{3}[0-9]{2}[A-Z]{0,1}");
-            var size = text.Length;
-            var list = new List<string>();
-
-            for (int i = 0; i <= size; i++) {
-                list.Add(text.Substring(i, i));
-            }
-
-            return string.Empty;
+             //return Regex.Replace(txtPlate.Text, "[^0-9a-zA-Z]", string.Empty, RegexOptions.IgnoreCase);            
+             return  Regex.IsMatch(text, "[A-Z]{3}[0-9]{2}[A-Z]{0,1}");
+                  
         }
     }
 }
