@@ -50,7 +50,7 @@ namespace Parking.Process
         private void txtPlate_KeyPress(object sender, KeyPressEventArgs e)
         {        
 
-            e.KeyChar = Char.ToUpper(e.KeyChar);
+            e.KeyChar = Char.ToUpper(e.KeyChar);            
 
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
@@ -159,14 +159,7 @@ namespace Parking.Process
 
         private void txtPlate_Leave(object sender, EventArgs e)
         {
-            var result = ValidateNumbersLetters(txtPlate.Text);
-            if (result)
-                CbDayPayment.Focus();
-            else
-            {
-                MessageBox.Show("Formato de placa incorrecto.");
-                txtPlate.Focus();
-            }
+            CbDayPayment.Focus();
         }        
 
         private void CleanForm()
@@ -185,8 +178,10 @@ namespace Parking.Process
 
         private void txtPlate_TextChanged(object sender, EventArgs e)
         {
+            txtPlate.Text = ValidateNumbersLetters(txtPlate.Text.Trim());
+            txtPlate.Select(txtPlate.Text.Length, 0);
             //txtPlate.Text = ValidateNumbersLetters(txtPlate.Text);
-            //txtPlate.Select(txtPlate.Text.Length, 0);
+            
         }
 
         private void TxtLocker_KeyPress(object sender, KeyPressEventArgs e)
@@ -330,10 +325,41 @@ namespace Parking.Process
             return e.Handled;
         }
 
-        private bool ValidateNumbersLetters(string text)
+        private string ValidateNumbersLetters(string text)
         {
-             //return Regex.Replace(txtPlate.Text, "[^0-9a-zA-Z]", string.Empty, RegexOptions.IgnoreCase);            
-             return  Regex.IsMatch(text, "[A-Z]{3}[0-9]{2}[A-Z]{0,1}");
+            var flag = false;           
+
+            var length = text.Length;
+
+            switch (length)
+            {
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    if (Regex.IsMatch(text, "[A-Z]{1}")) flag = true;
+                    break;
+                case 2:
+                    if (Regex.IsMatch(text, "[A-Z]{2}")) flag = true;
+                    break;
+                case 3:
+                    if (Regex.IsMatch(text, "[A-Z]{3}")) flag = true;
+                    break;
+                case 4:
+                    if (Regex.IsMatch(text, "[A-Z]{3}[0-9]{1}")) flag = true;
+                    break;
+                case 5:
+                    if (Regex.IsMatch(text, "[A-Z]{3}[0-9]{2}")) flag = true;
+                    break;
+                case 6:
+                    if (Regex.IsMatch(text, "[A-Z]{3}[0-9]{2}[A-Z]{1}")) flag = true;
+                    break;             
+            }
+
+            if (flag)
+                return text;
+            else
+                return text.Remove(text.Length - 1);            
                   
         }
     }

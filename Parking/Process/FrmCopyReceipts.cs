@@ -65,6 +65,18 @@ namespace Parking.Process
 
         private void TxtReceipt_Leave(object sender, EventArgs e)
         {
+            GetChecks();
+        }
+
+        private void TxtReceipt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = Char.ToUpper(e.KeyChar);
+
+            if (e.KeyChar == Convert.ToChar(Keys.Enter)) GetChecks();
+        }
+
+        private void GetChecks()
+        {
             var repo = new RegistryRepository();
 
             var eData = repo.GetLasMonthlyPaymentReceiptByPlate(TxtReceipt.Text.Trim());
@@ -93,11 +105,6 @@ namespace Parking.Process
 
                 else MessageBox.Show(Constants.MSG_NoRecordExist);
             }
-        }
-
-        private void TxtReceipt_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.KeyChar = Char.ToUpper(e.KeyChar);
         }
     }
 }
