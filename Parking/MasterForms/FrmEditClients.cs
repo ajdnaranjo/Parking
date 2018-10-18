@@ -110,9 +110,6 @@ namespace Parking.MasterForms
             e.KeyChar = Char.ToUpper(e.KeyChar);
         }
 
-        private void TxtFullName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.KeyChar = Char.ToUpper(e.KeyChar);
-        }
+        private void TxtFullName_KeyPress(object sender, KeyPressEventArgs e) => e.KeyChar = Char.ToUpper(e.KeyChar);
     }
 }
