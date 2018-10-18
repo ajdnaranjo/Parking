@@ -249,5 +249,10 @@ namespace Parking.Process
             }
 
         }
+
+        private void TxtName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.KeyChar = Char.ToUpper(e.KeyChar);
+        }
     }
 }

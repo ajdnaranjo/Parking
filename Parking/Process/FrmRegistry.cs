@@ -115,7 +115,6 @@ namespace Parking.Process
                 if (mp == null)
                 {
                     var result = repo.CheckExit(check, Globals.appUserID);
-
                     
                     var path = repoReceipts.ExitReceipt(result.Plate, Globals.appUserID);
                     var print = new PrintReceipts();

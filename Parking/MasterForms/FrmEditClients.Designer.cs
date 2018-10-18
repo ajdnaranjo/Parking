@@ -65,6 +65,7 @@
             this.TxtFullName.Name = "TxtFullName";
             this.TxtFullName.Size = new System.Drawing.Size(437, 20);
             this.TxtFullName.TabIndex = 15;
+            this.TxtFullName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtFullName_KeyPress);
             // 
             // CbDocType
             // 

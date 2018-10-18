@@ -120,7 +120,8 @@
             this.TxtName.Margin = new System.Windows.Forms.Padding(4);
             this.TxtName.Name = "TxtName";
             this.TxtName.Size = new System.Drawing.Size(437, 23);
-            this.TxtName.TabIndex = 7;
+            this.TxtName.TabIndex = 7;            
+            this.TxtName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtName_KeyPress);
             // 
             // TxtCelPhone
             // 
