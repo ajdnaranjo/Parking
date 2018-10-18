@@ -33,8 +33,8 @@ namespace Parking.Repositories
                             CreatedBy = userID,
                             IsWorkShiftClosed = registry.IsWorkShiftClosed,
                             Locker = registry.Locker,
-                            DayPayment = registry.DayPayment
-
+                            DayPayment = registry.DayPayment,
+                            ModifiedDate = DateTime.Now
                         };
                         context.Registries.Add(reg);
 
@@ -128,6 +128,7 @@ namespace Parking.Repositories
                 reg.ModifiedBy = userID;
                 reg.Locker = registry.Locker;
                 reg.DayPayment = registry.DayPayment;
+                reg.ModifiedDate = DateTime.Now;
 
                 context.SaveChanges();
 
@@ -338,7 +339,7 @@ namespace Parking.Repositories
             using (var context = new PLTOEntities())
             {
                 var data = (from r in context.Registries
-                            orderby r.RegistryID descending
+                            orderby r.ModifiedDate descending
                             select new RegistryDto()
                             {
                                 RegistryID = r.RegistryID,

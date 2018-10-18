@@ -26,6 +26,7 @@ namespace Parking.Repositories
         public Nullable<decimal> Refund { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<bool> IsWorkShiftClosed { get; set; }
         public Nullable<System.DateTime> WorkShiftCloseDate { get; set; }
         public Nullable<int> Locker { get; set; }

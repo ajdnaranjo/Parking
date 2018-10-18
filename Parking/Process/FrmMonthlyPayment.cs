@@ -28,7 +28,7 @@ namespace Parking.Process
             CbDocType.ValueMember = "DocTypeID";
             CbDocType.DisplayMember = "Description";
 
-            TxtTotalPayment.Text =  repo.GetMonthlyPayment().Value.ToString("N0");
+            //TxtTotalPayment.Text =  repo.GetMonthlyPayment().Value.ToString("N0");
 
             var repoPayments = new MonthlyRepository();
 
@@ -95,16 +95,23 @@ namespace Parking.Process
 
                 CleanForm();
             }
-            else
-                MessageBox.Show("Ha ocurrido un error. Verifique la información ingresada.");
+           
         }
 
         private bool ValidateForm()
         {
             var flag = true;
 
-            if (string.IsNullOrEmpty(TxtPayment.Text.Trim())) flag = false;
-            if (CbPaymentType.SelectedValue.ToString() == "-1") flag = false;
+            if (string.IsNullOrEmpty(TxtPayment.Text.Trim()))
+            {
+                MessageBox.Show("Debe ingresar un pago.");
+                flag = false;
+            }
+            if (CbPaymentType.SelectedValue.ToString() == "-1")
+            {
+                MessageBox.Show("Debe seleccionar un tipo de pago.");
+                flag = false;
+            }
 
             return flag;
         }

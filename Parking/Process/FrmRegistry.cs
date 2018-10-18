@@ -130,7 +130,7 @@ namespace Parking.Process
 
                     var result = repo.CheckExit(check, Globals.appUserID);
 
-                    var date = DateTime.Now.Subtract(mp.ExpirationDate);
+                    var date = mp.ExpirationDate.Subtract(DateTime.Now);
                     if (date.Days <= 2)
                     {
                         var path = repoReceipts.MonthlyPaymentExpirationReceipt(mp.MonthlyPaymentID, Globals.appUserID);
@@ -290,19 +290,9 @@ namespace Parking.Process
                         TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
                         TxtLocker.Enabled = false;
                         txtPayment.Text = "0";
-
-                        //reg.ExitDate = data.ExitDate;
-                        //reg.Days = data.Days;
-                        //reg.Hours = data.Hours;
-                        //reg.Minutes = data.Minutes;
-                        //reg.TotalPayment = 0;
-                        //reg.Refund = 0;
-                        //reg.Payment = 0;
-                        
-
-                        //repo.CheckExit(reg, Globals.appUserID);
+                    
                     }
-                    //TxtLocker.Enabled = false;
+
                     txtPayment.Focus();
                 }
             }
