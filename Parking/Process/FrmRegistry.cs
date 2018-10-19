@@ -173,6 +173,8 @@ namespace Parking.Process
             TxtLocker.Text = "0";
             TxtLocker.Enabled = true;
             CbDayPayment.Checked = false;
+            lblIngreso.Text = string.Empty;
+            lblSalida.Text = string.Empty;
         }
 
         private void txtPlate_TextChanged(object sender, EventArgs e)
@@ -195,7 +197,7 @@ namespace Parking.Process
 
         private void CbDayPayment_CheckedChanged(object sender, EventArgs e)
         {
-            CheckEntryExit();
+            if(txtPlate.Enabled == false) CheckEntryExit();
         }
 
         private void CbDayPayment_KeyPress(object sender, KeyPressEventArgs e)

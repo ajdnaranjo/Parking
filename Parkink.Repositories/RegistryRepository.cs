@@ -215,7 +215,8 @@ namespace Parking.Repositories
                                Minutes = r.Minutes,
                                TotalPayment = r.TotalPayment,
                                Payment = r.Payment,
-                               Refund = r.Refund
+                               Refund = r.Refund,
+                               DayPayment = (bool)r.DayPayment
                            }
                            ).FirstOrDefault();
 

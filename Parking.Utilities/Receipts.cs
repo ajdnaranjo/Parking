@@ -42,6 +42,7 @@ namespace Parking.Utilities
             doc.Add(new Paragraph("Placa: " + plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
             doc.Add(new Paragraph("Entra: " + entry.EntryDate, font));
             doc.Add(new Paragraph("Locker: " + entry.Locker, font));
+            if (entry.DayPayment == true) doc.Add(new Paragraph("Pagó día!", font));
             doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, font));         
          
             List listItems = new List(footItems.Length);
@@ -98,6 +99,7 @@ namespace Parking.Utilities
             doc.Add(new Paragraph("Total: " + TotalPayment.ToString(), FontFactory.GetFont("helvetica", 14, Font.BOLD)));
             doc.Add(new Paragraph("Pago con: " + exit.Payment, font));
             doc.Add(new Paragraph("Devuelta: " + Refund.ToString("N0"), font));
+            if (exit.DayPayment == true) doc.Add(new Paragraph("Pagó día!", font));
             doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, font));            
 
             doc.Close();
