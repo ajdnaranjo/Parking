@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPlate = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -50,7 +50,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtRefund = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.lblMessage = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.TxtLocker = new System.Windows.Forms.TextBox();
             this.DgvLastMovements = new System.Windows.Forms.DataGridView();
@@ -210,16 +209,6 @@
             this.label7.Text = "Devuelta:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblMessage
-            // 
-            this.lblMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMessage.ForeColor = System.Drawing.Color.Red;
-            this.lblMessage.Location = new System.Drawing.Point(39, 529);
-            this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(797, 38);
-            this.lblMessage.TabIndex = 12;
-            this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -282,9 +271,9 @@
             // EntryDate
             // 
             this.EntryDate.DataPropertyName = "EntryDate";
-            dataGridViewCellStyle7.Format = "g";
-            dataGridViewCellStyle7.NullValue = null;
-            this.EntryDate.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Format = "g";
+            dataGridViewCellStyle1.NullValue = null;
+            this.EntryDate.DefaultCellStyle = dataGridViewCellStyle1;
             this.EntryDate.HeaderText = "Fecha Entrada";
             this.EntryDate.Name = "EntryDate";
             this.EntryDate.ReadOnly = true;
@@ -293,9 +282,9 @@
             // ExitDate
             // 
             this.ExitDate.DataPropertyName = "ExitDate";
-            dataGridViewCellStyle8.Format = "g";
-            dataGridViewCellStyle8.NullValue = null;
-            this.ExitDate.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Format = "g";
+            dataGridViewCellStyle2.NullValue = null;
+            this.ExitDate.DefaultCellStyle = dataGridViewCellStyle2;
             this.ExitDate.HeaderText = "Fecha  Salida";
             this.ExitDate.Name = "ExitDate";
             this.ExitDate.ReadOnly = true;
@@ -304,8 +293,8 @@
             // Locker
             // 
             this.Locker.DataPropertyName = "Locker";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Locker.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Locker.DefaultCellStyle = dataGridViewCellStyle3;
             this.Locker.HeaderText = "Locker";
             this.Locker.Name = "Locker";
             this.Locker.ReadOnly = true;
@@ -314,8 +303,8 @@
             // TotalPayment
             // 
             this.TotalPayment.DataPropertyName = "TotalPayment";
-            dataGridViewCellStyle10.Format = "N0";
-            this.TotalPayment.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Format = "N0";
+            this.TotalPayment.DefaultCellStyle = dataGridViewCellStyle4;
             this.TotalPayment.HeaderText = "Total a Pagar";
             this.TotalPayment.Name = "TotalPayment";
             this.TotalPayment.ReadOnly = true;
@@ -323,8 +312,8 @@
             // Payment
             // 
             this.Payment.DataPropertyName = "Payment";
-            dataGridViewCellStyle11.Format = "N0";
-            this.Payment.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Format = "N0";
+            this.Payment.DefaultCellStyle = dataGridViewCellStyle5;
             this.Payment.HeaderText = "Pagó";
             this.Payment.Name = "Payment";
             this.Payment.ReadOnly = true;
@@ -333,8 +322,8 @@
             // Refund
             // 
             this.Refund.DataPropertyName = "Refund";
-            dataGridViewCellStyle12.Format = "N0";
-            this.Refund.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.Format = "N0";
+            this.Refund.DefaultCellStyle = dataGridViewCellStyle6;
             this.Refund.HeaderText = "Devuelta";
             this.Refund.Name = "Refund";
             this.Refund.ReadOnly = true;
@@ -364,7 +353,6 @@
             this.Controls.Add(this.DgvLastMovements);
             this.Controls.Add(this.TxtLocker);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.txtRefund);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtPayment);
@@ -405,7 +393,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtRefund;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox TxtLocker;
         private System.Windows.Forms.DataGridView DgvLastMovements;

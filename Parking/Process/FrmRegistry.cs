@@ -48,14 +48,32 @@ namespace Parking.Process
         }
 
         private void txtPlate_KeyPress(object sender, KeyPressEventArgs e)
-        {        
+        {
 
-            e.KeyChar = char.ToUpper(e.KeyChar);            
+            e.KeyChar = char.ToUpper(e.KeyChar);
 
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                CbDayPayment.Focus(); 
+                GetDayPayment();
             }
+        }
+
+        private void txtPlate_Leave(object sender, EventArgs e)
+        {
+            GetDayPayment();
+        }
+
+        private void GetDayPayment()
+        {
+            if (txtPlate.Text.Trim() != string.Empty)
+            {
+                var repo = new RegistryRepository();
+                var result = repo.GetDayPayment(txtPlate.Text);
+
+                if (result != null) CbDayPayment.Checked = (bool)result.DayPayment;
+            }
+
+            CbDayPayment.Focus();
         }
 
         private void txtPayment_KeyPress(object sender, KeyPressEventArgs e)
@@ -156,10 +174,7 @@ namespace Parking.Process
             }
         }
 
-        private void txtPlate_Leave(object sender, EventArgs e)
-        {
-            CbDayPayment.Focus();
-        }        
+       
 
         private void CleanForm()
         {  
@@ -169,7 +184,6 @@ namespace Parking.Process
             txtTotalPayment.Text = string.Empty;
             txtPayment.Text = string.Empty;
             txtRefund.Text = string.Empty;
-            lblMessage.Text = string.Empty;
             TxtLocker.Text = "0";
             TxtLocker.Enabled = true;
             CbDayPayment.Checked = false;
@@ -275,12 +289,13 @@ namespace Parking.Process
                             txtPlate.Enabled = false;
                             TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
                             TxtLocker.Enabled = false;
-                            txtPayment.Text = "0";                        
+                            txtPayment.Text = "0";
+                           //CbDayPayment.Checked = (bool)data.DayPayment;
                         }
                     }
                     else
                     {
-                        lblMessage.Text =  string.Format(Constants.MSG_ActiveMonhtlyPayment, mp.PaymentDescriptiion);
+                        MessageBox.Show(string.Format(Constants.MSG_ActiveMonhtlyPayment, mp.PaymentDescriptiion));
                         lblSalida.Text = data.ExitDate.ToString();
                         txtTotalPayment.Text = "0";
                         txtPayment.Text = "0";
@@ -291,7 +306,7 @@ namespace Parking.Process
                         TxtLocker.Text = string.IsNullOrEmpty(data.Locker.ToString()) ? "0" : data.Locker.ToString();
                         TxtLocker.Enabled = false;
                         txtPayment.Text = "0";
-                    
+                       // CbDayPayment.Checked = (bool)data.DayPayment;
                     }
 
                     txtPayment.Focus();

@@ -19,7 +19,7 @@ namespace Parking.Repositories
 
                 if (reg == null)
                 {
-                    reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true 
+                    reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true
                             && DbFunctions.DiffHours(r.EntryDate, r.ExitDate).Value <= 12
                             && r.ExitDate.Value.Day == DateTime.Now.Day);
 
@@ -41,7 +41,8 @@ namespace Parking.Repositories
                         context.SaveChanges();
                         registry.RegistryID = reg.RegistryID;
                     }
-                    else {
+                    else
+                    {
                         reg.TotalPayment = 0;
                     }
 
@@ -99,7 +100,7 @@ namespace Parking.Repositories
                         reg.TotalPayment = reg.TotalPayment + day;
                     }
 
-                    if ((reg.DayPayment == true || registry.DayPayment == true)  && reg.TotalPayment < daysValues.Value )
+                    if ((reg.DayPayment == true && registry.DayPayment == true) && reg.TotalPayment < daysValues.Value)
                     {
                         reg.TotalPayment = daysValues.Value;
                     }
@@ -124,7 +125,7 @@ namespace Parking.Repositories
                 reg.Minutes = registry.Minutes;
                 reg.TotalPayment = registry.TotalPayment;
                 reg.Payment = registry.Payment;
-                reg.Refund = registry.Refund;                
+                reg.Refund = registry.Refund;
                 reg.ModifiedBy = userID;
                 reg.Locker = registry.Locker;
                 reg.DayPayment = registry.DayPayment;
@@ -165,10 +166,10 @@ namespace Parking.Repositories
 
                 var mPayment = new MonthlyPayment()
                 {
-                    MonthlyPaymentID = repo.GetReceiptNumber(),                    
+                    MonthlyPaymentID = repo.GetReceiptNumber(),
                     Plate = monthlyPaymentDTO.Plate,
                     TotalPayment = monthlyPaymentDTO.TotalPayment,
-                    PaidValue = monthlyPaymentDTO.PaidValue,                    
+                    PaidValue = monthlyPaymentDTO.PaidValue,
                     Refund = monthlyPaymentDTO.Refund,
                     PaymentDate = monthlyPaymentDTO.PaymentDate,
                     ExpirationDate = monthlyPaymentDTO.ExpirationDate,
@@ -206,7 +207,7 @@ namespace Parking.Repositories
                            orderby r.ExitDate descending
                            select new RegistryDto()
                            {
-                               RegistryID = r.RegistryID,                              
+                               RegistryID = r.RegistryID,
                                Plate = r.Plate,
                                EntryDate = r.EntryDate,
                                ExitDate = r.ExitDate,
@@ -257,42 +258,42 @@ namespace Parking.Repositories
                 var data = new List<MonthlyPaymentDto>();
                 if (string.IsNullOrEmpty(search))
                 {
-                    data  = (from m in context.MonthlyPayments
-                                join c in context.Clients on m.Plate equals c.Plate             
-                                join pm in context.PaymentMethods on m.PaymentMethodID equals pm.PaymentMethodID
-                                select new MonthlyPaymentDto
-                                {
-                                    MonthlyPaymentID = m.MonthlyPaymentID,
-                                    Document = c.Document,
-                                    Name = c.Name,
-                                    //MonthlyPaymentID = m.MonthlyPaymentID,
-                                    Plate = m.Plate,
-                                    PaidValue = m.PaidValue,
-                                    TotalPayment = m.TotalPayment,
-                                    PaymentDate = m.PaymentDate,
-                                    ExpirationDate = m.ExpirationDate,
-                                    CellPhone = c.CelPhone,
-                                    PaymentDescriptiion = pm.Description
-                                }).ToList();
+                    data = (from m in context.MonthlyPayments
+                            join c in context.Clients on m.Plate equals c.Plate
+                            join pm in context.PaymentMethods on m.PaymentMethodID equals pm.PaymentMethodID
+                            select new MonthlyPaymentDto
+                            {
+                                MonthlyPaymentID = m.MonthlyPaymentID,
+                                Document = c.Document,
+                                Name = c.Name,
+                                //MonthlyPaymentID = m.MonthlyPaymentID,
+                                Plate = m.Plate,
+                                PaidValue = m.PaidValue,
+                                TotalPayment = m.TotalPayment,
+                                PaymentDate = m.PaymentDate,
+                                ExpirationDate = m.ExpirationDate,
+                                CellPhone = c.CelPhone,
+                                PaymentDescriptiion = pm.Description
+                            }).ToList();
                 }
                 else
                 {
-                     data = (from m in context.MonthlyPayments
-                                join c in context.Clients on m.Plate equals c.Plate
-                             where c.Name.Contains(search) || m.Plate.Contains(search) || c.Document.Contains(search)
-                             select new MonthlyPaymentDto
-                             {
-                                 MonthlyPaymentID = m.MonthlyPaymentID,
-                                 Document = c.Document,
-                                 Name = c.Name,
-                                 //MonthlyPaymentID = m.MonthlyPaymentID,
-                                 Plate = m.Plate,
-                                 PaidValue = m.PaidValue,
-                                 TotalPayment = m.TotalPayment,
-                                 PaymentDate = m.PaymentDate,
-                                 ExpirationDate = m.ExpirationDate,
-                                 CellPhone = c.CelPhone
-                             }).ToList();
+                    data = (from m in context.MonthlyPayments
+                            join c in context.Clients on m.Plate equals c.Plate
+                            where c.Name.Contains(search) || m.Plate.Contains(search) || c.Document.Contains(search)
+                            select new MonthlyPaymentDto
+                            {
+                                MonthlyPaymentID = m.MonthlyPaymentID,
+                                Document = c.Document,
+                                Name = c.Name,
+                                //MonthlyPaymentID = m.MonthlyPaymentID,
+                                Plate = m.Plate,
+                                PaidValue = m.PaidValue,
+                                TotalPayment = m.TotalPayment,
+                                PaymentDate = m.PaymentDate,
+                                ExpirationDate = m.ExpirationDate,
+                                CellPhone = c.CelPhone
+                            }).ToList();
 
                 }
                 return data;
@@ -355,6 +356,24 @@ namespace Parking.Repositories
                             ).Take(20).ToList();
 
                 return data;
+            }
+        }
+
+        public Registry GetDayPayment(string plate)
+        {
+            using (var context = new PLTOEntities())
+            {
+
+                var reg = context.Registries.FirstOrDefault(r => r.Plate == plate && r.ExitDate == null);
+
+                if (reg == null)
+                {
+                    reg = context.Registries.FirstOrDefault(r => r.Plate == plate && r.DayPayment == true
+                            && DbFunctions.DiffHours(r.EntryDate, r.ExitDate).Value <= 12
+                            && r.ExitDate.Value.Day == DateTime.Now.Day);
+                }
+
+                return reg;
             }
         }
     }
