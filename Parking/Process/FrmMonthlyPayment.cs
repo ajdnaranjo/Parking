@@ -21,20 +21,20 @@ namespace Parking.Process
             var repo = new UserRepository();
             var data = repo.GetDocTypes();
 
-            data.Add(new DocType { DocTypeID = -1, Description = "Seleccionar" });
+            data.Add(new DocType { DocTypeID = -1, Description = "Seleccionar" });                        
             data.OrderBy(z => z.DocTypeID);
 
             CbDocType.DataSource = data;
             CbDocType.ValueMember = "DocTypeID";
-            CbDocType.DisplayMember = "Description";
-
-            //TxtTotalPayment.Text =  repo.GetMonthlyPayment().Value.ToString("N0");
+            CbDocType.DisplayMember = "Description";            
 
             var repoPayments = new MonthlyRepository();
 
             var result = repoPayments.GetLongTermPayments();
 
-            result.Add(new PaymentMethod { PaymentMethodID = -1, Description = "Seleccionar" });           
+            result.Add(new PaymentMethod { PaymentMethodID = -1, Description = "Seleccionar" });
+            result.Add(new PaymentMethod { PaymentMethodID = 100, Description = "Eliminar" });
+            result.OrderBy(z => z.PaymentMethodID);
 
             CbPaymentType.DataSource = result;
             CbPaymentType.ValueMember = "PaymentMethodID";
@@ -60,8 +60,7 @@ namespace Parking.Process
                     PaidValue = decimal.Parse(TxtPayment.Text),
                     TotalPayment = decimal.Parse(TxtTotalPayment.Text),
                     Refund = decimal.Parse(TxtRefund.Text),
-                    PaymentDate = DateTime.Now,
-                   // ExpirationDate = DateTime.Now.AddMonths(1),
+                    PaymentDate = DateTime.Now,                   
                     IsWorkShiftClosed = false,
                     PaymentMethodID = (int)CbPaymentType.SelectedValue
                 };
@@ -78,8 +77,7 @@ namespace Parking.Process
                 }
                 else
                 {
-                    data.PaymentDate = mp.ExpirationDate;
-                    //data.ExpirationDate = data.PaymentDate.AddMonths(1);
+                    data.PaymentDate = mp.ExpirationDate;                    
                     if (data.PaymentMethodID == 5) data.ExpirationDate = data.PaymentDate.AddMonths(1);
                     if (data.PaymentMethodID == 6) data.ExpirationDate = data.PaymentDate.AddDays(15);
 

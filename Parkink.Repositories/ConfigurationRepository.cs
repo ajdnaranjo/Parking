@@ -53,7 +53,10 @@ namespace Parking.Repositories
                             break;
                         case "Lockers":
                             config.Lockers = int.Parse(item.ConfigurationValue);
-                            break;                            
+                            break;
+                        case "ReceiptLetter":
+                            config.ReceiptLetter = item.ConfigurationValue;
+                            break;
                     }                   
                 }
                 return config;
