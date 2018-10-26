@@ -154,6 +154,7 @@ namespace Parking.Repositories
                         DocTypeID = monthlyPaymentDTO.DocTypeId,
                         Name = monthlyPaymentDTO.Name,
                         CelPhone = monthlyPaymentDTO.Celphone,
+                        IsActive = true
                     };
                     context.Clients.Add(rec);
                 }
@@ -162,6 +163,7 @@ namespace Parking.Repositories
                     user.Document = monthlyPaymentDTO.Document;
                     user.Name = monthlyPaymentDTO.Name;
                     user.CelPhone = monthlyPaymentDTO.Celphone;
+                    user.IsActive = true;
                 }
 
                 var mPayment = new MonthlyPayment()

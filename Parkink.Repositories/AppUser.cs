@@ -17,9 +17,9 @@ namespace Parking.Repositories
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AppUser()
         {
-            this.MonthlyPayments = new HashSet<MonthlyPayment>();
             this.Registries = new HashSet<Registry>();
             this.Registries1 = new HashSet<Registry>();
+            this.MonthlyPayments = new HashSet<MonthlyPayment>();
         }
     
         public int UserID { get; set; }
@@ -31,10 +31,10 @@ namespace Parking.Repositories
     
         public virtual Rol Rol { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MonthlyPayment> MonthlyPayments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Registry> Registries { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Registry> Registries1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MonthlyPayment> MonthlyPayments { get; set; }
     }
 }

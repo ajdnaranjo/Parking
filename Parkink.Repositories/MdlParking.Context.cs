@@ -33,10 +33,10 @@ namespace Parking.Repositories
         public virtual DbSet<Rol> Rols { get; set; }
         public virtual DbSet<RolForm> RolForms { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
-        public virtual DbSet<MonthlyPayment> MonthlyPayments { get; set; }
         public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
         public virtual DbSet<AppUser> AppUsers { get; set; }
         public virtual DbSet<Registry> Registries { get; set; }
+        public virtual DbSet<MonthlyPayment> MonthlyPayments { get; set; }
     
         public virtual ObjectResult<usp_SelectRolAccessData_Result> usp_SelectRolAccessData(Nullable<int> rolId)
         {

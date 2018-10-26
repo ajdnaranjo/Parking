@@ -58,6 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ctrlPlate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlPlate.Designer.cs">
+      <DependentUpon>ctrlPlate.cs</DependentUpon>
+    </Compile>
     <Compile Include="MasterForms\FrmConfiguration.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +132,9 @@
     <Compile Include="Reports\FrmMonthlyPayments.Designer.cs">
       <DependentUpon>FrmMonthlyPayments.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\ctrlPlate.resx">
+      <DependentUpon>ctrlPlate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>

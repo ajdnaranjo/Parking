@@ -4,6 +4,7 @@ using Parking.Utilities;
 using System;
 using System.Data;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Parking.Process
@@ -235,22 +236,83 @@ namespace Parking.Process
         {
             if (CbPaymentType.SelectedValue.ToString() != "-1")
             {
-                var repo = new MonthlyRepository();
-                var result = repo.GetPaymentByID((int)CbPaymentType.SelectedValue);
+                if (CbPaymentType.SelectedValue.ToString() == "100")
+                {
+                    var repo = new UserRepository();
 
-                TxtTotalPayment.Text = result.Value.ToString("N0");
+                    try
+                    {
+                        if (MessageBox.Show("Esta seguro que desea inactivar mensualidad del usuario seleccionado?", "Mensualidad", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            var result = repo.InactiveClient(new Client { Plate = TxtPlate.Text.Trim(), IsActive = false });
+
+                            MessageBox.Show("La mensualidad del usuario ha sido inactivada correctamente");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
+                {
+                    var repo = new MonthlyRepository();
+                    var result = repo.GetPaymentByID((int)CbPaymentType.SelectedValue);
+
+                    TxtTotalPayment.Text = result.Value.ToString("N0");
+                }
             }
-            else
-            {
-                TxtTotalPayment.Text = "0";
-
-            }
-
+            else TxtTotalPayment.Text = "0";
         }
+         
 
         private void TxtName_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.KeyChar = Char.ToUpper(e.KeyChar);
+        }
+
+        private string ValidatePlate(string text)
+        {
+            var flag = false;
+
+            var length = text.Length;
+
+            switch (length)
+            {
+                case 0:
+                    flag = true;
+                    break;
+                case 1:
+                    if (Regex.IsMatch(text, "[A-Z]{1}")) flag = true;
+                    break;
+                case 2:
+                    if (Regex.IsMatch(text, "[A-Z]{2}")) flag = true;
+                    break;
+                case 3:
+                    if (Regex.IsMatch(text, "[A-Z]{3}")) flag = true;
+                    break;
+                case 4:
+                    if (Regex.IsMatch(text, "[A-Z]{3}[0-9]{1}")) flag = true;
+                    break;
+                case 5:
+                    if (Regex.IsMatch(text, "[A-Z]{3}[0-9]{2}")) flag = true;
+                    break;
+                case 6:
+                    if (Regex.IsMatch(text, "[A-Z]{3}[0-9]{2}[A-Z]{1}")) flag = true;
+                    break;
+            }
+
+            if (flag)
+                return text;
+            else
+                return text.Remove(text.Length - 1);
+
+        }
+
+        private void TxtPlate_TextChanged(object sender, EventArgs e)
+        {
+            TxtPlate.Text = ValidatePlate(TxtPlate.Text.Trim());
+            TxtPlate.Select(TxtPlate.Text.Length, 0);
         }
     }
 }

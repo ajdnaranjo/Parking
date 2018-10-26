@@ -4,7 +4,6 @@ using System;
 using System.Windows.Forms;
 using Parking.Models;
 using System.Text.RegularExpressions;
-using System.Collections.Generic;
 
 namespace Parking.Process
 {

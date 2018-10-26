@@ -120,7 +120,7 @@
             this.TxtName.Margin = new System.Windows.Forms.Padding(4);
             this.TxtName.Name = "TxtName";
             this.TxtName.Size = new System.Drawing.Size(437, 23);
-            this.TxtName.TabIndex = 7;            
+            this.TxtName.TabIndex = 7;
             this.TxtName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtName_KeyPress);
             // 
             // TxtCelPhone
@@ -150,6 +150,7 @@
             this.TxtPlate.Name = "TxtPlate";
             this.TxtPlate.Size = new System.Drawing.Size(148, 30);
             this.TxtPlate.TabIndex = 10;
+            this.TxtPlate.TextChanged += new System.EventHandler(this.TxtPlate_TextChanged);
             this.TxtPlate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtPlate_KeyPress);
             this.TxtPlate.Leave += new System.EventHandler(this.TxtPlate_Leave);
             // 

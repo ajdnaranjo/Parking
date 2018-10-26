@@ -36,7 +36,14 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
-                return context.MonthlyPayments.Where(x => x.Plate == plate).OrderByDescending(t => t.ExpirationDate).FirstOrDefault();             
+                //return context.MonthlyPayments.Where(x => x.Plate == plate).OrderByDescending(t => t.ExpirationDate).FirstOrDefault();             
+                var result = (from m in context.MonthlyPayments
+                              join c in context.Clients on m.Plate equals c.Plate
+                              where m.Plate == plate && c.IsActive == true
+                              orderby m.ExpirationDate descending
+                              select m
+                           ).FirstOrDefault();
+                return result;
             }
         }
 
@@ -96,7 +103,8 @@ namespace Parking.Repositories
                         Document = client.Document,
                         DocTypeID = client.DocTypeID,
                         Name = client.Name,
-                        CelPhone = client.CelPhone
+                        CelPhone = client.CelPhone,
+                        IsActive = client.IsActive
                     };
                     context.Clients.Add(client);
                 }
@@ -106,6 +114,7 @@ namespace Parking.Repositories
                     user.DocTypeID = client.DocTypeID;
                     user.Name = client.Name;
                     user.CelPhone = client.CelPhone;
+                    user.IsActive = client.IsActive;
                 }
 
                 context.SaveChanges();
@@ -113,5 +122,29 @@ namespace Parking.Repositories
                 return context.Clients.FirstOrDefault(x => x.Plate == client.Plate);
             }
         }
+
+
+        public Client InactiveClient(Client client)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var user = context.Clients.FirstOrDefault(x => x.Plate == client.Plate);
+
+                if (user == null)
+                {
+                    throw new Exception("El usuario no existe.");
+                }
+                else
+                {                 
+                    user.IsActive = client.IsActive;
+                }
+
+                context.SaveChanges();
+
+                return context.Clients.FirstOrDefault(x => x.Plate == client.Plate);
+            }
+        }
+
+
     }
 }
