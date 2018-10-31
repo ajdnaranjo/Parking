@@ -146,5 +146,15 @@ namespace Parking.Repositories
         }
 
 
+        public AppUser GetAdmin(int appUserID)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var user = context.AppUsers.FirstOrDefault(x => x.UserID == appUserID && x.RolID  == 1);
+
+               return user;
+            }
+        }
+
     }
 }

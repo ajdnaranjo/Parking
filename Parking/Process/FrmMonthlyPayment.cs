@@ -239,19 +239,26 @@ namespace Parking.Process
                 if (CbPaymentType.SelectedValue.ToString() == "100")
                 {
                     var repo = new UserRepository();
+                    var isAdmin = repo.GetAdmin(Globals.appUserID);
 
-                    try
+                    if (isAdmin != null)
                     {
-                        if (MessageBox.Show("Esta seguro que desea inactivar mensualidad del usuario seleccionado?", "Mensualidad", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        try
                         {
-                            var result = repo.InactiveClient(new Client { Plate = TxtPlate.Text.Trim(), IsActive = false });
+                            if (MessageBox.Show("Esta seguro que desea inactivar mensualidad del usuario seleccionado?", "Mensualidad", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            {
+                                var result = repo.InactiveClient(new Client { Plate = TxtPlate.Text.Trim(), IsActive = false });
 
-                            MessageBox.Show("La mensualidad del usuario ha sido inactivada correctamente");
+                                MessageBox.Show("La mensualidad del usuario ha sido inactivada correctamente");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
+                    else{
+                        MessageBox.Show("Debe ser un administrador para eliminar una mensualidad.");
                     }
                 }
                 else
