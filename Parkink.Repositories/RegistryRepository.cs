@@ -100,7 +100,7 @@ namespace Parking.Repositories
                         reg.TotalPayment = reg.TotalPayment + day;
                     }
 
-                    if ((reg.DayPayment == true && registry.DayPayment == true) && reg.TotalPayment < daysValues.Value)
+                    if ((reg.DayPayment == true || registry.DayPayment == true) && reg.TotalPayment < daysValues.Value)
                     {
                         reg.TotalPayment = daysValues.Value;
                     }
