@@ -189,6 +189,7 @@
             // 
             // TxtPayment
             // 
+            this.TxtPayment.Enabled = false;
             this.TxtPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtPayment.Location = new System.Drawing.Point(223, 243);
             this.TxtPayment.Margin = new System.Windows.Forms.Padding(4);

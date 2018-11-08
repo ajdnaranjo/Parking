@@ -53,7 +53,18 @@ namespace Parking.Process
 
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
-                GetDayPayment();
+                var repo = new MonthlyRepository();
+                var result = repo.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
+
+                if (result == null)
+                {
+                    GetDayPayment();
+                }
+                else 
+                {
+                    CbDayPayment.Enabled = false;
+                    TxtLocker.Focus();
+                }
             }
         }
 
@@ -225,7 +236,8 @@ namespace Parking.Process
 
         private void CheckEntryExit()
         {
-            if (txtPlate.Text.Trim() != string.Empty)
+            
+        if (txtPlate.Text.Trim() != string.Empty)
             {
                 lblIngreso.Text = DateTime.Now.ToString();
 

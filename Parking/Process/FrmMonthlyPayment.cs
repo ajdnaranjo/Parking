@@ -130,8 +130,7 @@ namespace Parking.Process
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
                 FillUserByPlate(TxtPlate.Text.Trim());
-
-                TxtPayment.Focus();
+                CbPaymentType.Focus();
             }
         }
 
@@ -267,6 +266,8 @@ namespace Parking.Process
                     var result = repo.GetPaymentByID((int)CbPaymentType.SelectedValue);
 
                     TxtTotalPayment.Text = result.Value.ToString("N0");
+                    TxtPayment.Enabled = true;
+                    TxtPayment.Focus();
                 }
             }
             else TxtTotalPayment.Text = "0";

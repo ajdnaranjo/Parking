@@ -40,6 +40,16 @@ namespace Parking.Repositories
 
                         context.SaveChanges();
                         registry.RegistryID = reg.RegistryID;
+
+                        if  (reg.DayPayment == true)
+                        {
+                            reg.TotalPayment = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 3).Value;
+                            reg.ExitDate = DateTime.Now;
+                            var dif = DateTime.Now.Subtract(reg.EntryDate);
+                            reg.Days = dif.Days;
+                            reg.Hours = dif.Hours;
+                            reg.Minutes = dif.Minutes;
+                        }
                     }
                     else
                     {
