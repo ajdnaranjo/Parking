@@ -42,6 +42,7 @@
             this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ExpirationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PaymentDescriptiion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DgvReport)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,7 +59,8 @@
             this.Plate,
             this.PaymentDate,
             this.ExpirationDate,
-            this.PaymentDescriptiion});
+            this.PaymentDescriptiion,
+            this.Status});
             this.DgvReport.Location = new System.Drawing.Point(12, 53);
             this.DgvReport.Name = "DgvReport";
             this.DgvReport.ReadOnly = true;
@@ -98,6 +100,7 @@
             this.ReceiptID.HeaderText = "No. Recibo";
             this.ReceiptID.Name = "ReceiptID";
             this.ReceiptID.ReadOnly = true;
+            this.ReceiptID.Width = 90;
             // 
             // Document
             // 
@@ -105,6 +108,7 @@
             this.Document.HeaderText = "Documento";
             this.Document.Name = "Document";
             this.Document.ReadOnly = true;
+            this.Document.Width = 90;
             // 
             // ClientName
             // 
@@ -112,7 +116,7 @@
             this.ClientName.HeaderText = "Nombres";
             this.ClientName.Name = "ClientName";
             this.ClientName.ReadOnly = true;
-            this.ClientName.Width = 250;
+            this.ClientName.Width = 230;
             // 
             // CellPhone
             // 
@@ -120,6 +124,7 @@
             this.CellPhone.HeaderText = "Celular";
             this.CellPhone.Name = "CellPhone";
             this.CellPhone.ReadOnly = true;
+            this.CellPhone.Width = 90;
             // 
             // Plate
             // 
@@ -127,6 +132,7 @@
             this.Plate.HeaderText = "Placa";
             this.Plate.Name = "Plate";
             this.Plate.ReadOnly = true;
+            this.Plate.Width = 90;
             // 
             // PaymentDate
             // 
@@ -137,7 +143,7 @@
             this.PaymentDate.HeaderText = "Fecha Ingreso";
             this.PaymentDate.Name = "PaymentDate";
             this.PaymentDate.ReadOnly = true;
-            this.PaymentDate.Width = 150;
+            this.PaymentDate.Width = 130;
             // 
             // ExpirationDate
             // 
@@ -148,14 +154,25 @@
             this.ExpirationDate.HeaderText = "Fecha vencimiento.";
             this.ExpirationDate.Name = "ExpirationDate";
             this.ExpirationDate.ReadOnly = true;
-            this.ExpirationDate.Width = 150;
+            this.ExpirationDate.Width = 130;
             // 
             // PaymentDescriptiion
             // 
             this.PaymentDescriptiion.DataPropertyName = "PaymentDescriptiion";
-            this.PaymentDescriptiion.HeaderText = "Tipo de pago";
+            this.PaymentDescriptiion.HeaderText = "Tipo pago";
             this.PaymentDescriptiion.Name = "PaymentDescriptiion";
             this.PaymentDescriptiion.ReadOnly = true;
+            this.PaymentDescriptiion.Width = 90;
+            // 
+            // Status
+            // 
+            this.Status.DataPropertyName = "Status";
+            this.Status.HeaderText = "Activo";
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
+            this.Status.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Status.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Status.Width = 80;
             // 
             // FrmMonthlyPayments
             // 
@@ -189,5 +206,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PaymentDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn ExpirationDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn PaymentDescriptiion;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Status;
     }
 }

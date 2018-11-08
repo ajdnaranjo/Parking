@@ -273,7 +273,8 @@ namespace Parking.Repositories
                     data = (from m in context.MonthlyPayments
                             join c in context.Clients on m.Plate equals c.Plate
                             join pm in context.PaymentMethods on m.PaymentMethodID equals pm.PaymentMethodID
-                            select new MonthlyPaymentDto
+                            orderby m.ExpirationDate descending
+                            select new MonthlyPaymentDto                            
                             {
                                 MonthlyPaymentID = m.MonthlyPaymentID,
                                 Document = c.Document,
@@ -285,7 +286,8 @@ namespace Parking.Repositories
                                 PaymentDate = m.PaymentDate,
                                 ExpirationDate = m.ExpirationDate,
                                 CellPhone = c.CelPhone,
-                                PaymentDescriptiion = pm.Description
+                                PaymentDescriptiion = pm.Description,
+                                Status = (bool)c.IsActive
                             }).ToList();
                 }
                 else

@@ -20,6 +20,7 @@ namespace Parking
         {
             InitializeComponent();
 
+
             var secureRepo = new SecurityRepository();
 
             var userID = secureRepo.GetUserID(AppUserName);

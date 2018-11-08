@@ -23,6 +23,6 @@ namespace Parking.Models
         public string CellPhone  { get; set; }
         public string PaymentDescriptiion { get; set; }
         public int  PaymentMethodID { get; set; }
-
+        public bool Status { get; set; }
     }
 }
