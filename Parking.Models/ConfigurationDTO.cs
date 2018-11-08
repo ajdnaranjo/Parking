@@ -22,5 +22,6 @@ namespace Parking.Models
         public string StartDay { get; set; }
         public int Lockers { get; set; }
         public string ReceiptLetter { get; set; }
+        public int MonthlyMessageDays { get; set; }
     }
 }

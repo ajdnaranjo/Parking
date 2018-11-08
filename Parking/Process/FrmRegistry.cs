@@ -158,7 +158,10 @@ namespace Parking.Process
                     var result = repo.CheckExit(check, Globals.appUserID);
 
                     var date = mp.ExpirationDate.Subtract(DateTime.Now);
-                    if (date.Days <= 2)
+                    var repoConfig = new ConfigurationRepository();
+                    var conf = repoConfig.GetConfiguration();
+
+                    if (date.Days <= conf.MonthlyMessageDays)
                     {
                         var path = repoReceipts.MonthlyPaymentExpirationReceipt(mp.MonthlyPaymentID, Globals.appUserID);
                         var print = new PrintReceipts();

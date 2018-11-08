@@ -100,6 +100,7 @@ namespace Parking.Repositories
                     }
                     else
                     {
+
                         var day = reg.Hours * hoursValues.Value;
 
                         if (dif.Minutes > 0 && dif.Minutes < 30) day = day + minutesValues.Value;

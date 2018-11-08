@@ -57,6 +57,9 @@ namespace Parking.Repositories
                         case "ReceiptLetter":
                             config.ReceiptLetter = item.ConfigurationValue;
                             break;
+                        case "MonthlyMessageDays":
+                            config.MonthlyMessageDays = int.Parse(item.ConfigurationValue);
+                            break;
                     }                   
                 }
                 return config;
