@@ -31,6 +31,7 @@ namespace Parking.Repositories
         public Nullable<System.DateTime> WorkShiftCloseDate { get; set; }
         public Nullable<int> Locker { get; set; }
         public Nullable<bool> DayPayment { get; set; }
+        public Nullable<bool> IsInSite { get; set; }
     
         public virtual AppUser AppUser { get; set; }
         public virtual AppUser AppUser1 { get; set; }

@@ -15,12 +15,12 @@ namespace Parking.Repositories
                 var repo = new ConfigurationRepository();
                 var configRepo = new ConfigurationRepository();
                 var config = configRepo.GetConfiguration();
-                var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.ExitDate == null);
+                var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.IsInSite == true && r.ExitDate == null );
 
                 if (reg == null)
                 {
                     reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true
-                            && DbFunctions.DiffHours(r.EntryDate, r.ExitDate).Value <= 12
+                            && DbFunctions.DiffHours(r.EntryDate, r.ExitDate).Value <= 12 && r.IsInSite == true
                             && r.ExitDate.Value.Day == DateTime.Now.Day);
 
                     if (reg == null)
@@ -34,7 +34,8 @@ namespace Parking.Repositories
                             IsWorkShiftClosed = registry.IsWorkShiftClosed,
                             Locker = registry.Locker,
                             DayPayment = registry.DayPayment,
-                            ModifiedDate = DateTime.Now
+                            ModifiedDate = DateTime.Now,
+                            IsInSite = true
                         };
                         context.Registries.Add(reg);
 
@@ -44,8 +45,8 @@ namespace Parking.Repositories
                         if  (reg.DayPayment == true)
                         {
                             reg.TotalPayment = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 3).Value;
-                            reg.ExitDate = DateTime.Now;
-                            var dif = DateTime.Now.Subtract(reg.EntryDate);
+                            reg.ExitDate = DateTime.Now.AddHours(12);
+                            var dif = reg.ExitDate.Value.Subtract(reg.EntryDate);
                             reg.Days = dif.Days;
                             reg.Hours = dif.Hours;
                             reg.Minutes = dif.Minutes;
@@ -141,6 +142,7 @@ namespace Parking.Repositories
                 reg.Locker = registry.Locker;
                 reg.DayPayment = registry.DayPayment;
                 reg.ModifiedDate = DateTime.Now;
+                reg.IsInSite = false;
 
                 context.SaveChanges();
 

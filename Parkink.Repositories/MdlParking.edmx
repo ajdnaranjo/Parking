@@ -96,6 +96,7 @@
           <Property Name="WorkShiftCloseDate" Type="datetime" />
           <Property Name="Locker" Type="int" />
           <Property Name="DayPayment" Type="bit" />
+          <Property Name="IsInSite" Type="bit" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -476,6 +477,7 @@
           <Property Name="DayPayment" Type="Boolean" />
           <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_Registry_AppUser" FromRole="Registry" ToRole="AppUser" />
           <NavigationProperty Name="AppUser1" Relationship="PLTOModel.FK_Registry_AppUser1" FromRole="Registry" ToRole="AppUser" />
+          <Property Name="IsInSite" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Registry_AppUser">
           <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
@@ -648,6 +650,7 @@
           <EntitySetMapping Name="Registries">
             <EntityTypeMapping TypeName="PLTOModel.Registry">
               <MappingFragment StoreEntitySet="Registry">
+                <ScalarProperty Name="IsInSite" ColumnName="IsInSite" />
                 <ScalarProperty Name="DayPayment" ColumnName="DayPayment" />
                 <ScalarProperty Name="Locker" ColumnName="Locker" />
                 <ScalarProperty Name="WorkShiftCloseDate" ColumnName="WorkShiftCloseDate" />
