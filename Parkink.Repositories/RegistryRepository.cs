@@ -15,12 +15,12 @@ namespace Parking.Repositories
                 var repo = new ConfigurationRepository();
                 var configRepo = new ConfigurationRepository();
                 var config = configRepo.GetConfiguration();
-                var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.IsInSite == true && r.ExitDate == null );
+                var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate  && r.ExitDate == null);
 
                 if (reg == null)
                 {
                     reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true
-                            && DbFunctions.DiffHours(r.EntryDate, r.ExitDate).Value <= 12 && r.IsInSite == true
+                            && (DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value <= 12 || r.IsInSite == true) 
                             && r.ExitDate.Value.Day == DateTime.Now.Day);
 
                     if (reg == null)
@@ -45,7 +45,7 @@ namespace Parking.Repositories
                         if  (reg.DayPayment == true)
                         {
                             reg.TotalPayment = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 3).Value;
-                            reg.ExitDate = DateTime.Now.AddHours(12);
+                            reg.ExitDate = DateTime.Now;
                             var dif = reg.ExitDate.Value.Subtract(reg.EntryDate);
                             reg.Days = dif.Days;
                             reg.Hours = dif.Hours;
@@ -54,7 +54,7 @@ namespace Parking.Repositories
                     }
                     else
                     {
-                        reg.TotalPayment = 0;
+                        reg.TotalPayment = 0;                                                
                     }
 
 
@@ -130,6 +130,16 @@ namespace Parking.Repositories
             {
                 var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.ExitDate == null);
 
+
+                if (reg.DayPayment == true && reg.ExitDate == null)
+                {
+                    reg.IsInSite = true;
+                }
+                else
+                {
+                    reg.IsInSite = false;
+                }
+
                 reg.Plate = registry.Plate;
                 reg.ExitDate = registry.ExitDate;
                 reg.Days = registry.Days;
@@ -141,8 +151,7 @@ namespace Parking.Repositories
                 reg.ModifiedBy = userID;
                 reg.Locker = registry.Locker;
                 reg.DayPayment = registry.DayPayment;
-                reg.ModifiedDate = DateTime.Now;
-                reg.IsInSite = false;
+                reg.ModifiedDate = DateTime.Now;                
 
                 context.SaveChanges();
 
@@ -392,6 +401,31 @@ namespace Parking.Repositories
 
                 return reg;
             }
+        }
+
+        public Registry UpdateEntryExitDaypayment(string registryID)
+        {                                                   
+            using (var context = new PLTOEntities())
+            {
+
+                var reg = context.Registries.FirstOrDefault(r => r.RegistryID == registryID);
+
+                if (reg.IsInSite == true)
+                {
+                    reg.IsInSite = false;
+                    reg.ExitDate = DateTime.Now;
+                }
+                else
+                {
+                    reg.IsInSite = true;
+                }
+                reg.ModifiedDate = DateTime.Now;
+
+                context.SaveChanges();
+
+                return reg;
+            }
+
         }
     }
 }

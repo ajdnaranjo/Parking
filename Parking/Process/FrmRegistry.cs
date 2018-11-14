@@ -286,7 +286,9 @@ namespace Parking.Process
                         {
                             DialogResult result = MessageBox.Show(Constants.MSG_DayPayment, Constants.MSG_OK, MessageBoxButtons.OK);
                             if (result == DialogResult.OK)
-                            {
+                            {                               
+                                repo.UpdateEntryExitDaypayment(data.RegistryID);
+
                                 CleanForm();
                             }
 
