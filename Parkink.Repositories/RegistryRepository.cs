@@ -17,7 +17,10 @@ namespace Parking.Repositories
                 var config = configRepo.GetConfiguration();
                 var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate  && r.ExitDate == null);
 
-                reg =      context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true && r.IsInSite == true);
+                if (reg == null)
+                {
+                    reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true && r.IsInSite == true);
+                }
 
                 if (reg == null)
                 {
@@ -63,6 +66,14 @@ namespace Parking.Repositories
                 }
                 else
                 {
+                    if (reg.DayPayment == true)
+                    {
+                        reg.EntryDate = (DateTime)reg.ExitDate;
+                        var result = InsertRegistry(reg, userID);
+                        UpdateIsInSite(reg, false);
+                        reg = context.Registries.FirstOrDefault(r => r.RegistryID == result.RegistryID);
+                    }
+
 
                     reg.ExitDate = DateTime.Now;
                     var dif = DateTime.Now.Subtract(reg.EntryDate);
@@ -76,16 +87,16 @@ namespace Parking.Repositories
                     var hoursValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 2);
                     var minutesValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 1);
 
-                    var newHours = 0;
-                    if (reg.DayPayment == true) newHours = dif.Hours - 12;
-                    else newHours = dif.Hours;
+                    //var newHours = 0;
+                    //if (reg.DayPayment == true && dif.Hours >= 12) newHours = dif.Hours - 12;
+                    //else newHours = dif.Hours;
 
                     reg.TotalPayment = hours * daysValues.Value;
 
 
-                    if (newHours > int.Parse(config.DayHours))
+                    if (dif.Hours > int.Parse(config.DayHours))
                     {
-                        if (newHours > 12)
+                        if (dif.Hours > 12)
                         {
                             var dayHours = (dif.Hours - 12);
 
@@ -108,7 +119,7 @@ namespace Parking.Repositories
                     else
                     {
 
-                        var day = newHours * hoursValues.Value;
+                        var day = dif.Hours * hoursValues.Value;
 
                         if (dif.Minutes > 0 && dif.Minutes < 30) day = day + minutesValues.Value;
                         else if (dif.Minutes >= 30 && dif.Minutes < 60) day = day + (minutesValues.Value * 2);
@@ -129,6 +140,7 @@ namespace Parking.Repositories
             }
 
         }
+     
 
         public Registry CheckExit(Registry registry, int userID)
         {
@@ -137,7 +149,7 @@ namespace Parking.Repositories
                 var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.ExitDate == null);
 
 
-                if (reg.DayPayment == true && reg.ExitDate == null)
+                if (reg.DayPayment == true )
                 {
                     reg.IsInSite = true;
                 }
@@ -433,5 +445,46 @@ namespace Parking.Repositories
             }
 
         }
+
+        private Registry InsertRegistry(Registry registry, int userID)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var repo = new ConfigurationRepository();
+
+                var reg = new Registry
+                {
+                    RegistryID = repo.GetReceiptNumber(),
+                    Plate = registry.Plate,
+                    EntryDate = registry.EntryDate,
+                    CreatedBy = userID,
+                    IsWorkShiftClosed = registry.IsWorkShiftClosed,
+                    Locker = registry.Locker,
+                    DayPayment = registry.DayPayment,
+                    ModifiedDate = DateTime.Now,
+                    IsInSite = true
+                };
+                context.Registries.Add(reg);
+
+                context.SaveChanges();
+                return reg;
+            }
+        }
+
+
+        private Registry UpdateIsInSite(Registry registry, bool  isInSite)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var reg = context.Registries.FirstOrDefault(r => r.RegistryID == registry.RegistryID);
+
+                reg.IsInSite = isInSite;
+
+                context.SaveChanges();
+
+                return reg;
+            }
+        }
+         
     }
 }
