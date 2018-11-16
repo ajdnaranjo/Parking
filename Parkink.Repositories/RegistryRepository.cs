@@ -17,10 +17,12 @@ namespace Parking.Repositories
                 var config = configRepo.GetConfiguration();
                 var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate  && r.ExitDate == null);
 
+                reg =      context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true && r.IsInSite == true);
+
                 if (reg == null)
                 {
                     reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true
-                            && (DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value <= 12 || r.IsInSite == true) 
+                            && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value <= 12  
                             && r.ExitDate.Value.Day == DateTime.Now.Day);
 
                     if (reg == null)
@@ -74,12 +76,16 @@ namespace Parking.Repositories
                     var hoursValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 2);
                     var minutesValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 1);
 
+                    var newHours = 0;
+                    if (reg.DayPayment == true) newHours = dif.Hours - 12;
+                    else newHours = dif.Hours;
+
                     reg.TotalPayment = hours * daysValues.Value;
 
 
-                    if (dif.Hours > int.Parse(config.DayHours))
+                    if (newHours > int.Parse(config.DayHours))
                     {
-                        if (dif.Hours > 12)
+                        if (newHours > 12)
                         {
                             var dayHours = (dif.Hours - 12);
 
@@ -102,7 +108,7 @@ namespace Parking.Repositories
                     else
                     {
 
-                        var day = reg.Hours * hoursValues.Value;
+                        var day = newHours * hoursValues.Value;
 
                         if (dif.Minutes > 0 && dif.Minutes < 30) day = day + minutesValues.Value;
                         else if (dif.Minutes >= 30 && dif.Minutes < 60) day = day + (minutesValues.Value * 2);
@@ -112,7 +118,7 @@ namespace Parking.Repositories
                         reg.TotalPayment = reg.TotalPayment + day;
                     }
 
-                    if ((reg.DayPayment == true || registry.DayPayment == true) && reg.TotalPayment < daysValues.Value)
+                    if ((reg.DayPayment == true || registry.DayPayment == true) && reg.TotalPayment < daysValues.Value && reg.Hours < 12)
                     {
                         reg.TotalPayment = daysValues.Value;
                     }
