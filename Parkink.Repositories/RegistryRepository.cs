@@ -8,18 +8,22 @@ namespace Parking.Repositories
 {
     public class RegistryRepository
     {
+        public bool flag = false;
+
         public Registry CheckEntryExit(Registry registry, int userID)
         {
             using (var context = new PLTOEntities())
             {
-                var repo = new ConfigurationRepository();
+                
+            var repo = new ConfigurationRepository();
                 var configRepo = new ConfigurationRepository();
                 var config = configRepo.GetConfiguration();
                 var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate  && r.ExitDate == null);
 
                 if (reg == null)
                 {
-                    reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true && r.IsInSite == true);
+                    reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true && r.IsInSite == true
+                                    && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value > 12);
                 }
 
                 if (reg == null)
@@ -68,7 +72,8 @@ namespace Parking.Repositories
                 {
                     if (reg.DayPayment == true)
                     {
-                        reg.EntryDate = (DateTime)reg.ExitDate;
+                        
+                        reg.EntryDate = reg.EntryDate.AddHours(12);
                         var result = InsertRegistry(reg, userID);
                         UpdateIsInSite(reg, false);
                         reg = context.Registries.FirstOrDefault(r => r.RegistryID == result.RegistryID);
@@ -142,21 +147,14 @@ namespace Parking.Repositories
         }
      
 
-        public Registry CheckExit(Registry registry, int userID)
+        public Registry CheckExit(Registry registry, int userID, bool flag = false)
         {
             using (var context = new PLTOEntities())
             {
                 var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.ExitDate == null);
 
-
-                if (reg.DayPayment == true )
-                {
-                    reg.IsInSite = true;
-                }
-                else
-                {
-                    reg.IsInSite = false;
-                }
+                if (flag != true) reg.IsInSite = false;
+        
 
                 reg.Plate = registry.Plate;
                 reg.ExitDate = registry.ExitDate;
@@ -460,7 +458,7 @@ namespace Parking.Repositories
                     CreatedBy = userID,
                     IsWorkShiftClosed = registry.IsWorkShiftClosed,
                     Locker = registry.Locker,
-                    DayPayment = registry.DayPayment,
+                    DayPayment = false,
                     ModifiedDate = DateTime.Now,
                     IsInSite = true
                 };

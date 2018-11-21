@@ -11,6 +11,7 @@ namespace Parking.Process
     {
         private int? Days, Hours, Minutes;
 
+
         public FrmRegistry()
         {
             InitializeComponent();
@@ -142,7 +143,10 @@ namespace Parking.Process
 
                 if (mp == null)
                 {
-                    var result = repo.CheckExit(check, Globals.appUserID);
+                    bool flag = false;
+                    if (check.DayPayment == true) flag = true;
+
+                    var result = repo.CheckExit(check, Globals.appUserID, flag);
                     
                     var path = repoReceipts.ExitReceipt(result.Plate, Globals.appUserID);
                     var print = new PrintReceipts();
