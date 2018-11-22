@@ -15,9 +15,8 @@ namespace Parking.Repositories
             using (var context = new PLTOEntities())
             {
                 
-            var repo = new ConfigurationRepository();
-                var configRepo = new ConfigurationRepository();
-                var config = configRepo.GetConfiguration();
+            var repo = new ConfigurationRepository();               
+               
                 var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate  && r.ExitDate == null);
 
                 if (reg == null)
@@ -90,22 +89,18 @@ namespace Parking.Repositories
 
                     var daysValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 3);
                     var hoursValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 2);
-                    var minutesValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 1);
-
-                    //var newHours = 0;
-                    //if (reg.DayPayment == true && dif.Hours >= 12) newHours = dif.Hours - 12;
-                    //else newHours = dif.Hours;
+                    var minutesValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 1);       
 
                     reg.TotalPayment = hours * daysValues.Value;
 
 
-                    if (dif.Hours > int.Parse(config.DayHours))
+                    if (dif.Hours > int.Parse(Globals.ConfigGlobal.DayHours))
                     {
                         if (dif.Hours > 12)
                         {
                             var dayHours = (dif.Hours - 12);
 
-                            if (dayHours > int.Parse(config.DayHours))
+                            if (dayHours > int.Parse(Globals.ConfigGlobal.DayHours))
                                 reg.TotalPayment = reg.TotalPayment + (daysValues.Value * 2);
                             else
                             {

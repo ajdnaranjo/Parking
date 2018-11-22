@@ -9,5 +9,8 @@ namespace Parking.Models
     public static class Globals
     {
         public static int appUserID { get; set; }
+
+        public static ConfigurationDTO ConfigGlobal { get; set; }
+      
     }
 }

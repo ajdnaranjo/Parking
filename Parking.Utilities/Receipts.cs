@@ -11,17 +11,14 @@ namespace Parking.Utilities
     public class Receipts
     {
         public string EntryReceipt(string plate, int appUserID)
-        {
-
-            var repo = new ConfigurationRepository();
+        {            
             var repoRegistry = new RegistryRepository();
             var secureRepo = new SecurityRepository();
-
-            var config = repo.GetConfiguration();
+            
             var entry = repoRegistry.GetEntryRegistryByPlate(plate);
             var appUserData = secureRepo.GetAppUserByID(appUserID);
 
-            var footItems = config.FootItems.Split('*');
+            var footItems = Globals.ConfigGlobal.FootItems.Split('*');
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
            
@@ -32,13 +29,13 @@ namespace Parking.Utilities
 
             Font font = new Font(FontFactory.GetFont("Helvetica", 8, Font.NORMAL));
 
-            doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
-            doc.Add(new Paragraph("Nit: " + config.Nit,font));
-            doc.Add(new Paragraph("Dir: " + config.Address,font));
-            doc.Add(new Paragraph("Tel: " + config.Telephone, font));
-            doc.Add(new Paragraph("Horario: " + config.Schedule, font));
-            doc.Add(new Paragraph(config.Regime, font));
-            doc.Add(new Paragraph("N. Factura: " + config.ReceiptLetter + entry.RegistryID, font));
+            doc.Add(new Paragraph(Globals.ConfigGlobal.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
+            doc.Add(new Paragraph("Nit: " + Globals.ConfigGlobal.Nit,font));
+            doc.Add(new Paragraph("Dir: " + Globals.ConfigGlobal.Address,font));
+            doc.Add(new Paragraph("Tel: " + Globals.ConfigGlobal.Telephone, font));
+            doc.Add(new Paragraph("Horario: " + Globals.ConfigGlobal.Schedule, font));
+            doc.Add(new Paragraph(Globals.ConfigGlobal.Regime, font));
+            doc.Add(new Paragraph("N. Factura: " + Globals.ConfigGlobal.ReceiptLetter + entry.RegistryID, font));
             doc.Add(new Paragraph("Placa: " + plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
             doc.Add(new Paragraph("Entra: " + entry.EntryDate, font));
             doc.Add(new Paragraph("Locker: " + entry.Locker, font));
@@ -49,7 +46,7 @@ namespace Parking.Utilities
 
             font = new Font(FontFactory.GetFont("Helvetica", 7, Font.BOLD));
 
-            doc.Add(new Paragraph(config.FootTitle, font));
+            doc.Add(new Paragraph(Globals.ConfigGlobal.FootTitle, font));
 
             foreach (var item in footItems)
             {
@@ -64,12 +61,10 @@ namespace Parking.Utilities
         }
 
         public string  ExitReceipt(string plate, int appUserID )
-        {
-            var repo = new ConfigurationRepository();
+        {            
             var repoRegistry = new RegistryRepository();
             var secureRepo = new SecurityRepository();
-
-            var config = repo.GetConfiguration();
+         
             var exit = repoRegistry.GetExitRegistryByPlate(plate);
             var appUserData = secureRepo.GetAppUserByID(appUserID);
 
@@ -85,13 +80,13 @@ namespace Parking.Utilities
 
             Font font = new Font(FontFactory.GetFont("Helvetica", 8, Font.NORMAL));
 
-            doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
-            doc.Add(new Paragraph("Nit: " + config.Nit, font));
-            doc.Add(new Paragraph("Dir: " + config.Address, font));
-            doc.Add(new Paragraph("Tel: " + config.Telephone, font));
-            doc.Add(new Paragraph("Horario: " + config.Schedule, font));
-            doc.Add(new Paragraph(config.Regime, font));
-            doc.Add(new Paragraph("N. Factura: " + config.ReceiptLetter + exit.RegistryID, font));
+            doc.Add(new Paragraph(Globals.ConfigGlobal.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
+            doc.Add(new Paragraph("Nit: " + Globals.ConfigGlobal.Nit, font));
+            doc.Add(new Paragraph("Dir: " + Globals.ConfigGlobal.Address, font));
+            doc.Add(new Paragraph("Tel: " + Globals.ConfigGlobal.Telephone, font));
+            doc.Add(new Paragraph("Horario: " + Globals.ConfigGlobal.Schedule, font));
+            doc.Add(new Paragraph(Globals.ConfigGlobal.Regime, font));
+            doc.Add(new Paragraph("N. Factura: " + Globals.ConfigGlobal.ReceiptLetter + exit.RegistryID, font));
             doc.Add(new Paragraph("Placa: " + plate, font));
             doc.Add(new Paragraph("Entra: " + exit.EntryDate, font));
             doc.Add(new Paragraph("Sale: " + exit.ExitDate, font));
@@ -108,16 +103,14 @@ namespace Parking.Utilities
         }
 
         public string MonthlyPaymentReceipt(string monthlyPaymentID, int appUserID)
-        {
-            var repo = new ConfigurationRepository();
+        {            
             var dataRepo = new RegistryRepository();
             var secureRepo = new SecurityRepository();
-
-            var config = repo.GetConfiguration();
+            
             var data = dataRepo.GetMonthlyPaymentByID(monthlyPaymentID);
             var appUserData = secureRepo.GetAppUserByID(appUserID);
 
-            var footItems = config.FootItems.Split('*');
+            var footItems = Globals.ConfigGlobal.FootItems.Split('*');
 
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
@@ -128,13 +121,13 @@ namespace Parking.Utilities
 
             Font font = new Font(FontFactory.GetFont("Helvetica", 8, Font.NORMAL));
 
-            doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
-            doc.Add(new Paragraph("Nit: " + config.Nit, font));
-            doc.Add(new Paragraph("Dir: " + config.Address, font));
-            doc.Add(new Paragraph("Tel: " + config.Telephone, font));
-            doc.Add(new Paragraph("Horario: " + config.Schedule, font));
-            doc.Add(new Paragraph(config.Regime, font));
-            doc.Add(new Paragraph("N. Factura: " + config.ReceiptLetter + data.MonthlyPaymentID, font));
+            doc.Add(new Paragraph(Globals.ConfigGlobal.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
+            doc.Add(new Paragraph("Nit: " + Globals.ConfigGlobal.Nit, font));
+            doc.Add(new Paragraph("Dir: " + Globals.ConfigGlobal.Address, font));
+            doc.Add(new Paragraph("Tel: " + Globals.ConfigGlobal.Telephone, font));
+            doc.Add(new Paragraph("Horario: " + Globals.ConfigGlobal.Schedule, font));
+            doc.Add(new Paragraph(Globals.ConfigGlobal.Regime, font));
+            doc.Add(new Paragraph("N. Factura: " + Globals.ConfigGlobal.ReceiptLetter + data.MonthlyPaymentID, font));
             doc.Add(new Paragraph("Placa: " + data.Plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));
             doc.Add(new Paragraph("Total: " + data.TotalPayment.ToString("N0"), FontFactory.GetFont("helvetica", 14, Font.BOLD)));
             doc.Add(new Paragraph("Pago con: " + data.PaidValue.ToString("N0"), font));
@@ -146,7 +139,7 @@ namespace Parking.Utilities
 
             font = new Font(FontFactory.GetFont("Helvetica", 7, Font.BOLD));
 
-            doc.Add(new Paragraph(config.FootTitle, font));
+            doc.Add(new Paragraph(Globals.ConfigGlobal.FootTitle, font));
 
             foreach (var item in footItems)
             {
@@ -162,11 +155,7 @@ namespace Parking.Utilities
 
         public string CloseWorkShift(CloseWorkShiftDto data)
         {
-            var repo = new ConfigurationRepository();           
-
-            var config = repo.GetConfiguration();
-         
-
+            
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
             var output = new FileStream(@"C:\Parking\Receipts\CloseWorkShift" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create);
             var writer = PdfWriter.GetInstance(doc, output);
@@ -175,7 +164,7 @@ namespace Parking.Utilities
 
             Font font = new Font(FontFactory.GetFont("Helvetica", 8, Font.NORMAL));
 
-            doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
+            doc.Add(new Paragraph(Globals.ConfigGlobal.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
             doc.Add(new Paragraph("Cierra de turno", FontFactory.GetFont("helvetica", 8, Font.BOLD)));
             doc.Add(new Paragraph("Fecha: " + DateTime.Now, font ));
             doc.Add(new Paragraph("Nombre : " + data.Name, font));
@@ -206,14 +195,11 @@ namespace Parking.Utilities
 
         public string MonthlyPaymentExpirationReceipt(string monthlyPaymentID, int appUserID)
         {
-            var repo = new ConfigurationRepository();
             var dataRepo = new RegistryRepository();
             var secureRepo = new SecurityRepository();
-
-            var config = repo.GetConfiguration();
+            
             var data = dataRepo.GetMonthlyPaymentByID(monthlyPaymentID);
             var appUserData = secureRepo.GetAppUserByID(appUserID);         
-
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
             var output = new FileStream(@"C:\Parking\Receipts\MonthlyExpirationReceipt" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create);
@@ -223,18 +209,52 @@ namespace Parking.Utilities
 
             Font font = new Font(FontFactory.GetFont("Helvetica", 8, Font.NORMAL));
 
-            doc.Add(new Paragraph(config.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
-            doc.Add(new Paragraph("Nit: " + config.Nit, font));
-            doc.Add(new Paragraph("Dir: " + config.Address, font));
-            doc.Add(new Paragraph("Tel: " + config.Telephone, font));
-            doc.Add(new Paragraph("Horario: " + config.Schedule, font));
-            doc.Add(new Paragraph(config.Regime, font));
-            doc.Add(new Paragraph("N. Factura: " + config.ReceiptLetter + data.MonthlyPaymentID, font));
+            doc.Add(new Paragraph(Globals.ConfigGlobal.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
+            doc.Add(new Paragraph("Nit: " + Globals.ConfigGlobal.Nit, font));
+            doc.Add(new Paragraph("Dir: " + Globals.ConfigGlobal.Address, font));
+            doc.Add(new Paragraph("Tel: " + Globals.ConfigGlobal.Telephone, font));
+            doc.Add(new Paragraph("Horario: " + Globals.ConfigGlobal.Schedule, font));
+            doc.Add(new Paragraph(Globals.ConfigGlobal.Regime, font));
+            doc.Add(new Paragraph("N. Factura: " + Globals.ConfigGlobal.ReceiptLetter + data.MonthlyPaymentID, font));
             doc.Add(new Paragraph("Placa: " + data.Plate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));           
             doc.Add(new Paragraph("Su mensualidad vence: " + data.ExpirationDate, FontFactory.GetFont("helvetica", 14, Font.BOLD)));            
             doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, font));
 
            
+            doc.Close();
+
+            return output.Name;
+        }
+
+
+        public string PendingToExitReceipt()
+        {            
+            var dataRepo = new ReportRepository();
+                       
+            var data = dataRepo.GetPendingToExit();            
+
+            Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
+            var output = new FileStream(@"C:\Parking\Receipts\PendingToExitReceipt" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create);
+            var writer = PdfWriter.GetInstance(doc, output);
+
+            doc.Open();
+
+            Font font = new Font(FontFactory.GetFont("Helvetica", 8, Font.NORMAL));
+
+            doc.Add(new Paragraph(Globals.ConfigGlobal.Name, FontFactory.GetFont("Helvetica", 8, Font.NORMAL)));
+            doc.Add(new Paragraph("\n"));
+            doc.Add(new Paragraph("Motos en sitio.", font));
+            doc.Add(new Paragraph("\n"));
+
+            var plates = string.Empty;
+
+            foreach (var item in data)
+            {                
+                plates = plates + " " + " - " + " " + item.Plate ;                
+            }
+
+            doc.Add(new Paragraph(plates, font));
+
             doc.Close();
 
             return output.Name;

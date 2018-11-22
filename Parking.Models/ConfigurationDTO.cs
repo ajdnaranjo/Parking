@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 namespace Parking.Models
 {
     [Serializable]
-    public class ConfigurationDTO
+    public  class ConfigurationDTO
     {
-        public string Name { get; set; }
-        public string Nit { get; set; }
-        public string Address { get; set; }
-        public string Telephone { get; set; }
-        public string Schedule { get; set; }
-        public string Regime { get; set; }
-        public string FootTitle { get; set; }
-        public string DayHours { get; set; }
-        public string StartNight { get; set; }
-        public string FootItems { get; set; }
-        public string StartDay { get; set; }
-        public int Lockers { get; set; }
-        public string ReceiptLetter { get; set; }
-        public int MonthlyMessageDays { get; set; }
+        public  string Name { get; set; }
+        public  string Nit { get; set; }
+        public  string Address { get; set; }
+        public  string Telephone { get; set; }
+        public  string Schedule { get; set; }
+        public  string Regime { get; set; }
+        public  string FootTitle { get; set; }
+        public  string DayHours { get; set; }
+        public  string StartNight { get; set; }
+        public  string FootItems { get; set; }
+        public  string StartDay { get; set; }
+        public  int Lockers { get; set; }
+        public  string ReceiptLetter { get; set; }
+        public  int MonthlyMessageDays { get; set; }
     }
 }

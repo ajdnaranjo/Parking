@@ -22,13 +22,16 @@ namespace Parking
 
 
             var secureRepo = new SecurityRepository();
+            var repoConfig = new ConfigurationRepository();
+            var repo = new ConfigurationRepository();
 
             var userID = secureRepo.GetUserID(AppUserName);
             Globals.appUserID = userID;
 
+            Globals.ConfigGlobal = repoConfig.GetConfiguration();
+            this.Text = Globals.ConfigGlobal.Name;
+
             RolAccess(Globals.appUserID);
-            var repo = new ConfigurationRepository();
-            this.Text = repo.GetConfiguration().Name;
 
         }
 
@@ -202,6 +205,12 @@ namespace Parking
                 MdiParent = this
             };
             frm.Show();
+        }
+
+        private void tsmiIsInSite_Click(object sender, EventArgs e)
+        {
+            var repo = new Receipts();
+            repo.PendingToExitReceipt();
         }
     }
 }

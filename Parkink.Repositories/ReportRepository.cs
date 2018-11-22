@@ -62,7 +62,6 @@ namespace Parking.Repositories
             }
         }
 
-
         public CloseWorkShiftDto GetCloseWorkShiftByUserDate(int userId, DateTime date)
         {
             using (var context = new PLTOEntities())
@@ -101,6 +100,16 @@ namespace Parking.Repositories
 
                 return work;
 
+            }
+        }
+
+        public List<Registry> GetPendingToExit()
+        {
+
+            using (var context = new PLTOEntities())
+            {
+
+                return context.Registries.Where(x => x.IsInSite == true || x.ExitDate == null).ToList();
             }
         }
     }

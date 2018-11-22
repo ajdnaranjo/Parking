@@ -41,6 +41,7 @@
             this.tsimCloseWorkShift = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMonthlyPayments = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmiCloseWorkShiftCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiIsInSite = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFrmConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFrmRolAcces = new System.Windows.Forms.ToolStripMenuItem();
@@ -126,7 +127,8 @@
             this.reportMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsimCloseWorkShift,
             this.tsmiMonthlyPayments,
-            this.TsmiCloseWorkShiftCopy});
+            this.TsmiCloseWorkShiftCopy,
+            this.tsmiIsInSite});
             this.reportMenu.Name = "reportMenu";
             this.reportMenu.Size = new System.Drawing.Size(65, 20);
             this.reportMenu.Text = "&Reportes";
@@ -135,7 +137,7 @@
             // 
             this.tsimCloseWorkShift.Enabled = false;
             this.tsimCloseWorkShift.Name = "tsimCloseWorkShift";
-            this.tsimCloseWorkShift.Size = new System.Drawing.Size(169, 22);
+            this.tsimCloseWorkShift.Size = new System.Drawing.Size(180, 22);
             this.tsimCloseWorkShift.Text = "&Cierre de turno";
             this.tsimCloseWorkShift.Click += new System.EventHandler(this.tsimCloseWorkShift_Click);
             // 
@@ -143,7 +145,7 @@
             // 
             this.tsmiMonthlyPayments.Enabled = false;
             this.tsmiMonthlyPayments.Name = "tsmiMonthlyPayments";
-            this.tsmiMonthlyPayments.Size = new System.Drawing.Size(169, 22);
+            this.tsmiMonthlyPayments.Size = new System.Drawing.Size(180, 22);
             this.tsmiMonthlyPayments.Text = "&Mensualidades";
             this.tsmiMonthlyPayments.Click += new System.EventHandler(this.tsmiMonthlyPayments_Click);
             // 
@@ -151,9 +153,16 @@
             // 
             this.TsmiCloseWorkShiftCopy.Enabled = false;
             this.TsmiCloseWorkShiftCopy.Name = "TsmiCloseWorkShiftCopy";
-            this.TsmiCloseWorkShiftCopy.Size = new System.Drawing.Size(169, 22);
+            this.TsmiCloseWorkShiftCopy.Size = new System.Drawing.Size(180, 22);
             this.TsmiCloseWorkShiftCopy.Text = "Copia cierre turno";
             this.TsmiCloseWorkShiftCopy.Click += new System.EventHandler(this.TsmiCloseWorkShiftCopy_Click);
+            // 
+            // tsmiIsInSite
+            // 
+            this.tsmiIsInSite.Name = "tsmiIsInSite";
+            this.tsmiIsInSite.Size = new System.Drawing.Size(180, 22);
+            this.tsmiIsInSite.Text = "Lista motos en sitio";
+            this.tsmiIsInSite.Click += new System.EventHandler(this.tsmiIsInSite_Click);
             // 
             // toolsMenu
             // 
@@ -311,6 +320,7 @@
         private System.Windows.Forms.ToolStripMenuItem TsmCopyReceipts;
         private System.Windows.Forms.ToolStripMenuItem TsmEditClient;
         private System.Windows.Forms.ToolStripMenuItem TsmiCloseWorkShiftCopy;
+        private System.Windows.Forms.ToolStripMenuItem tsmiIsInSite;
     }
 }
 

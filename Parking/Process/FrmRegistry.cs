@@ -76,15 +76,19 @@ namespace Parking.Process
 
         private void GetDayPayment()
         {
-            if (txtPlate.Text.Trim() != string.Empty)
+            var lenght = txtPlate.TextLength;
+            if (lenght >= 5)
             {
-                var repo = new RegistryRepository();
-                var result = repo.GetDayPayment(txtPlate.Text);
+                if (txtPlate.Text.Trim() != string.Empty)
+                {
+                    var repo = new RegistryRepository();
+                    var result = repo.GetDayPayment(txtPlate.Text);
 
-                if (result != null) CbDayPayment.Checked = (bool)result.DayPayment;
+                    if (result != null) CbDayPayment.Checked = (bool)result.DayPayment;
+                }
+
+                CbDayPayment.Focus();
             }
-
-            CbDayPayment.Focus();
         }
 
         private void txtPayment_KeyPress(object sender, KeyPressEventArgs e)
@@ -116,7 +120,8 @@ namespace Parking.Process
         }
 
         private void txtPaymentKeypress()
-        {
+        {            
+
             if (!string.IsNullOrEmpty(txtPayment.Text.Trim()))
             {
                 CalculateRefund();
@@ -162,10 +167,9 @@ namespace Parking.Process
                     var result = repo.CheckExit(check, Globals.appUserID);
 
                     var date = mp.ExpirationDate.Subtract(DateTime.Now);
-                    var repoConfig = new ConfigurationRepository();
-                    var conf = repoConfig.GetConfiguration();
+                    var repoConfig = new ConfigurationRepository();                  
 
-                    if (date.Days <= conf.MonthlyMessageDays)
+                    if (date.Days <= Globals.ConfigGlobal.MonthlyMessageDays)
                     {
                         var path = repoReceipts.MonthlyPaymentExpirationReceipt(mp.MonthlyPaymentID, Globals.appUserID);
                         var print = new PrintReceipts();
