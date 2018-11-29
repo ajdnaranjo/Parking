@@ -210,7 +210,11 @@ namespace Parking
         private void tsmiIsInSite_Click(object sender, EventArgs e)
         {
             var repo = new Receipts();
-            repo.PendingToExitReceipt();
+            var print = new PrintReceipts();
+
+            var path = repo.PendingToExitReceipt();
+          
+            var response = print.PrintPDFs(path);
         }
     }
 }
