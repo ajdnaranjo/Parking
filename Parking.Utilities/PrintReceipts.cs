@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.IO;
+using System.Configuration;
 
 namespace Parking.Utilities
 {
@@ -18,8 +19,8 @@ namespace Parking.Utilities
 
                 //Define location of adobe reader/command line
                 //switches to launch adobe in "print" mode
-                proc.StartInfo.FileName =
-                  @"C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe";
+                proc.StartInfo.FileName = ConfigurationManager.AppSettings["AdobePath"];
+               // @"C:\Program Files (x86)\Adobe\Acrobat Reader DC\Reader\AcroRd32.exe";
                 proc.StartInfo.Arguments = String.Format(@"/p /h {0}", pdfFileName);
                 proc.StartInfo.UseShellExecute = false;
                 proc.StartInfo.CreateNoWindow = true;
@@ -28,31 +29,45 @@ namespace Parking.Utilities
                 proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 if (proc.HasExited == false)
                 {                    
-                    proc.WaitForExit(3000);
+                    proc.WaitForExit(4000);
                 }
 
                 proc.EnableRaisingEvents = true;
 
                 proc.Close();
-                KillAdobe("AcroRd32");
-                File.Delete(pdfFileName);
+                var result = KillAdobe("AcroRd32");
+                ParkingLogger.Information("resultado kill adobe: " + result.ToString());
+                if (result == true)
+                    File.Delete(pdfFileName);
+                else
+                {
+                    throw new Exception("El proceso no se pudo detener.");
+                }
+
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                ParkingLogger.Error(ex.Message, ex);
                 return false;
             }
         }
 
         private static bool KillAdobe(string name)
         {
-            foreach (Process clsProcess in Process.GetProcesses().Where(
-                         clsProcess => clsProcess.ProcessName.StartsWith(name)))
+            try
             {
-                clsProcess.Kill();
+                foreach (Process clsProcess in Process.GetProcesses().Where(
+                             clsProcess => clsProcess.ProcessName.StartsWith(name)))
+                {
+                    clsProcess.Kill();                    
+                }
                 return true;
             }
-            return false;
+            catch
+            {
+                return false;
+            }
         }
 
     }
