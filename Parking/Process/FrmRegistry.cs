@@ -245,6 +245,7 @@ namespace Parking.Process
         }
 
         private void CheckEntryExit()
+
         {
             
         if (txtPlate.Text.Trim() != string.Empty)
@@ -268,9 +269,9 @@ namespace Parking.Process
                 lblIngreso.Text = data.EntryDate.ToString();
                 var mp = repoUser.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
 
-                if (data.ExitDate == null)
+                if (data.ExitDate == null && reg.DayPayment == false)
                 {
-                    if (mp == null)
+                    if (mp == null )
                     {
                         var repoReceipts = new Receipts();
                         var path = repoReceipts.EntryReceipt(reg.Plate, Globals.appUserID);
@@ -303,6 +304,7 @@ namespace Parking.Process
                         }
                         else
                         {
+                            lblIngreso.Text = data.EntryDate.ToString();
                             lblSalida.Text = data.ExitDate.ToString();
                             decimal totalPayment = (decimal)data.TotalPayment;
                             txtTotalPayment.Text = totalPayment.ToString("N0");

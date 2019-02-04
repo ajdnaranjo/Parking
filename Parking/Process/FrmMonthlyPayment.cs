@@ -33,8 +33,11 @@ namespace Parking.Process
 
             var result = repoPayments.GetLongTermPayments();
 
+            var isAdmin = repo.GetAdmin(Globals.appUserID);
+
             result.Add(new PaymentMethod { PaymentMethodID = -1, Description = "Seleccionar" });
-            result.Add(new PaymentMethod { PaymentMethodID = 100, Description = "Eliminar" });
+            if (isAdmin != null) result.Add(new PaymentMethod { PaymentMethodID = 100, Description = "Eliminar" });
+
             result.OrderBy(z => z.PaymentMethodID);
 
             CbPaymentType.DataSource = result;
@@ -172,6 +175,10 @@ namespace Parking.Process
                     TxtPlate.Text = result.Plate;
                     TxtPlate.Focus();
                 }
+                else {
+                    CleanForm();
+                    TxtDocument.Text = document;
+                }
             }
         }
 
@@ -226,6 +233,11 @@ namespace Parking.Process
                 TxtName.Text = result.Name;
                 CbDocType.SelectedValue = result.DocTypeID;
                 TxtCelPhone.Text = result.CelPhone;
+            }
+            else
+            {
+                CleanForm();
+                TxtPlate.Text = plate;
             }
 
             TxtPayment.Focus();

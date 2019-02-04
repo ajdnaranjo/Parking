@@ -29,7 +29,7 @@ namespace Parking.Utilities
                 proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 if (proc.HasExited == false)
                 {                    
-                    proc.WaitForExit(4000);
+                    proc.WaitForExit(int.Parse(ConfigurationManager.AppSettings["WaitForExit"]));
                 }
 
                 proc.EnableRaisingEvents = true;

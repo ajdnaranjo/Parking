@@ -31,7 +31,7 @@ namespace Parking.Repositories
                             && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value <= 12  
                             && r.ExitDate.Value.Day == DateTime.Now.Day);
 
-                    if (reg == null)
+                    if (reg == null && registry.DayPayment != true)
                     {
                         reg = new Registry
                         {
@@ -49,20 +49,18 @@ namespace Parking.Repositories
 
                         context.SaveChanges();
                         registry.RegistryID = reg.RegistryID;
-
-                        if  (reg.DayPayment == true)
-                        {
-                            reg.TotalPayment = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 3).Value;
-                            reg.ExitDate = DateTime.Now;
-                            var dif = reg.ExitDate.Value.Subtract(reg.EntryDate);
-                            reg.Days = dif.Days;
-                            reg.Hours = dif.Hours;
-                            reg.Minutes = dif.Minutes;
-                        }
+                        
                     }
                     else
                     {
-                        reg.TotalPayment = 0;                                                
+                        if (registry.DayPayment == true)
+                        {
+                            reg = new Registry();
+                            reg.EntryDate = registry.EntryDate;
+                            reg.TotalPayment = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 3).Value;                           
+                        }
+                        else
+                            reg.TotalPayment = 0;                                                
                     }
 
 
