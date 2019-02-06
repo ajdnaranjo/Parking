@@ -14,10 +14,10 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
-                
-            var repo = new ConfigurationRepository();               
-               
-                var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate  && r.ExitDate == null);
+
+                var repo = new ConfigurationRepository();
+
+                var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.ExitDate == null);
 
                 if (reg == null)
                 {
@@ -28,10 +28,10 @@ namespace Parking.Repositories
                 if (reg == null)
                 {
                     reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true
-                            && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value <= 12  
+                            && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value <= 12
                             && r.ExitDate.Value.Day == DateTime.Now.Day);
 
-                    if (reg == null && registry.DayPayment != true)
+                    if (reg == null && registry.DayPayment == false)
                     {
                         reg = new Registry
                         {
@@ -49,18 +49,32 @@ namespace Parking.Repositories
 
                         context.SaveChanges();
                         registry.RegistryID = reg.RegistryID;
-                        
+
                     }
                     else
                     {
-                        if (registry.DayPayment == true)
+                        if (reg == null)
                         {
-                            reg = new Registry();
-                            reg.EntryDate = registry.EntryDate;
-                            reg.TotalPayment = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 3).Value;                           
+                            reg = new Registry
+                            {
+                                Plate = registry.Plate,
+                                Locker = registry.Locker,
+                                DayPayment = registry.DayPayment
+                            };
+                        }
+
+                        if (reg.DayPayment == true)                    
+                        {
+                           
+                            reg.TotalPayment = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 3).Value;
+                            reg.ExitDate = DateTime.Now;
+                            var dif = reg.ExitDate.Value.Subtract(reg.EntryDate);
+                            reg.Days = dif.Days;
+                            reg.Hours = dif.Hours;
+                            reg.Minutes = dif.Minutes;                          
                         }
                         else
-                            reg.TotalPayment = 0;                                                
+                            reg.TotalPayment = 0;
                     }
 
 
@@ -69,7 +83,7 @@ namespace Parking.Repositories
                 {
                     if (reg.DayPayment == true)
                     {
-                        
+
                         reg.EntryDate = reg.EntryDate.AddHours(12);
                         var result = InsertRegistry(reg, userID);
                         UpdateIsInSite(reg, false);
@@ -87,7 +101,7 @@ namespace Parking.Repositories
 
                     var daysValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 3);
                     var hoursValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 2);
-                    var minutesValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 1);       
+                    var minutesValues = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 1);
 
                     reg.TotalPayment = hours * daysValues.Value;
 
@@ -144,10 +158,27 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
+                var repo = new ConfigurationRepository();
+
                 var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.ExitDate == null);
 
-                if (flag != true) reg.IsInSite = false;
-        
+                if (reg == null)
+                {
+                    reg = new Registry
+                    {
+                        RegistryID = repo.GetReceiptNumber(),
+                        Plate = registry.Plate,
+                        EntryDate = registry.EntryDate,
+                        CreatedBy = userID,
+                        IsWorkShiftClosed = registry.IsWorkShiftClosed,
+                        Locker = registry.Locker,
+                        DayPayment = registry.DayPayment,
+                        ModifiedDate = DateTime.Now                        
+                    };
+                }
+                context.Registries.Add(reg);
+
+                if (reg.IsInSite == true || reg.IsInSite == null) reg.IsInSite = false;
 
                 reg.Plate = registry.Plate;
                 reg.ExitDate = registry.ExitDate;

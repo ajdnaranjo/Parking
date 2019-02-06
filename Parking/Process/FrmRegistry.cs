@@ -149,7 +149,7 @@ namespace Parking.Process
                 if (mp == null)
                 {
                     bool flag = false;
-                    if (check.DayPayment == true) flag = true;
+                    //if (check.DayPayment == true) flag = true;
 
                     var result = repo.CheckExit(check, Globals.appUserID, flag);
                     
@@ -195,9 +195,9 @@ namespace Parking.Process
             }
         }
 
-      
+
         private void CleanForm()
-        {  
+        {
             txtPlate.Text = string.Empty;
             txtPlate.Enabled = true;
             txtPlate.Focus();
@@ -209,6 +209,7 @@ namespace Parking.Process
             CbDayPayment.Checked = false;
             lblIngreso.Text = string.Empty;
             lblSalida.Text = string.Empty;
+           // CbDayPayment.Enabled = true;
         }
 
         private void txtPlate_TextChanged(object sender, EventArgs e)
@@ -220,6 +221,7 @@ namespace Parking.Process
         }
 
         private void TxtLocker_KeyPress(object sender, KeyPressEventArgs e)
+
         {
             ValidateNumber(e);
 
@@ -231,7 +233,11 @@ namespace Parking.Process
 
         private void CbDayPayment_CheckedChanged(object sender, EventArgs e)
         {
-            if(txtPlate.Enabled == false) CheckEntryExit();
+            if (txtPlate.Enabled == false)
+            {
+              //  CbDayPayment.Enabled = false;
+                CheckEntryExit();
+            }
         }
 
         private void CbDayPayment_KeyPress(object sender, KeyPressEventArgs e)
@@ -246,9 +252,8 @@ namespace Parking.Process
 
         private void CheckEntryExit()
 
-        {
-            
-        if (txtPlate.Text.Trim() != string.Empty)
+        {           
+            if (txtPlate.Text.Trim() != string.Empty)
             {
                 lblIngreso.Text = DateTime.Now.ToString();
 
@@ -271,7 +276,7 @@ namespace Parking.Process
 
                 if (data.ExitDate == null && reg.DayPayment == false)
                 {
-                    if (mp == null )
+                    if (mp == null)
                     {
                         var repoReceipts = new Receipts();
                         var path = repoReceipts.EntryReceipt(reg.Plate, Globals.appUserID);
@@ -295,7 +300,7 @@ namespace Parking.Process
                         {
                             DialogResult result = MessageBox.Show(Constants.MSG_DayPayment, Constants.MSG_OK, MessageBoxButtons.OK);
                             if (result == DialogResult.OK)
-                            {                               
+                            {
                                 repo.UpdateEntryExitDaypayment(data.RegistryID);
 
                                 CleanForm();

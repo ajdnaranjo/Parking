@@ -37,12 +37,12 @@ namespace Parking.Utilities
                 proc.Close();
                 var result = KillAdobe("AcroRd32");
                 ParkingLogger.Information("resultado kill adobe: " + result.ToString());
-                if (result == true)
-                    File.Delete(pdfFileName);
-                else
-                {
-                    throw new Exception("El proceso no se pudo detener.");
-                }
+                //if (result == true)
+                //    File.Delete(pdfFileName);
+                //else
+                //{
+                //    throw new Exception("El proceso no se pudo detener.");
+                //}
 
                 return true;
             }
