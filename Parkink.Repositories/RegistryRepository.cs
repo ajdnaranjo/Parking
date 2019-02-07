@@ -63,7 +63,7 @@ namespace Parking.Repositories
                             };
                         }
 
-                        if (reg.DayPayment == true)                    
+                        if (reg.DayPayment == true && reg.ExitDate == null)                    
                         {
                            
                             reg.TotalPayment = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 3).Value;
@@ -168,30 +168,43 @@ namespace Parking.Repositories
                     {
                         RegistryID = repo.GetReceiptNumber(),
                         Plate = registry.Plate,
-                        EntryDate = registry.EntryDate,
+                        EntryDate = DateTime.Now,
                         CreatedBy = userID,
-                        IsWorkShiftClosed = registry.IsWorkShiftClosed,
+                        IsWorkShiftClosed = false,
                         Locker = registry.Locker,
                         DayPayment = registry.DayPayment,
-                        ModifiedDate = DateTime.Now                        
-                    };
+                        ModifiedDate = DateTime.Now,
+                        IsInSite = true,
+                        TotalPayment = registry.TotalPayment,
+                        Payment = registry.Payment,
+                        Refund = registry.Refund,
+                        ExitDate = DateTime.Now,
+                        ModifiedBy = userID,
+                        Days = 0,
+                        Hours = 0,
+                        Minutes = 0
+                };
+
+                    context.Registries.Add(reg);
+                }               
+                else 
+                {
+                    if (reg.IsInSite == true) reg.IsInSite = false;
+
+                    reg.Plate = registry.Plate;
+                    reg.ExitDate = registry.ExitDate;
+                    reg.Days = registry.Days;
+                    reg.Hours = registry.Hours;
+                    reg.Minutes = registry.Minutes;
+                    reg.TotalPayment = registry.TotalPayment;
+                    reg.Payment = registry.Payment;
+                    reg.Refund = registry.Refund;
+                    reg.ModifiedBy = userID;
+                    reg.Locker = registry.Locker;
+                    reg.DayPayment = registry.DayPayment;
+                    reg.ModifiedDate = DateTime.Now;
+                   
                 }
-                context.Registries.Add(reg);
-
-                if (reg.IsInSite == true || reg.IsInSite == null) reg.IsInSite = false;
-
-                reg.Plate = registry.Plate;
-                reg.ExitDate = registry.ExitDate;
-                reg.Days = registry.Days;
-                reg.Hours = registry.Hours;
-                reg.Minutes = registry.Minutes;
-                reg.TotalPayment = registry.TotalPayment;
-                reg.Payment = registry.Payment;
-                reg.Refund = registry.Refund;
-                reg.ModifiedBy = userID;
-                reg.Locker = registry.Locker;
-                reg.DayPayment = registry.DayPayment;
-                reg.ModifiedDate = DateTime.Now;                
 
                 context.SaveChanges();
 
@@ -443,7 +456,7 @@ namespace Parking.Repositories
             }
         }
 
-        public Registry UpdateEntryExitDaypayment(string registryID)
+        public Registry UpdateEntryExitDaypayment(string registryID, int userID)
         {                                                   
             using (var context = new PLTOEntities())
             {
@@ -454,12 +467,17 @@ namespace Parking.Repositories
                 {
                     reg.IsInSite = false;
                     reg.ExitDate = DateTime.Now;
+                    var time = DateTime.Now.Subtract(reg.EntryDate);
+                    reg.Hours = time.Hours;
+                    reg.Days = time.Days;
+                    reg.Minutes = time.Minutes;
                 }
                 else
                 {
                     reg.IsInSite = true;
                 }
                 reg.ModifiedDate = DateTime.Now;
+                reg.ModifiedBy = userID;
 
                 context.SaveChanges();
 

@@ -128,6 +128,7 @@ namespace Parking.Process
 
         private void TxtPlate_KeyPress(object sender, KeyPressEventArgs e)
         {
+
             e.KeyChar = Char.ToUpper(e.KeyChar);
 
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
