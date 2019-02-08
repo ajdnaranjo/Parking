@@ -106,13 +106,13 @@ namespace Parking.Repositories
                     reg.TotalPayment = hours * daysValues.Value;
 
 
-                    if (dif.Hours > int.Parse(Globals.ConfigGlobal.DayHours))
+                    if (dif.Hours >= int.Parse(Globals.ConfigGlobal.DayHours))
                     {
-                        if (dif.Hours > 12)
+                        if (dif.Hours >= 12)
                         {
                             var dayHours = (dif.Hours - 12);
 
-                            if (dayHours > int.Parse(Globals.ConfigGlobal.DayHours))
+                            if (dayHours >= int.Parse(Globals.ConfigGlobal.DayHours))
                                 reg.TotalPayment = reg.TotalPayment + (daysValues.Value * 2);
                             else
                             {

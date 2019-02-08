@@ -252,7 +252,8 @@ namespace Parking.Process
 
         private void CheckEntryExit()
 
-        {           
+        {
+
             if (txtPlate.Text.Trim() != string.Empty)
             {
                 lblIngreso.Text = DateTime.Now.ToString();
