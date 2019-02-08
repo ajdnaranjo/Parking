@@ -22,13 +22,13 @@ namespace Parking.Repositories
                 if (reg == null)
                 {
                     reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true && r.IsInSite == true
-                                    && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value > 12);
+                                    && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value >= 12);
                 }
 
                 if (reg == null)
                 {
                     reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true
-                            && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value <= 12
+                            && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value < 12
                             && r.ExitDate.Value.Day == DateTime.Now.Day);
 
                     if (reg == null && registry.DayPayment == false)
@@ -88,6 +88,7 @@ namespace Parking.Repositories
                         var result = InsertRegistry(reg, userID);
                         UpdateIsInSite(reg, false);
                         reg = context.Registries.FirstOrDefault(r => r.RegistryID == result.RegistryID);
+                        registry.DayPayment = false;
                     }
 
 
@@ -144,6 +145,7 @@ namespace Parking.Repositories
                     if ((reg.DayPayment == true || registry.DayPayment == true) && reg.TotalPayment < daysValues.Value && reg.Hours < 12)
                     {
                         reg.TotalPayment = daysValues.Value;
+                        reg.DayPayment = true;
                     }
 
 

@@ -24,11 +24,11 @@ namespace Parking.Repositories
             }
         }
 
-        public int GetUserID(string appUserID)
+        public AppUser GetUserID(string appUserID)
         {
             using (var context = new PLTOEntities())
             {
-                return context.AppUsers.FirstOrDefault(x => x.AppUserID == appUserID && x.Status == true).UserID;
+                return context.AppUsers.FirstOrDefault(x => x.AppUserID == appUserID && x.Status == true);
             }
         }
 

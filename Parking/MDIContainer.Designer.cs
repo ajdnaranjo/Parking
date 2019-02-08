@@ -53,9 +53,11 @@
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblUser = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -137,7 +139,7 @@
             // 
             this.tsimCloseWorkShift.Enabled = false;
             this.tsimCloseWorkShift.Name = "tsimCloseWorkShift";
-            this.tsimCloseWorkShift.Size = new System.Drawing.Size(180, 22);
+            this.tsimCloseWorkShift.Size = new System.Drawing.Size(176, 22);
             this.tsimCloseWorkShift.Text = "&Cierre de turno";
             this.tsimCloseWorkShift.Click += new System.EventHandler(this.tsimCloseWorkShift_Click);
             // 
@@ -145,7 +147,7 @@
             // 
             this.tsmiMonthlyPayments.Enabled = false;
             this.tsmiMonthlyPayments.Name = "tsmiMonthlyPayments";
-            this.tsmiMonthlyPayments.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMonthlyPayments.Size = new System.Drawing.Size(176, 22);
             this.tsmiMonthlyPayments.Text = "&Mensualidades";
             this.tsmiMonthlyPayments.Click += new System.EventHandler(this.tsmiMonthlyPayments_Click);
             // 
@@ -153,14 +155,14 @@
             // 
             this.TsmiCloseWorkShiftCopy.Enabled = false;
             this.TsmiCloseWorkShiftCopy.Name = "TsmiCloseWorkShiftCopy";
-            this.TsmiCloseWorkShiftCopy.Size = new System.Drawing.Size(180, 22);
+            this.TsmiCloseWorkShiftCopy.Size = new System.Drawing.Size(176, 22);
             this.TsmiCloseWorkShiftCopy.Text = "Copia cierre turno";
             this.TsmiCloseWorkShiftCopy.Click += new System.EventHandler(this.TsmiCloseWorkShiftCopy_Click);
             // 
             // tsmiIsInSite
             // 
             this.tsmiIsInSite.Name = "tsmiIsInSite";
-            this.tsmiIsInSite.Size = new System.Drawing.Size(180, 22);
+            this.tsmiIsInSite.Size = new System.Drawing.Size(176, 22);
             this.tsmiIsInSite.Text = "Lista motos en sitio";
             this.tsmiIsInSite.Click += new System.EventHandler(this.tsmiIsInSite_Click);
             // 
@@ -254,6 +256,12 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.aboutToolStripMenuItem.Text = "&About ... ...";
             // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabel.Text = "Status";
+            // 
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -264,17 +272,34 @@
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "StatusStrip";
             // 
-            // toolStripStatusLabel
+            // label1
             // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
-            this.toolStripStatusLabel.Text = "Status";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(254, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(69, 17);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Usuario:";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // lblUser
+            // 
+            this.lblUser.AutoSize = true;
+            this.lblUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUser.Location = new System.Drawing.Point(319, 3);
+            this.lblUser.Name = "lblUser";
+            this.lblUser.Size = new System.Drawing.Size(52, 17);
+            this.lblUser.TabIndex = 5;
+            this.lblUser.Text = "label2";
             // 
             // MDIContainer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1153, 846);
+            this.Controls.Add(this.lblUser);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;
@@ -296,10 +321,8 @@
 
 
         private System.Windows.Forms.MenuStrip menuStrip;
-        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileMenu;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
@@ -321,6 +344,10 @@
         private System.Windows.Forms.ToolStripMenuItem TsmEditClient;
         private System.Windows.Forms.ToolStripMenuItem TsmiCloseWorkShiftCopy;
         private System.Windows.Forms.ToolStripMenuItem tsmiIsInSite;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblUser;
     }
 }
 

@@ -25,11 +25,12 @@ namespace Parking
             var repoConfig = new ConfigurationRepository();
             var repo = new ConfigurationRepository();
 
-            var userID = secureRepo.GetUserID(AppUserName);
-            Globals.appUserID = userID;
+            var user = secureRepo.GetUserID(AppUserName);
+            Globals.appUserID = user.UserID;
 
             Globals.ConfigGlobal = repoConfig.GetConfiguration();
             this.Text = Globals.ConfigGlobal.Name;
+            lblUser.Text = user.Name;
 
             RolAccess(Globals.appUserID);
 
@@ -215,6 +216,16 @@ namespace Parking
             var path = repo.PendingToExitReceipt();
           
             var response = print.PrintPDFs(path);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
