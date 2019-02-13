@@ -237,7 +237,7 @@ namespace Parking.Process
             }
             else
             {
-                CleanForm();
+               // CleanForm();
                 TxtPlate.Text = plate;
             }
 
