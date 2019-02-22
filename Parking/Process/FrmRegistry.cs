@@ -181,6 +181,7 @@ namespace Parking.Process
                 CleanForm();
                 txtPlate.Focus();
                 LoadLastMovements();
+                ActiveForm();
             }
         }
 
@@ -293,6 +294,7 @@ namespace Parking.Process
                     txtPlate.Focus();
                     CleanForm();
                     LoadLastMovements();
+                    ActiveForm();
                 }
                 else
                 {
@@ -399,6 +401,12 @@ namespace Parking.Process
             else
                 return text.Remove(text.Length - 1);            
                   
+        }
+
+        private new void ActiveForm()
+        {
+            var form = new FrmRegistry();
+            form.txtPlate.Focus();
         }
     }
 }

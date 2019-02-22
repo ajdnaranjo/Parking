@@ -500,7 +500,7 @@ namespace Parking.Repositories
                     Plate = registry.Plate,
                     EntryDate = registry.EntryDate,
                     CreatedBy = userID,
-                    IsWorkShiftClosed = registry.IsWorkShiftClosed,
+                    IsWorkShiftClosed = false,
                     Locker = registry.Locker,
                     DayPayment = false,
                     ModifiedDate = DateTime.Now,
