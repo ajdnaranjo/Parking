@@ -12,7 +12,8 @@ namespace Parking.Repositories
 
         public Registry CheckEntryExit(Registry registry, int userID)
         {
-            using (var context = new PLTOEntities())
+            using (
+                var context = new PLTOEntities())
             {
 
                 var repo = new ConfigurationRepository();
@@ -141,13 +142,13 @@ namespace Parking.Repositories
 
                         reg.TotalPayment = reg.TotalPayment + day;
                     }
-
+                    //reg.DayPayment = registry.DayPayment;
                     if ((reg.DayPayment == true || registry.DayPayment == true) && reg.TotalPayment < daysValues.Value && reg.Hours < 12)
                     {
                         reg.TotalPayment = daysValues.Value;
                         reg.DayPayment = true;
                     }
-
+                 
 
                 }
                 return reg;

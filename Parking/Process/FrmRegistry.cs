@@ -272,7 +272,7 @@ namespace Parking.Process
                 };
 
                 var data = repo.CheckEntryExit(reg, Globals.appUserID);
-                CbDayPayment.Checked = (bool)data.DayPayment;
+                //CbDayPayment.Checked = (bool)data.DayPayment;
 
                 lblIngreso.Text = data.EntryDate.ToString();
                 var mp = repoUser.GetMonthlyPaymentByPlate(txtPlate.Text.Trim());
