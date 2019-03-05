@@ -18,19 +18,19 @@ namespace Parking.Repositories
 
                 var repo = new ConfigurationRepository();
 
-                var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.ExitDate == null);
+                var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.ExitDate == null && r.DeletedDate == null);
 
                 if (reg == null)
                 {
                     reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true && r.IsInSite == true
-                                    && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value >= 12);
+                                    && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value >= 12 && r.DeletedDate == null);
                 }
 
                 if (reg == null)
                 {
                     reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true
                             && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value < 12
-                            && r.ExitDate.Value.Day == DateTime.Now.Day);
+                            && r.ExitDate.Value.Day == DateTime.Now.Day && r.DeletedDate == null);
 
                     if (reg == null && registry.DayPayment == false)
                     {
@@ -163,7 +163,7 @@ namespace Parking.Repositories
             {
                 var repo = new ConfigurationRepository();
 
-                var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.ExitDate == null);
+                var reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.ExitDate == null && r.DeletedDate == null);
 
                 if (reg == null)
                 {
@@ -251,11 +251,12 @@ namespace Parking.Repositories
                     TotalPayment = monthlyPaymentDTO.TotalPayment,
                     PaidValue = monthlyPaymentDTO.PaidValue,
                     Refund = monthlyPaymentDTO.Refund,
-                    PaymentDate = monthlyPaymentDTO.PaymentDate,
+                    StartDate = monthlyPaymentDTO.StartDate,
                     ExpirationDate = monthlyPaymentDTO.ExpirationDate,
                     CreatedBy = userID,
                     IsWorkShiftClosed = monthlyPaymentDTO.IsWorkShiftClosed,
-                    PaymentMethodID = monthlyPaymentDTO.PaymentMethodID
+                    PaymentMethodID = monthlyPaymentDTO.PaymentMethodID,
+                    PaymentDate = DateTime.Now
                 };
 
                 monthlyPaymentDTO.PaymentDescriptiion = context.PaymentMethods.FirstOrDefault(x => x.PaymentMethodID == mPayment.PaymentMethodID).Description;
@@ -322,7 +323,7 @@ namespace Parking.Repositories
                                 PaidValue = m.PaidValue,
                                 TotalPayment = m.TotalPayment,
                                 Refund = m.Refund,
-                                PaymentDate = m.PaymentDate,
+                                StartDate = m.StartDate,
                                 ExpirationDate = m.ExpirationDate
                             }).FirstOrDefault();
 
@@ -351,7 +352,7 @@ namespace Parking.Repositories
                                 Plate = m.Plate,
                                 PaidValue = m.PaidValue,
                                 TotalPayment = m.TotalPayment,
-                                PaymentDate = m.PaymentDate,
+                                StartDate = m.StartDate,
                                 ExpirationDate = m.ExpirationDate,
                                 CellPhone = c.CelPhone,
                                 PaymentDescriptiion = pm.Description,
@@ -372,7 +373,7 @@ namespace Parking.Repositories
                                 Plate = m.Plate,
                                 PaidValue = m.PaidValue,
                                 TotalPayment = m.TotalPayment,
-                                PaymentDate = m.PaymentDate,
+                                StartDate = m.StartDate,
                                 ExpirationDate = m.ExpirationDate,
                                 CellPhone = c.CelPhone
                             }).ToList();
@@ -413,7 +414,7 @@ namespace Parking.Repositories
             using (var context = new PLTOEntities())
             {
 
-                return context.MonthlyPayments.Where(z => z.Plate == plate).OrderByDescending(x => x.MonthlyPaymentID).FirstOrDefault();
+                return context.MonthlyPayments.Where(z => z.Plate == plate).OrderBy(x => x.MonthlyPaymentID).FirstOrDefault();
 
             }
         }

@@ -17,7 +17,7 @@ namespace Parking.Models
         public decimal PaidValue { get; set; }
         public decimal TotalPayment { get; set; }
         public decimal Refund { get; set; }
-        public DateTime PaymentDate { get; set; }
+        public DateTime StartDate { get; set; }
         public DateTime ExpirationDate { get; set; }
         public bool IsWorkShiftClosed { get; set; }
         public string CellPhone  { get; set; }

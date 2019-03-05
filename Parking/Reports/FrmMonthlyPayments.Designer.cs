@@ -194,7 +194,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView DgvReport;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Names;
+        //private System.Windows.Forms.DataGridViewTextBoxColumn Names;
         private System.Windows.Forms.Button BtnExport;
         private System.Windows.Forms.TextBox TxtSearch;
         private System.Windows.Forms.Button BtnSearch;

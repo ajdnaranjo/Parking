@@ -39,7 +39,7 @@ namespace Parking.Repositories
                 //return context.MonthlyPayments.Where(x => x.Plate == plate).OrderByDescending(t => t.ExpirationDate).FirstOrDefault();             
                 var result = (from m in context.MonthlyPayments
                               join c in context.Clients on m.Plate equals c.Plate
-                              where m.Plate == plate && c.IsActive == true
+                              where m.Plate == plate && c.IsActive == true && m.DeletedDate == null
                               orderby m.ExpirationDate descending
                               select m
                            ).FirstOrDefault();

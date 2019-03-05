@@ -64,7 +64,7 @@ namespace Parking.Process
                     PaidValue = decimal.Parse(TxtPayment.Text),
                     TotalPayment = decimal.Parse(TxtTotalPayment.Text),
                     Refund = decimal.Parse(TxtRefund.Text),
-                    PaymentDate = DateTime.Now,                   
+                    StartDate = DateTime.Now,                   
                     IsWorkShiftClosed = false,
                     PaymentMethodID = (int)CbPaymentType.SelectedValue
                 };
@@ -81,9 +81,9 @@ namespace Parking.Process
                 }
                 else
                 {
-                    data.PaymentDate = mp.ExpirationDate;                    
-                    if (data.PaymentMethodID == 5) data.ExpirationDate = data.PaymentDate.AddMonths(1);
-                    if (data.PaymentMethodID == 6) data.ExpirationDate = data.PaymentDate.AddDays(15);
+                    data.StartDate = mp.ExpirationDate;                    
+                    if (data.PaymentMethodID == 5) data.ExpirationDate = data.StartDate.AddMonths(1);
+                    if (data.PaymentMethodID == 6) data.ExpirationDate = data.StartDate.AddDays(15);
 
                     result = repo.SaveMonthlyPayment(data, Globals.appUserID);
                 }

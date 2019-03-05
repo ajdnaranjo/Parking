@@ -88,6 +88,7 @@ namespace Parking.Utilities
             doc.Add(new Paragraph(Globals.ConfigGlobal.Regime, font));
             doc.Add(new Paragraph("N. Factura: " + Globals.ConfigGlobal.ReceiptLetter + exit.RegistryID, font));
             doc.Add(new Paragraph("Placa: " + plate, font));
+            doc.Add(new Paragraph("Locker: " + exit.Locker, font));
             doc.Add(new Paragraph("Entra: " + exit.EntryDate, font));
             doc.Add(new Paragraph("Sale: " + exit.ExitDate, font));
             doc.Add(new Paragraph("Días: " + exit.Days + " Horas: " + exit.Hours + " Minutos: " + exit.Minutes, FontFactory.GetFont("helvetica", 8)));         
@@ -225,7 +226,6 @@ namespace Parking.Utilities
 
             return output.Name;
         }
-
 
         public string PendingToExitReceipt()
         {            

@@ -59,12 +59,15 @@
           <Property Name="TotalPayment" Type="money" Nullable="false" />
           <Property Name="PaidValue" Type="money" Nullable="false" />
           <Property Name="Refund" Type="money" Nullable="false" />
-          <Property Name="PaymentDate" Type="datetime" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="IsWorkShiftClosed" Type="bit" />
           <Property Name="WorkShiftCloseDate" Type="datetime" />
           <Property Name="PaymentMethodID" Type="int" />
+          <Property Name="PaymentDate" Type="datetime" />
+          <Property Name="DeletedBy" Type="int" />
+          <Property Name="DeletedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="PaymentMethod">
           <Key>
@@ -97,6 +100,8 @@
           <Property Name="Locker" Type="int" />
           <Property Name="DayPayment" Type="bit" />
           <Property Name="IsInSite" Type="bit" />
+          <Property Name="DeletedBy" Type="int" />
+          <Property Name="DeletedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -295,15 +300,6 @@
             <End Role="Rol" EntitySet="Rols" />
             <End Role="AppUser" EntitySet="AppUsers" />
           </AssociationSet>
-          <EntitySet Name="Registries" EntityType="PLTOModel.Registry" />
-          <AssociationSet Name="FK_Registry_AppUser" Association="PLTOModel.FK_Registry_AppUser">
-            <End Role="AppUser" EntitySet="AppUsers" />
-            <End Role="Registry" EntitySet="Registries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Registry_AppUser1" Association="PLTOModel.FK_Registry_AppUser1">
-            <End Role="AppUser" EntitySet="AppUsers" />
-            <End Role="Registry" EntitySet="Registries" />
-          </AssociationSet>
           <EntitySet Name="MonthlyPayments" EntityType="PLTOModel.MonthlyPayment" />
           <AssociationSet Name="FK_MonthlyPayment_AppUser" Association="PLTOModel.FK_MonthlyPayment_AppUser">
             <End Role="AppUser" EntitySet="AppUsers" />
@@ -312,6 +308,15 @@
           <AssociationSet Name="FK_MonthlyPayment_Client" Association="PLTOModel.FK_MonthlyPayment_Client">
             <End Role="Client" EntitySet="Clients" />
             <End Role="MonthlyPayment" EntitySet="MonthlyPayments" />
+          </AssociationSet>
+          <EntitySet Name="Registries" EntityType="PLTOModel.Registry" />
+          <AssociationSet Name="FK_Registry_AppUser" Association="PLTOModel.FK_Registry_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Registry" EntitySet="Registries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Registry_AppUser1" Association="PLTOModel.FK_Registry_AppUser1">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Registry" EntitySet="Registries" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Configuration">
@@ -438,9 +443,9 @@
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="RolID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Rol" Relationship="PLTOModel.FK_AppUser_Rol" FromRole="AppUser" ToRole="Rol" />
+          <NavigationProperty Name="MonthlyPayments" Relationship="PLTOModel.FK_MonthlyPayment_AppUser" FromRole="AppUser" ToRole="MonthlyPayment" />
           <NavigationProperty Name="Registries" Relationship="PLTOModel.FK_Registry_AppUser" FromRole="AppUser" ToRole="Registry" />
           <NavigationProperty Name="Registries1" Relationship="PLTOModel.FK_Registry_AppUser1" FromRole="AppUser" ToRole="Registry" />
-          <NavigationProperty Name="MonthlyPayments" Relationship="PLTOModel.FK_MonthlyPayment_AppUser" FromRole="AppUser" ToRole="MonthlyPayment" />
           </EntityType>
         <Association Name="FK_AppUser_Rol">
           <End Type="PLTOModel.Rol" Role="Rol" Multiplicity="1" />
@@ -454,55 +459,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Registry">
-          <Key>
-            <PropertyRef Name="RegistryID" />
-          </Key>
-          <Property Name="RegistryID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Plate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ExitDate" Type="DateTime" Precision="3" />
-          <Property Name="Days" Type="Int32" />
-          <Property Name="Hours" Type="Int32" />
-          <Property Name="Minutes" Type="Int32" />
-          <Property Name="TotalPayment" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Payment" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Refund" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="ModifiedBy" Type="Int32" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsWorkShiftClosed" Type="Boolean" />
-          <Property Name="WorkShiftCloseDate" Type="DateTime" Precision="3" />
-          <Property Name="Locker" Type="Int32" />
-          <Property Name="DayPayment" Type="Boolean" />
-          <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_Registry_AppUser" FromRole="Registry" ToRole="AppUser" />
-          <NavigationProperty Name="AppUser1" Relationship="PLTOModel.FK_Registry_AppUser1" FromRole="Registry" ToRole="AppUser" />
-          <Property Name="IsInSite" Type="Boolean" />
-        </EntityType>
-        <Association Name="FK_Registry_AppUser">
-          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
-          <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Registry">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Registry_AppUser1">
-          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
-          <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Registry">
-              <PropertyRef Name="ModifiedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="MonthlyPayment">
           <Key>
             <PropertyRef Name="MonthlyPaymentID" />
@@ -512,12 +468,15 @@
           <Property Name="TotalPayment" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="PaidValue" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Refund" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="IsWorkShiftClosed" Type="Boolean" />
           <Property Name="WorkShiftCloseDate" Type="DateTime" Precision="3" />
           <Property Name="PaymentMethodID" Type="Int32" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_MonthlyPayment_AppUser" FromRole="MonthlyPayment" ToRole="AppUser" />
           <NavigationProperty Name="Client" Relationship="PLTOModel.FK_MonthlyPayment_Client" FromRole="MonthlyPayment" ToRole="Client" />
         </EntityType>
@@ -542,6 +501,57 @@
             </Principal>
             <Dependent Role="MonthlyPayment">
               <PropertyRef Name="Plate" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Registry">
+          <Key>
+            <PropertyRef Name="RegistryID" />
+          </Key>
+          <Property Name="RegistryID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Plate" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExitDate" Type="DateTime" Precision="3" />
+          <Property Name="Days" Type="Int32" />
+          <Property Name="Hours" Type="Int32" />
+          <Property Name="Minutes" Type="Int32" />
+          <Property Name="TotalPayment" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Payment" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Refund" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsWorkShiftClosed" Type="Boolean" />
+          <Property Name="WorkShiftCloseDate" Type="DateTime" Precision="3" />
+          <Property Name="Locker" Type="Int32" />
+          <Property Name="DayPayment" Type="Boolean" />
+          <Property Name="IsInSite" Type="Boolean" />
+          <Property Name="DeletedBy" Type="Int32" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AppUser" Relationship="PLTOModel.FK_Registry_AppUser" FromRole="Registry" ToRole="AppUser" />
+          <NavigationProperty Name="AppUser1" Relationship="PLTOModel.FK_Registry_AppUser1" FromRole="Registry" ToRole="AppUser" />
+        </EntityType>
+        <Association Name="FK_Registry_AppUser">
+          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Registry">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Registry_AppUser1">
+          <End Type="PLTOModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="PLTOModel.Registry" Role="Registry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Registry">
+              <PropertyRef Name="ModifiedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -647,9 +657,31 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="MonthlyPayments">
+            <EntityTypeMapping TypeName="PLTOModel.MonthlyPayment">
+              <MappingFragment StoreEntitySet="MonthlyPayment">
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+                <ScalarProperty Name="WorkShiftCloseDate" ColumnName="WorkShiftCloseDate" />
+                <ScalarProperty Name="IsWorkShiftClosed" ColumnName="IsWorkShiftClosed" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Refund" ColumnName="Refund" />
+                <ScalarProperty Name="PaidValue" ColumnName="PaidValue" />
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="Plate" ColumnName="Plate" />
+                <ScalarProperty Name="MonthlyPaymentID" ColumnName="MonthlyPaymentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Registries">
             <EntityTypeMapping TypeName="PLTOModel.Registry">
               <MappingFragment StoreEntitySet="Registry">
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
                 <ScalarProperty Name="IsInSite" ColumnName="IsInSite" />
                 <ScalarProperty Name="DayPayment" ColumnName="DayPayment" />
                 <ScalarProperty Name="Locker" ColumnName="Locker" />
@@ -668,23 +700,6 @@
                 <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
                 <ScalarProperty Name="Plate" ColumnName="Plate" />
                 <ScalarProperty Name="RegistryID" ColumnName="RegistryID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MonthlyPayments">
-            <EntityTypeMapping TypeName="PLTOModel.MonthlyPayment">
-              <MappingFragment StoreEntitySet="MonthlyPayment">
-                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
-                <ScalarProperty Name="WorkShiftCloseDate" ColumnName="WorkShiftCloseDate" />
-                <ScalarProperty Name="IsWorkShiftClosed" ColumnName="IsWorkShiftClosed" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
-                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
-                <ScalarProperty Name="Refund" ColumnName="Refund" />
-                <ScalarProperty Name="PaidValue" ColumnName="PaidValue" />
-                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
-                <ScalarProperty Name="Plate" ColumnName="Plate" />
-                <ScalarProperty Name="MonthlyPaymentID" ColumnName="MonthlyPaymentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

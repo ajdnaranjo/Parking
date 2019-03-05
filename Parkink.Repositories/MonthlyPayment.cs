@@ -19,12 +19,15 @@ namespace Parking.Repositories
         public decimal TotalPayment { get; set; }
         public decimal PaidValue { get; set; }
         public decimal Refund { get; set; }
-        public System.DateTime PaymentDate { get; set; }
+        public System.DateTime StartDate { get; set; }
         public System.DateTime ExpirationDate { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<bool> IsWorkShiftClosed { get; set; }
         public Nullable<System.DateTime> WorkShiftCloseDate { get; set; }
         public Nullable<int> PaymentMethodID { get; set; }
+        public Nullable<System.DateTime> PaymentDate { get; set; }
+        public Nullable<int> DeletedBy { get; set; }
+        public Nullable<System.DateTime> DeletedDate { get; set; }
     
         public virtual AppUser AppUser { get; set; }
         public virtual Client Client { get; set; }
