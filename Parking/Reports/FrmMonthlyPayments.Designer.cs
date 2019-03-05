@@ -31,6 +31,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DgvReport = new System.Windows.Forms.DataGridView();
+            this.BtnExport = new System.Windows.Forms.Button();
+            this.TxtSearch = new System.Windows.Forms.TextBox();
+            this.BtnSearch = new System.Windows.Forms.Button();
             this.ReceiptID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Document = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ClientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,9 +43,6 @@
             this.ExpirationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PaymentDescriptiion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.BtnExport = new System.Windows.Forms.Button();
-            this.TxtSearch = new System.Windows.Forms.TextBox();
-            this.BtnSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DgvReport)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,6 +66,34 @@
             this.DgvReport.ReadOnly = true;
             this.DgvReport.Size = new System.Drawing.Size(1264, 486);
             this.DgvReport.TabIndex = 0;
+            this.DgvReport.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DgvReport_CellFormatting);
+            // 
+            // BtnExport
+            // 
+            this.BtnExport.Location = new System.Drawing.Point(332, 17);
+            this.BtnExport.Name = "BtnExport";
+            this.BtnExport.Size = new System.Drawing.Size(75, 23);
+            this.BtnExport.TabIndex = 1;
+            this.BtnExport.Text = "Exportar";
+            this.BtnExport.UseVisualStyleBackColor = true;
+            this.BtnExport.Click += new System.EventHandler(this.BtnExport_Click);
+            // 
+            // TxtSearch
+            // 
+            this.TxtSearch.Location = new System.Drawing.Point(12, 19);
+            this.TxtSearch.Name = "TxtSearch";
+            this.TxtSearch.Size = new System.Drawing.Size(233, 20);
+            this.TxtSearch.TabIndex = 3;
+            // 
+            // BtnSearch
+            // 
+            this.BtnSearch.Location = new System.Drawing.Point(251, 17);
+            this.BtnSearch.Name = "BtnSearch";
+            this.BtnSearch.Size = new System.Drawing.Size(75, 23);
+            this.BtnSearch.TabIndex = 4;
+            this.BtnSearch.Text = "Buscar";
+            this.BtnSearch.UseVisualStyleBackColor = true;
+            this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
             // ReceiptID
             // 
@@ -73,6 +101,7 @@
             this.ReceiptID.HeaderText = "No. Recibo";
             this.ReceiptID.Name = "ReceiptID";
             this.ReceiptID.ReadOnly = true;
+            this.ReceiptID.Visible = false;
             this.ReceiptID.Width = 90;
             // 
             // Document
@@ -146,33 +175,6 @@
             this.Status.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Status.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Status.Width = 80;
-            // 
-            // BtnExport
-            // 
-            this.BtnExport.Location = new System.Drawing.Point(332, 17);
-            this.BtnExport.Name = "BtnExport";
-            this.BtnExport.Size = new System.Drawing.Size(75, 23);
-            this.BtnExport.TabIndex = 1;
-            this.BtnExport.Text = "Exportar";
-            this.BtnExport.UseVisualStyleBackColor = true;
-            this.BtnExport.Click += new System.EventHandler(this.BtnExport_Click);
-            // 
-            // TxtSearch
-            // 
-            this.TxtSearch.Location = new System.Drawing.Point(12, 19);
-            this.TxtSearch.Name = "TxtSearch";
-            this.TxtSearch.Size = new System.Drawing.Size(233, 20);
-            this.TxtSearch.TabIndex = 3;
-            // 
-            // BtnSearch
-            // 
-            this.BtnSearch.Location = new System.Drawing.Point(251, 17);
-            this.BtnSearch.Name = "BtnSearch";
-            this.BtnSearch.Size = new System.Drawing.Size(75, 23);
-            this.BtnSearch.TabIndex = 4;
-            this.BtnSearch.Text = "Buscar";
-            this.BtnSearch.UseVisualStyleBackColor = true;
-            this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
             // FrmMonthlyPayments
             // 

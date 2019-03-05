@@ -19,7 +19,7 @@ namespace Parking.Reports
 
             DgvReport.AutoGenerateColumns = false;
             DgvReport.DataSource = repo.GetActiveMonthlyPayments();
-           
+
         }
 
         private void ExportDataGridViewExcel(DataGridView grd)
@@ -27,7 +27,7 @@ namespace Parking.Reports
             SaveFileDialog file = new SaveFileDialog();
             file.Filter = "Excel (*.xls)|*.xls";
             if (file.ShowDialog() == DialogResult.OK)
-            {                
+            {
                 Microsoft.Office.Interop.Excel.Application app;
                 Microsoft.Office.Interop.Excel.Workbook books;
                 Microsoft.Office.Interop.Excel.Worksheet sheets;
@@ -40,8 +40,8 @@ namespace Parking.Reports
                 {
                     sheets.Cells[1, i + 1] = grd.Columns[i].HeaderText;
                 }
-                
-                for (int i = 0; i < grd.Rows.Count ; i++)
+
+                for (int i = 0; i < grd.Rows.Count; i++)
                 {
                     for (int j = 0; j < grd.Columns.Count; j++)
                     {
@@ -65,6 +65,18 @@ namespace Parking.Reports
 
             DgvReport.AutoGenerateColumns = false;
             DgvReport.DataSource = repo.GetActiveMonthlyPayments(TxtSearch.Text.Trim());
+        }
+
+        private void DgvReport_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+
+            if (this.DgvReport.Columns[e.ColumnIndex].Name == "ExpirationDate")
+            {               
+                if ((DateTime)e.Value < DateTime.Now)
+                {                    
+                    this.DgvReport.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.Red;
+                }
+            }
         }
     }
 }
