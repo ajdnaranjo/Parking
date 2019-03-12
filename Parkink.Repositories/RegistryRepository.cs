@@ -434,7 +434,8 @@ namespace Parking.Repositories
                                 Locker = (int)r.Locker,
                                 TotalPayment = r.TotalPayment,
                                 Payment = r.Payment,
-                                Refund = r.Refund
+                                Refund = r.Refund,
+                                IsInsite  = r.IsInSite == true ? "En sitio" : "Salió"
                             }
                             ).Take(20).ToList();
 
@@ -529,6 +530,31 @@ namespace Parking.Repositories
                 return reg;
             }
         }
-         
+
+
+        public Registry DeletePaymentByPlate(string plate, int userID)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var reg = context.Registries.FirstOrDefault(r => r.Plate == plate && r.ExitDate == null);
+
+                if (reg != null)
+                {
+                    var date = DateTime.Now;
+
+                    reg.DeletedBy = userID;
+                    reg.DeletedDate = date;
+                    reg.ExitDate = date;
+                    reg.TotalPayment = 0;
+                    reg.ModifiedBy = userID;
+                    reg.ModifiedDate = date;
+
+                    context.SaveChanges();
+
+                }
+                return reg;
+            }
+        }
+
     }
 }

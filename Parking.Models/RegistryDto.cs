@@ -21,5 +21,6 @@ namespace Parking.Models
         public decimal? Refund { get; set; }
         public int Locker { get; set; }
         public bool DayPayment { get; set; }
+        public string IsInsite { get; set; }
     }
 }

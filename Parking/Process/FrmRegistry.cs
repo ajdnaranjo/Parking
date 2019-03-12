@@ -196,7 +196,6 @@ namespace Parking.Process
             }
         }
 
-
         private void CleanForm()
         {
             txtPlate.Text = string.Empty;

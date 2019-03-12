@@ -17,11 +17,11 @@ namespace Parking.Repositories
 
                 var dataDailyRegistry = (from r in context.Registries
                                     where r.ModifiedBy == userID && r.ExitDate != null &&
-                                    r.IsWorkShiftClosed == false
+                                    r.IsWorkShiftClosed == false  && r.DeletedDate == null
                                     select r).ToList();
 
                 var dataMonthly = (from m in context.MonthlyPayments
-                                   where m.CreatedBy == userID && m.IsWorkShiftClosed == false
+                                   where m.CreatedBy == userID && m.IsWorkShiftClosed == false && m.DeletedDate == null
                                    select m).ToList();
 
                 foreach (var item in dataDailyRegistry)
@@ -76,6 +76,7 @@ namespace Parking.Repositories
                                          r.WorkShiftCloseDate.Value.Day == date.Day &&
                                          r.WorkShiftCloseDate.Value.Hour == date.Hour &&
                                          r.WorkShiftCloseDate.Value.Minute == date.Minute
+                                         && r.DeletedDate == null
                                          select r).ToList();
 
                 var dataMonthly = (from m in context.MonthlyPayments
@@ -84,7 +85,8 @@ namespace Parking.Repositories
                                    m.WorkShiftCloseDate.Value.Month == date.Month &&
                                    m.WorkShiftCloseDate.Value.Day == date.Day &&
                                    m.WorkShiftCloseDate.Value.Hour == date.Hour &&
-                                   m.WorkShiftCloseDate.Value.Minute == date.Minute
+                                   m.WorkShiftCloseDate.Value.Minute == date.Minute &&
+                                   m.DeletedDate == null
                                    select m).ToList();         
 
                 var work = new CloseWorkShiftDto()

@@ -31,13 +31,16 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPlate = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -62,6 +65,7 @@
             this.EntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ExitDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Locker = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InSite = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Payment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Refund = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -242,7 +246,7 @@
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             this.DgvLastMovements.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -257,21 +261,32 @@
             this.EntryDate,
             this.ExitDate,
             this.Locker,
+            this.InSite,
             this.TotalPayment,
             this.Payment,
             this.Refund});
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DgvLastMovements.DefaultCellStyle = dataGridViewCellStyle9;
-            this.DgvLastMovements.Location = new System.Drawing.Point(768, 105);
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DgvLastMovements.DefaultCellStyle = dataGridViewCellStyle10;
+            this.DgvLastMovements.Location = new System.Drawing.Point(766, 105);
             this.DgvLastMovements.Name = "DgvLastMovements";
             this.DgvLastMovements.ReadOnly = true;
-            this.DgvLastMovements.Size = new System.Drawing.Size(613, 391);
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DgvLastMovements.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DgvLastMovements.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            this.DgvLastMovements.Size = new System.Drawing.Size(658, 391);
             this.DgvLastMovements.TabIndex = 15;
             // 
             // CbDayPayment
@@ -323,7 +338,7 @@
             dataGridViewCellStyle4.Format = "g";
             dataGridViewCellStyle4.NullValue = null;
             this.ExitDate.DefaultCellStyle = dataGridViewCellStyle4;
-            this.ExitDate.HeaderText = "Fecha  Salida";
+            this.ExitDate.HeaderText = "Fecha Salida";
             this.ExitDate.Name = "ExitDate";
             this.ExitDate.ReadOnly = true;
             this.ExitDate.Width = 110;
@@ -338,21 +353,31 @@
             this.Locker.ReadOnly = true;
             this.Locker.Width = 50;
             // 
+            // InSite
+            // 
+            this.InSite.DataPropertyName = "IsInSite";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.InSite.DefaultCellStyle = dataGridViewCellStyle6;
+            this.InSite.HeaderText = "En Sitio";
+            this.InSite.Name = "InSite";
+            this.InSite.ReadOnly = true;
+            this.InSite.Width = 75;
+            // 
             // TotalPayment
             // 
             this.TotalPayment.DataPropertyName = "TotalPayment";
-            dataGridViewCellStyle6.Format = "N0";
-            this.TotalPayment.DefaultCellStyle = dataGridViewCellStyle6;
-            this.TotalPayment.HeaderText = "Pago total";
+            dataGridViewCellStyle7.Format = "N0";
+            this.TotalPayment.DefaultCellStyle = dataGridViewCellStyle7;
+            this.TotalPayment.HeaderText = "Total";
             this.TotalPayment.Name = "TotalPayment";
             this.TotalPayment.ReadOnly = true;
-            this.TotalPayment.Width = 90;
+            this.TotalPayment.Width = 55;
             // 
             // Payment
             // 
             this.Payment.DataPropertyName = "Payment";
-            dataGridViewCellStyle7.Format = "N0";
-            this.Payment.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.Format = "N0";
+            this.Payment.DefaultCellStyle = dataGridViewCellStyle8;
             this.Payment.HeaderText = "Pagó";
             this.Payment.Name = "Payment";
             this.Payment.ReadOnly = true;
@@ -361,8 +386,8 @@
             // Refund
             // 
             this.Refund.DataPropertyName = "Refund";
-            dataGridViewCellStyle8.Format = "N0";
-            this.Refund.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle9.Format = "N0";
+            this.Refund.DefaultCellStyle = dataGridViewCellStyle9;
             this.Refund.HeaderText = "Devuelta";
             this.Refund.Name = "Refund";
             this.Refund.ReadOnly = true;
@@ -372,7 +397,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1393, 523);
+            this.ClientSize = new System.Drawing.Size(1436, 523);
             this.Controls.Add(this.CbDayPayment);
             this.Controls.Add(this.DgvLastMovements);
             this.Controls.Add(this.TxtLocker);
@@ -426,6 +451,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EntryDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn ExitDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Locker;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InSite;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalPayment;
         private System.Windows.Forms.DataGridViewTextBoxColumn Payment;
         private System.Windows.Forms.DataGridViewTextBoxColumn Refund;

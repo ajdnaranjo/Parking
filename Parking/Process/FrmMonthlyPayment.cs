@@ -88,6 +88,8 @@ namespace Parking.Process
                     result = repo.SaveMonthlyPayment(data, Globals.appUserID);
                 }
 
+                repo.DeletePaymentByPlate(data.Plate, Globals.appUserID);
+
                 var repoReceipts = new Receipts();
                 var repoPrint = new PrintReceipts();
                 var path = repoReceipts.MonthlyPaymentReceipt(result.MonthlyPaymentID, Globals.appUserID);
