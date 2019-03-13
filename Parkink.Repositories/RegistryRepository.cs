@@ -453,7 +453,7 @@ namespace Parking.Repositories
                 if (reg == null)
                 {
                     reg = context.Registries.FirstOrDefault(r => r.Plate == plate && r.DayPayment == true
-                            && DbFunctions.DiffHours(r.EntryDate, r.ExitDate).Value <= 12
+                            && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value <= 12
                             && r.ExitDate.Value.Day == DateTime.Now.Day);
                 }
 
