@@ -275,7 +275,7 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
-                return context.Registries.FirstOrDefault(x => x.Plate == plate && x.ExitDate == null);
+                return context.Registries.OrderByDescending(x => x.EntryDate).FirstOrDefault(x => x.Plate == plate && x.DeletedDate == null);
             }
         }
 
@@ -284,7 +284,7 @@ namespace Parking.Repositories
             using (var context = new PLTOEntities())
             {
                 var sql = (from r in context.Registries
-                           where r.Plate == plate && r.ExitDate != null
+                           where r.Plate == plate && r.ExitDate != null  && r.DeletedDate == null
                            orderby r.ExitDate descending
                            select new RegistryDto()
                            {
