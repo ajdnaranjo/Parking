@@ -34,7 +34,7 @@
             this.BtnExport = new System.Windows.Forms.Button();
             this.TxtSearch = new System.Windows.Forms.TextBox();
             this.BtnSearch = new System.Windows.Forms.Button();
-            this.ReceiptID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MonthlyPaymentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Document = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ClientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CellPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,7 +52,7 @@
             this.DgvReport.AllowUserToDeleteRows = false;
             this.DgvReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DgvReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ReceiptID,
+            this.MonthlyPaymentID,
             this.Document,
             this.ClientName,
             this.CellPhone,
@@ -95,14 +95,13 @@
             this.BtnSearch.UseVisualStyleBackColor = true;
             this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
-            // ReceiptID
+            // MonthlyPaymentID
             // 
-            this.ReceiptID.DataPropertyName = "ReceiptID";
-            this.ReceiptID.HeaderText = "No. Recibo";
-            this.ReceiptID.Name = "ReceiptID";
-            this.ReceiptID.ReadOnly = true;
-            this.ReceiptID.Visible = false;
-            this.ReceiptID.Width = 90;
+            this.MonthlyPaymentID.DataPropertyName = "MonthlyPaymentID";
+            this.MonthlyPaymentID.HeaderText = "No. Recibo";
+            this.MonthlyPaymentID.Name = "MonthlyPaymentID";
+            this.MonthlyPaymentID.ReadOnly = true;
+            this.MonthlyPaymentID.Width = 90;
             // 
             // Document
             // 
@@ -200,7 +199,7 @@
         private System.Windows.Forms.Button BtnExport;
         private System.Windows.Forms.TextBox TxtSearch;
         private System.Windows.Forms.Button BtnSearch;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ReceiptID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MonthlyPaymentID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Document;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClientName;
         private System.Windows.Forms.DataGridViewTextBoxColumn CellPhone;

@@ -111,7 +111,7 @@ namespace Parking.Repositories
             using (var context = new PLTOEntities())
             {
 
-                return context.Registries.Where(x => (x.IsInSite == true || x.ExitDate == null) && x.DeletedDate == null).ToList();
+                return context.Registries.Where(x => (x.IsInSite == true || x.ExitDate == null) && x.DeletedDate == null ).ToList();
             }
         }
     }

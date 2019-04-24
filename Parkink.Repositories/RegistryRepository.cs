@@ -342,13 +342,13 @@ namespace Parking.Repositories
                     data = (from m in context.MonthlyPayments
                             join c in context.Clients on m.Plate equals c.Plate
                             join pm in context.PaymentMethods on m.PaymentMethodID equals pm.PaymentMethodID
+                            where m.DeletedDate == null
                             orderby m.ExpirationDate descending
                             select new MonthlyPaymentDto                            
                             {
                                 MonthlyPaymentID = m.MonthlyPaymentID,
                                 Document = c.Document,
-                                Name = c.Name,
-                                //MonthlyPaymentID = m.MonthlyPaymentID,
+                                Name = c.Name,                                
                                 Plate = m.Plate,
                                 PaidValue = m.PaidValue,
                                 TotalPayment = m.TotalPayment,
@@ -356,26 +356,31 @@ namespace Parking.Repositories
                                 ExpirationDate = m.ExpirationDate,
                                 CellPhone = c.CelPhone,
                                 PaymentDescriptiion = pm.Description,
-                                Status = (bool)c.IsActive
+                                Status = (bool)c.IsActive,
+                                
                             }).ToList();
                 }
                 else
                 {
                     data = (from m in context.MonthlyPayments
                             join c in context.Clients on m.Plate equals c.Plate
+                            join pm in context.PaymentMethods on m.PaymentMethodID equals pm.PaymentMethodID
                             where c.Name.Contains(search) || m.Plate.Contains(search) || c.Document.Contains(search)
+                            && m.DeletedDate == null
+                            orderby m.ExpirationDate descending
                             select new MonthlyPaymentDto
                             {
                                 MonthlyPaymentID = m.MonthlyPaymentID,
                                 Document = c.Document,
-                                Name = c.Name,
-                                //MonthlyPaymentID = m.MonthlyPaymentID,
+                                Name = c.Name,                               
                                 Plate = m.Plate,
                                 PaidValue = m.PaidValue,
                                 TotalPayment = m.TotalPayment,
                                 StartDate = m.StartDate,
                                 ExpirationDate = m.ExpirationDate,
-                                CellPhone = c.CelPhone
+                                CellPhone = c.CelPhone,
+                                PaymentDescriptiion = pm.Description,
+                                Status = (bool)c.IsActive,
                             }).ToList();
 
                 }
