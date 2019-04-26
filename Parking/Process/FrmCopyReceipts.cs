@@ -27,16 +27,16 @@ namespace Parking.Process
                 if (CbEntry.Checked == true)
                 {
                     var eData = repo.GetLastRegistryReceiptByPlate(TxtReceipt.Text.Trim());
-                    var data = repo.GetRegistryByReciptNum(eData.RegistryID);
-                    var result = receipt.EntryReceipt(data.Plate, Globals.appUserID);
+                    //var data = repo.GetRegistryByReciptNum(eData.RegistryID);
+                    var result = receipt.EntryReceipt(eData.Plate, Globals.appUserID);
                     print.PrintPDFs(result);
 
                 }
                 if (CbExit.Checked == true)
                 {
                     var eData = repo.GetLastRegistryReceiptByPlate(TxtReceipt.Text.Trim());
-                    var data = repo.GetRegistryByReciptNum(eData.RegistryID);
-                    var result = receipt.ExitReceipt(data.Plate, Globals.appUserID);
+                   // var data = repo.GetRegistryByReciptNum(eData.RegistryID);
+                    var result = receipt.ExitReceipt(eData.Plate, Globals.appUserID);
                     print.PrintPDFs(result);
                 }
                 if (cbMonthly.Checked == true)

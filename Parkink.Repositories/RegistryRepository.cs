@@ -336,54 +336,57 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
-                var data = new List<MonthlyPaymentDto>();
-                if (string.IsNullOrEmpty(search))
-                {
-                    data = (from m in context.MonthlyPayments
-                            join c in context.Clients on m.Plate equals c.Plate
-                            join pm in context.PaymentMethods on m.PaymentMethodID equals pm.PaymentMethodID
-                            where m.DeletedDate == null
-                            orderby m.ExpirationDate descending
-                            select new MonthlyPaymentDto                            
-                            {
-                                MonthlyPaymentID = m.MonthlyPaymentID,
-                                Document = c.Document,
-                                Name = c.Name,                                
-                                Plate = m.Plate,
-                                PaidValue = m.PaidValue,
-                                TotalPayment = m.TotalPayment,
-                                StartDate = m.StartDate,
-                                ExpirationDate = m.ExpirationDate,
-                                CellPhone = c.CelPhone,
-                                PaymentDescriptiion = pm.Description,
-                                Status = (bool)c.IsActive,
-                                
-                            }).ToList();
-                }
-                else
-                {
-                    data = (from m in context.MonthlyPayments
-                            join c in context.Clients on m.Plate equals c.Plate
-                            join pm in context.PaymentMethods on m.PaymentMethodID equals pm.PaymentMethodID
-                            where c.Name.Contains(search) || m.Plate.Contains(search) || c.Document.Contains(search)
-                            && m.DeletedDate == null
-                            orderby m.ExpirationDate descending
-                            select new MonthlyPaymentDto
-                            {
-                                MonthlyPaymentID = m.MonthlyPaymentID,
-                                Document = c.Document,
-                                Name = c.Name,                               
-                                Plate = m.Plate,
-                                PaidValue = m.PaidValue,
-                                TotalPayment = m.TotalPayment,
-                                StartDate = m.StartDate,
-                                ExpirationDate = m.ExpirationDate,
-                                CellPhone = c.CelPhone,
-                                PaymentDescriptiion = pm.Description,
-                                Status = (bool)c.IsActive,
-                            }).ToList();
 
-                }
+
+                var a =  context.usp_SelectLastMonthlyPayment(search).ToList();
+                //var data = new List<MonthlyPaymentDto>();
+                //if (string.IsNullOrEmpty(search))
+                //{
+                //    data = (from m in context.MonthlyPayments
+                //            join c in context.Clients on m.Plate equals c.Plate
+                //            join pm in context.PaymentMethods on m.PaymentMethodID equals pm.PaymentMethodID
+                //            where m.DeletedDate == null
+                //            orderby m.ExpirationDate descending
+                //            select new MonthlyPaymentDto                            
+                //            {
+                //                MonthlyPaymentID = m.MonthlyPaymentID,
+                //                Document = c.Document,
+                //                Name = c.Name,                                
+                //                Plate = m.Plate,
+                //                PaidValue = m.PaidValue,
+                //                TotalPayment = m.TotalPayment,
+                //                StartDate = m.StartDate,
+                //                ExpirationDate = m.ExpirationDate,
+                //                CellPhone = c.CelPhone,
+                //                PaymentDescriptiion = pm.Description,
+                //                Status = (bool)c.IsActive
+
+                //            }).ToList();
+                //}
+                //else
+                //{
+                //    data = (from m in context.MonthlyPayments
+                //            join c in context.Clients on m.Plate equals c.Plate
+                //            join pm in context.PaymentMethods on m.PaymentMethodID equals pm.PaymentMethodID
+                //            where c.Name.Contains(search) || m.Plate.Contains(search) || c.Document.Contains(search)
+                //            && m.DeletedDate == null
+                //            orderby m.ExpirationDate descending
+                //            select new MonthlyPaymentDto
+                //            {
+                //                MonthlyPaymentID = m.MonthlyPaymentID,
+                //                Document = c.Document,
+                //                Name = c.Name,                               
+                //                Plate = m.Plate,
+                //                PaidValue = m.PaidValue,
+                //                TotalPayment = m.TotalPayment,
+                //                StartDate = m.StartDate,
+                //                ExpirationDate = m.ExpirationDate,
+                //                CellPhone = c.CelPhone,
+                //                PaymentDescriptiion = pm.Description,
+                //                Status = (bool)c.IsActive 
+                //            }).ToList();
+
+                //}
                 return data;
             }
         }
@@ -409,7 +412,7 @@ namespace Parking.Repositories
             using (var context = new PLTOEntities())
             {
 
-                return context.Registries.Where(z => z.Plate == plate).OrderByDescending(z => z.RegistryID).FirstOrDefault();
+                return context.Registries.Where(z => z.Plate == plate && z.DeletedDate == null).OrderByDescending(z => z.RegistryID).FirstOrDefault();
 
             }
         }
@@ -419,7 +422,7 @@ namespace Parking.Repositories
             using (var context = new PLTOEntities())
             {
 
-                return context.MonthlyPayments.Where(z => z.Plate == plate).OrderBy(x => x.MonthlyPaymentID).FirstOrDefault();
+                return context.MonthlyPayments.Where(z => z.Plate == plate && z.DeletedDate == null).OrderBy(x => x.MonthlyPaymentID).FirstOrDefault();
 
             }
         }

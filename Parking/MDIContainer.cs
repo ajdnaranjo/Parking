@@ -23,7 +23,7 @@ namespace Parking
 
             var secureRepo = new SecurityRepository();
             var repoConfig = new ConfigurationRepository();
-            var repo = new ConfigurationRepository();
+           // var repo = new ConfigurationRepository();
 
             var user = secureRepo.GetUserID(AppUserName);
             Globals.appUserID = user.UserID;

@@ -55,5 +55,14 @@ namespace Parking.Repositories
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SelectCloseWorkSfhitDates_Result>("usp_SelectCloseWorkSfhitDates", userIdParameter);
         }
+    
+        public virtual ObjectResult<usp_SelectLastMonthlyPayment_Result> usp_SelectLastMonthlyPayment(string search)
+        {
+            var searchParameter = search != null ?
+                new ObjectParameter("Search", search) :
+                new ObjectParameter("Search", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SelectLastMonthlyPayment_Result>("usp_SelectLastMonthlyPayment", searchParameter);
+        }
     }
 }

@@ -111,6 +111,9 @@
     <Compile Include="usp_SelectCloseWorkSfhitDates_Result.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_SelectLastMonthlyPayment_Result.cs">
+      <DependentUpon>MdlParking.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_SelectRolAccessData_Result.cs">
       <DependentUpon>MdlParking.tt</DependentUpon>
     </Compile>

@@ -218,6 +218,9 @@
         <Function Name="usp_SelectCloseWorkSfhitDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_SelectLastMonthlyPayment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Search" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="usp_SelectRolAccessData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RolId" Type="int" Mode="In" />
         </Function>
@@ -318,6 +321,9 @@
             <End Role="AppUser" EntitySet="AppUsers" />
             <End Role="Registry" EntitySet="Registries" />
           </AssociationSet>
+          <FunctionImport Name="usp_SelectLastMonthlyPayment" ReturnType="Collection(PLTOModel.usp_SelectLastMonthlyPayment_Result)">
+            <Parameter Name="Search" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="Configuration">
           <Key>
@@ -555,6 +561,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="usp_SelectLastMonthlyPayment_Result">
+          <Property Type="String" Name="MonthlyPaymentID" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Document" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Plate" Nullable="false" MaxLength="10" />
+          <Property Type="Decimal" Name="PaidValue" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="TotalPayment" Nullable="false" Precision="19" />
+          <Property Type="DateTime" Name="StartDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ExpirationDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CelPhone" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="100" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -703,6 +722,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_SelectLastMonthlyPayment" FunctionName="PLTOModel.Store.usp_SelectLastMonthlyPayment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PLTOModel.usp_SelectLastMonthlyPayment_Result">
+                <ScalarProperty Name="MonthlyPaymentID" ColumnName="MonthlyPaymentID" />
+                <ScalarProperty Name="Document" ColumnName="Document" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Plate" ColumnName="Plate" />
+                <ScalarProperty Name="PaidValue" ColumnName="PaidValue" />
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="CelPhone" ColumnName="CelPhone" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
