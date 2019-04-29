@@ -336,9 +336,28 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
+                var list = new List<MonthlyPaymentDto>();
+                var data  =  context.usp_SelectLastMonthlyPayment(search).ToList();
 
+                foreach (var row in data)
+                {
+                    list.Add(new MonthlyPaymentDto()
+                    {
+                        MonthlyPaymentID = row.MonthlyPaymentID,
+                        Document = row.Document,
+                        Name = row.Name,
+                        Plate = row.Plate,
+                        PaidValue = row.PaidValue,
+                        TotalPayment = row.TotalPayment,
+                        StartDate = row.StartDate,
+                        ExpirationDate = row.ExpirationDate,
+                        CellPhone = row.CelPhone,
+                        PaymentDescriptiion = row.Description,
+                        Status = (bool)row.IsActive
+                    });
+                }
 
-                var a =  context.usp_SelectLastMonthlyPayment(search).ToList();
+                return list;
                 //var data = new List<MonthlyPaymentDto>();
                 //if (string.IsNullOrEmpty(search))
                 //{
@@ -387,7 +406,7 @@ namespace Parking.Repositories
                 //            }).ToList();
 
                 //}
-                return data;
+
             }
         }
 
