@@ -116,6 +116,11 @@ namespace Parking.Process
                 MessageBox.Show("Debe seleccionar un tipo de pago.");
                 flag = false;
             }
+            if (string.IsNullOrEmpty(TxtPlate.Text.Trim()))
+            {
+                MessageBox.Show("Debe ingresar una Placa.");
+                flag = false;
+            }
 
             return flag;
         }
