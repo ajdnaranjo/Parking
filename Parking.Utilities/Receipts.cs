@@ -113,6 +113,9 @@ namespace Parking.Utilities
 
             var footItems = Globals.ConfigGlobal.FootItems.Split('*');
 
+            var repoUser = new UserRepository();
+            var appUsr = repoUser.GetAdmin(data.CreatedBy);
+
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
             var output = new FileStream(@"C:\Parking\Receipts\MonthlyReceipt" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create);
@@ -134,7 +137,7 @@ namespace Parking.Utilities
             doc.Add(new Paragraph("Pago con: " + data.PaidValue.ToString("N0"), font));
             doc.Add(new Paragraph("Devuelta: " + data.Refund.ToString("N0"), font));
             doc.Add(new Paragraph("Valido hasta: " + data.ExpirationDate, font));            
-            doc.Add(new Paragraph("Le Atendió: " + appUserData.Name, font));
+            doc.Add(new Paragraph("Le Atendió: " + appUsr.Name, font));
 
             List listItems = new List(footItems.Length);
 

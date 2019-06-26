@@ -324,7 +324,8 @@ namespace Parking.Repositories
                                 TotalPayment = m.TotalPayment,
                                 Refund = m.Refund,
                                 StartDate = m.StartDate,
-                                ExpirationDate = m.ExpirationDate
+                                ExpirationDate = m.ExpirationDate,
+                                CreatedBy = (int)m.CreatedBy
                             }).FirstOrDefault();
 
                 return data;

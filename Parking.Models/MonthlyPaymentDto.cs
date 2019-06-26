@@ -24,5 +24,6 @@ namespace Parking.Models
         public string PaymentDescriptiion { get; set; }
         public int  PaymentMethodID { get; set; }
         public bool Status { get; set; }
+        public int CreatedBy { get; set; }
     }
 }
