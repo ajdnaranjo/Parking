@@ -307,6 +307,7 @@ namespace Parking.Process
                                 repo.UpdateEntryExitDaypayment(data.RegistryID, Globals.appUserID);
 
                                 CleanForm();
+                                LoadLastMovements();
                             }
 
                         }
@@ -343,6 +344,7 @@ namespace Parking.Process
                     }
 
                     txtPayment.Focus();
+
                 }
             }
         }

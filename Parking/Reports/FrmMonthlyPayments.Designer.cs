@@ -137,7 +137,7 @@
             // 
             // PaymentDate
             // 
-            this.PaymentDate.DataPropertyName = "PaymentDate";
+            this.PaymentDate.DataPropertyName = "Startdate";
             dataGridViewCellStyle1.Format = "dd/MM/yyyy";
             dataGridViewCellStyle1.NullValue = null;
             this.PaymentDate.DefaultCellStyle = dataGridViewCellStyle1;
