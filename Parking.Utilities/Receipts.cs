@@ -114,7 +114,7 @@ namespace Parking.Utilities
             var footItems = Globals.ConfigGlobal.FootItems.Split('*');
 
             var repoUser = new UserRepository();
-            var appUsr = repoUser.GetAdmin(data.CreatedBy);
+            var appUsr = repoUser.GetAppUser(data.CreatedBy);
 
 
             Document doc = new Document(new Rectangle(130f, 880f), 0, 0, 0, 0);
