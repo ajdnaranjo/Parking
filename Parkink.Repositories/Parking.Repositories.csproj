@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Parking.Repositories</RootNamespace>
     <AssemblyName>Parking.Repositories</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
