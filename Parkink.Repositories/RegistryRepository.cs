@@ -72,7 +72,8 @@ namespace Parking.Repositories
                             var dif = reg.ExitDate.Value.Subtract(reg.EntryDate);
                             reg.Days = dif.Days;
                             reg.Hours = dif.Hours;
-                            reg.Minutes = dif.Minutes;                          
+                            reg.Minutes = dif.Minutes;
+                            reg.Locker = registry.Locker;
                         }
                         else
                             reg.TotalPayment = 0;
