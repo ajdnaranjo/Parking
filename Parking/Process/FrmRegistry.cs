@@ -71,24 +71,30 @@ namespace Parking.Process
 
         private void txtPlate_Leave(object sender, EventArgs e)
         {
-            GetDayPayment();
+            var lenght = txtPlate.TextLength;
+            if (lenght >= 5)
+            {
+                GetDayPayment();
+            }
+            else
+            {
+                txtPlate.Focus();
+            }
         }
 
         private void GetDayPayment()
         {
-            var lenght = txtPlate.TextLength;
-            if (lenght >= 5)
+
+            if (txtPlate.Text.Trim() != string.Empty)
             {
-                if (txtPlate.Text.Trim() != string.Empty)
-                {
-                    var repo = new RegistryRepository();
-                    var result = repo.GetDayPayment(txtPlate.Text);
+                var repo = new RegistryRepository();
+                var result = repo.GetDayPayment(txtPlate.Text);
 
-                    if (result != null) CbDayPayment.Checked = (bool)result.DayPayment;
-                }
-
-                CbDayPayment.Focus();
+                if (result != null) CbDayPayment.Checked = (bool)result.DayPayment;
             }
+
+            CbDayPayment.Focus();
+
         }
 
         private void txtPayment_KeyPress(object sender, KeyPressEventArgs e)
@@ -215,9 +221,8 @@ namespace Parking.Process
         private void txtPlate_TextChanged(object sender, EventArgs e)
         {
             txtPlate.Text = ValidateNumbersLetters(txtPlate.Text.Trim());
-            txtPlate.Select(txtPlate.Text.Length, 0);
-            //txtPlate.Text = ValidateNumbersLetters(txtPlate.Text);
-            
+            txtPlate.Select(txtPlate.Text.Length, 0);            
+
         }
 
         private void TxtLocker_KeyPress(object sender, KeyPressEventArgs e)

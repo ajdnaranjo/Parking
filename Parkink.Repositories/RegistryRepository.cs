@@ -22,15 +22,16 @@ namespace Parking.Repositories
 
                 if (reg == null)
                 {
+                 
                     reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true && r.IsInSite == true
-                                    && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value >= 12 && r.DeletedDate == null);
+                                    && DbFunctions.DiffMinutes(r.EntryDate, DateTime.Now).Value >= 720 && r.DeletedDate == null);
                 }
 
                 if (reg == null)
                 {
                     reg = context.Registries.FirstOrDefault(r => r.Plate == registry.Plate && r.DayPayment == true
-                            && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value < 12
-                            && r.ExitDate.Value.Day == DateTime.Now.Day && r.DeletedDate == null);
+                            && DbFunctions.DiffMinutes(r.EntryDate, DateTime.Now).Value < 720 //&& r.ExitDate.Value.Day == DateTime.Now.Day 
+                            && r.DeletedDate == null);
 
                     if (reg == null && registry.DayPayment == false)
                     {
@@ -434,9 +435,10 @@ namespace Parking.Repositories
 
                 if (reg == null)
                 {
-                    reg = context.Registries.FirstOrDefault(r => r.Plate == plate && r.DayPayment == true
-                            && DbFunctions.DiffHours(r.EntryDate, DateTime.Now).Value <= 12
-                            && r.ExitDate.Value.Day == DateTime.Now.Day);
+                    reg = context.Registries.OrderByDescending(r=> r.ModifiedDate).FirstOrDefault(r => r.Plate == plate && r.DayPayment == true
+                            && DbFunctions.DiffMinutes(r.EntryDate, DateTime.Now).Value <= 720 && r.DeletedDate == null
+                           // && r.ExitDate.Value.Day == DateTime.Now.Day
+                            );
                 }
 
                 return reg;
