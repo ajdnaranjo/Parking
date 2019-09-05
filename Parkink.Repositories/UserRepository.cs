@@ -66,7 +66,7 @@ namespace Parking.Repositories
                 return (from mp in context.MonthlyPayments
                         join pm in context.PaymentMethods on mp.PaymentMethodID equals pm.PaymentMethodID
                         join c in context.Clients on mp.Plate equals c.Plate
-                        where mp.Plate == plate && c.IsActive == true && DbFunctions.TruncateTime(DateTime.Now) <= DbFunctions.TruncateTime(mp.ExpirationDate) 
+                        where mp.Plate == plate && c.IsActive == true //&& DbFunctions.TruncateTime(DateTime.Now) <= DbFunctions.TruncateTime(mp.ExpirationDate) 
                         select new MonthlyPaymentDto
                         {
                             MonthlyPaymentID = mp.MonthlyPaymentID,
