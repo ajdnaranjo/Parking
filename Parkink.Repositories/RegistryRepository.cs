@@ -316,6 +316,7 @@ namespace Parking.Repositories
                 var data = (from m in context.MonthlyPayments
                             join c in context.Clients on m.Plate equals c.Plate
                             where m.MonthlyPaymentID == monthlyPaymentID
+                            orderby m.ExpirationDate descending
                             select new MonthlyPaymentDto
                             {
                                 MonthlyPaymentID = m.MonthlyPaymentID,
