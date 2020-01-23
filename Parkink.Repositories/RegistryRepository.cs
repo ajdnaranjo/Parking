@@ -397,8 +397,13 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
-
-                return context.MonthlyPayments.Where(z => z.Plate == plate && z.DeletedDate == null).OrderByDescending(x => x.PaymentDate).FirstOrDefault();
+                var data = (from m in context.MonthlyPayments
+                            join c in context.Clients on m.Plate equals c.Plate
+                            where c.IsActive == true && m.Plate == plate && m.DeletedDate == null
+                            select m
+                            ).OrderByDescending(x => x.PaymentDate).FirstOrDefault();
+                //return context.MonthlyPayments.Where(z => z.Plate == plate && z.DeletedDate == null).OrderByDescending(x => x.PaymentDate).FirstOrDefault();
+                return data;
 
             }
         }
