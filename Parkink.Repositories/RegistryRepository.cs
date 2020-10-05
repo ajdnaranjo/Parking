@@ -69,7 +69,7 @@ namespace Parking.Repositories
                         {
                            
                             reg.TotalPayment = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 3).Value;
-                            reg.ExitDate = DateTime.Now;
+                            //reg.ExitDate = DateTime.Now;
                             var dif = reg.ExitDate.Value.Subtract(reg.EntryDate);
                             reg.Days = dif.Days;
                             reg.Hours = dif.Hours;
@@ -526,23 +526,26 @@ namespace Parking.Repositories
         {
             using (var context = new PLTOEntities())
             {
-                var reg = context.Registries.FirstOrDefault(r => r.Plate == plate && r.ExitDate == null);
+                var regs = context.Registries.Where(r => r.Plate == plate && r.ExitDate == null && r.IsInSite == true) ;
 
-                if (reg != null)
+                if (regs != null)
                 {
                     var date = DateTime.Now;
 
-                    reg.DeletedBy = userID;
-                    reg.DeletedDate = date;
-                    reg.ExitDate = date;
-                    reg.TotalPayment = 0;
-                    reg.ModifiedBy = userID;
-                    reg.ModifiedDate = date;
+                    foreach (var reg in regs)
+                    {
+                        reg.DeletedBy = 1;
+                        reg.DeletedDate = date;
+                        reg.ExitDate = date;
+                        reg.TotalPayment = 0;
+                        reg.ModifiedBy = userID;
+                        reg.ModifiedDate = date;
+                        reg.IsInSite = false;
+                    }
 
                     context.SaveChanges();
-
                 }
-                return reg;
+                return regs.FirstOrDefault();
             }
         }
 
