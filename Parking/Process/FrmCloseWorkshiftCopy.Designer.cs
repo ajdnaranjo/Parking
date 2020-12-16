@@ -33,6 +33,7 @@
             this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CloseWorkShitDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Print = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.AppUserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,7 +44,8 @@
             this.DgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.UserName,
             this.CloseWorkShitDate,
-            this.Print});
+            this.Print,
+            this.AppUserID});
             this.DgvData.Location = new System.Drawing.Point(24, 34);
             this.DgvData.Name = "DgvData";
             this.DgvData.ReadOnly = true;
@@ -77,6 +79,14 @@
             this.Print.Text = "Imprimir";
             this.Print.UseColumnTextForLinkValue = true;
             // 
+            // AppUserID
+            // 
+            this.AppUserID.DataPropertyName = "UserID";
+            this.AppUserID.HeaderText = "AppUserID";
+            this.AppUserID.Name = "AppUserID";
+            this.AppUserID.ReadOnly = true;
+            this.AppUserID.Visible = false;
+            // 
             // FrmCloseWorkshiftCopy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -96,5 +106,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn UserName;
         private System.Windows.Forms.DataGridViewTextBoxColumn CloseWorkShitDate;
         private System.Windows.Forms.DataGridViewLinkColumn Print;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AppUserID;
     }
 }

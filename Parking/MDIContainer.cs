@@ -162,9 +162,9 @@ namespace Parking
             var repo = new ReportRepository();
             var repoReceipts = new Receipts();
             var data = repo.CloseWorkShift(Globals.appUserID);
-            var path = repoReceipts.CloseWorkShift(data);
-            var repoPrint = new PrintReceipts();
-            repoPrint.PrintPDFs(path);
+            //var path = repoReceipts.CloseWorkShift(data);
+            //var repoPrint = new PrintReceipts();
+            //repoPrint.PrintPDFs(path);
         }
 
         private void tsmiFrmRolAcces_Click(object sender, EventArgs e)

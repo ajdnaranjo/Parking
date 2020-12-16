@@ -322,7 +322,7 @@
             <End Role="Registry" EntitySet="Registries" />
           </AssociationSet>
           <FunctionImport Name="usp_SelectLastMonthlyPayment" ReturnType="Collection(PLTOModel.usp_SelectLastMonthlyPayment_Result)">
-            <Parameter Name="Search" Mode="In" Type="String" />
+          <Parameter Name="Search" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="Configuration">
@@ -428,6 +428,7 @@
         <ComplexType Name="usp_SelectCloseWorkSfhitDates_Result">
           <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
           <Property Type="DateTime" Name="WorkShiftCloseDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
         </ComplexType>
         <EntityType Name="PaymentMethod">
           <Key>

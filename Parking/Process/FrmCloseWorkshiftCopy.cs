@@ -28,10 +28,11 @@ namespace Parking.Process
             DataGridViewRow row = DgvData.CurrentRow;
 
             DateTime data = DateTime.Parse(row.Cells[1].Value.ToString());
+            int userID = int.Parse(row.Cells[3].Value.ToString());
 
             var repo = new ReportRepository();
             var repoReceipts = new Receipts();
-            var eData = repo.GetCloseWorkShiftByUserDate(Globals.appUserID,  data);
+            var eData = repo.GetCloseWorkShiftByUserDate(userID,  data);
             var path = repoReceipts.CloseWorkShift(eData);
             var repoPrint = new PrintReceipts();
             repoPrint.PrintPDFs(path);

@@ -170,7 +170,7 @@ namespace Parking.Utilities
 
             doc.Add(new Paragraph(Globals.ConfigGlobal.Name, FontFactory.GetFont("helvetica", 8, Font.BOLD)));
             doc.Add(new Paragraph("Cierra de turno", FontFactory.GetFont("helvetica", 8, Font.BOLD)));
-            doc.Add(new Paragraph("Fecha: " + DateTime.Now, font ));
+            doc.Add(new Paragraph("Fecha: " + data.CloseWorkShitDate, font ));
             doc.Add(new Paragraph("Nombre : " + data.Name, font));
             doc.Add(new Paragraph("\n"));
 

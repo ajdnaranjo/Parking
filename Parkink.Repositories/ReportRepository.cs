@@ -97,7 +97,8 @@ namespace Parking.Repositories
                     MonthlyPaymentCount = dataMonthly.Count(),
                     MonthlyPaymentValue = dataMonthly.Sum(x => x.TotalPayment),
                     DailyRegistryCount = dataDailyRegistry.Count(),
-                    DailyRegistryValue = (decimal)dataDailyRegistry.Sum(x => x.TotalPayment)
+                    DailyRegistryValue = (decimal)dataDailyRegistry.Sum(x => x.TotalPayment),
+                    CloseWorkShitDate = date
                 };
 
                 return work;
