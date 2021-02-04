@@ -124,9 +124,9 @@ namespace Parking.Repositories
 
                                 reg.TotalPayment = reg.TotalPayment + (dayHours * hoursValues.Value);
 
-                                if (dif.Minutes > 0 && dif.Minutes < 30) reg.TotalPayment = reg.TotalPayment + minutesValues.Value;
-                                else if (dif.Minutes >= 30 && dif.Minutes < 60) reg.TotalPayment = reg.TotalPayment + (minutesValues.Value * 2);
-
+                                // if (dif.Minutes > 0 && dif.Minutes < 30) reg.TotalPayment = reg.TotalPayment + minutesValues.Value;
+                                // else if (dif.Minutes >= 30 && dif.Minutes < 60) reg.TotalPayment = reg.TotalPayment + (minutesValues.Value * 2);
+                                if (dif.Minutes > 0) reg.TotalPayment += hoursValues.Value;
                             }
                         }
                         else
@@ -137,8 +137,9 @@ namespace Parking.Repositories
 
                         var day = dif.Hours * hoursValues.Value;
 
-                        if (dif.Minutes > 0 && dif.Minutes < 30) day = day + minutesValues.Value;
-                        else if (dif.Minutes >= 30 && dif.Minutes < 60) day = day + (minutesValues.Value * 2);
+                        //if (dif.Minutes > 0 && dif.Minutes < 30) day = day + minutesValues.Value;
+                        //else if (dif.Minutes >= 30 && dif.Minutes < 60) day = day + (minutesValues.Value * 2);
+                        if (dif.Minutes > 0) reg.TotalPayment +=  hoursValues.Value;
 
                         if (day > daysValues.Value) day = daysValues.Value;
 
