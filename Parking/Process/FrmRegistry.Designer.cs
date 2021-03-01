@@ -59,7 +59,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.TxtLocker = new System.Windows.Forms.TextBox();
             this.DgvLastMovements = new System.Windows.Forms.DataGridView();
-            this.CbDayPayment = new System.Windows.Forms.CheckBox();
             this.RegistryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Plate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EntryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,6 +68,7 @@
             this.TotalPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Payment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Refund = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CbDayPayment = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLastMovements)).BeginInit();
             this.SuspendLayout();
             // 
@@ -286,23 +286,8 @@
             this.DgvLastMovements.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.DgvLastMovements.RowsDefaultCellStyle = dataGridViewCellStyle12;
-            this.DgvLastMovements.Size = new System.Drawing.Size(658, 391);
+            this.DgvLastMovements.Size = new System.Drawing.Size(287, 391);
             this.DgvLastMovements.TabIndex = 15;
-            // 
-            // CbDayPayment
-            // 
-            this.CbDayPayment.AutoSize = true;
-            this.CbDayPayment.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CbDayPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CbDayPayment.Location = new System.Drawing.Point(637, 298);
-            this.CbDayPayment.Name = "CbDayPayment";
-            this.CbDayPayment.Size = new System.Drawing.Size(125, 30);
-            this.CbDayPayment.TabIndex = 2;
-            this.CbDayPayment.Text = "Pago día";
-            this.CbDayPayment.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CbDayPayment.UseVisualStyleBackColor = true;
-            this.CbDayPayment.CheckedChanged += new System.EventHandler(this.CbDayPayment_CheckedChanged);
-            this.CbDayPayment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CbDayPayment_KeyPress);
             // 
             // RegistryID
             // 
@@ -330,6 +315,7 @@
             this.EntryDate.HeaderText = "Fecha Entrada";
             this.EntryDate.Name = "EntryDate";
             this.EntryDate.ReadOnly = true;
+            this.EntryDate.Visible = false;
             this.EntryDate.Width = 115;
             // 
             // ExitDate
@@ -341,6 +327,7 @@
             this.ExitDate.HeaderText = "Fecha Salida";
             this.ExitDate.Name = "ExitDate";
             this.ExitDate.ReadOnly = true;
+            this.ExitDate.Visible = false;
             this.ExitDate.Width = 110;
             // 
             // Locker
@@ -371,6 +358,7 @@
             this.TotalPayment.HeaderText = "Total";
             this.TotalPayment.Name = "TotalPayment";
             this.TotalPayment.ReadOnly = true;
+            this.TotalPayment.Visible = false;
             this.TotalPayment.Width = 55;
             // 
             // Payment
@@ -381,6 +369,7 @@
             this.Payment.HeaderText = "Pagó";
             this.Payment.Name = "Payment";
             this.Payment.ReadOnly = true;
+            this.Payment.Visible = false;
             this.Payment.Width = 55;
             // 
             // Refund
@@ -391,13 +380,29 @@
             this.Refund.HeaderText = "Devuelta";
             this.Refund.Name = "Refund";
             this.Refund.ReadOnly = true;
+            this.Refund.Visible = false;
             this.Refund.Width = 60;
+            // 
+            // CbDayPayment
+            // 
+            this.CbDayPayment.AutoSize = true;
+            this.CbDayPayment.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.CbDayPayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CbDayPayment.Location = new System.Drawing.Point(637, 298);
+            this.CbDayPayment.Name = "CbDayPayment";
+            this.CbDayPayment.Size = new System.Drawing.Size(125, 30);
+            this.CbDayPayment.TabIndex = 2;
+            this.CbDayPayment.Text = "Pago día";
+            this.CbDayPayment.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CbDayPayment.UseVisualStyleBackColor = true;
+            this.CbDayPayment.CheckedChanged += new System.EventHandler(this.CbDayPayment_CheckedChanged);
+            this.CbDayPayment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CbDayPayment_KeyPress);
             // 
             // FrmRegistry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1436, 523);
+            this.ClientSize = new System.Drawing.Size(1065, 523);
             this.Controls.Add(this.CbDayPayment);
             this.Controls.Add(this.DgvLastMovements);
             this.Controls.Add(this.TxtLocker);

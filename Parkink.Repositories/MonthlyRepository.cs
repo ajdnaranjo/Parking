@@ -39,5 +39,29 @@ namespace Parking.Repositories
                 return data;
             }
         }
+
+        public bool UpdateMonthlyPaymentsPlate(string oldPlate, string newPlate)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var payments = context.MonthlyPayments.Where(x => x.Plate == oldPlate).ToList();
+
+                if (payments == null)
+                {
+                    throw new Exception("No existen mensualidades para actualizar.");
+                }
+                else
+                {
+                    if (payments.Count > 0)
+                    {
+                        payments.ToList().ForEach(u => u.Plate = newPlate);
+                    }
+                }
+
+                context.SaveChanges();
+
+                return true;
+            }
+        }   
     }
 }

@@ -128,6 +128,12 @@
     <Compile Include="Process\FrmCopyReceipts.Designer.cs">
       <DependentUpon>FrmCopyReceipts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Process\FrmDeleteReceipt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Process\FrmDeleteReceipt.Designer.cs">
+      <DependentUpon>FrmDeleteReceipt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Process\FrmMonthlyPayment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +145,12 @@
     </Compile>
     <Compile Include="Process\FrmUpdatePass.Designer.cs">
       <DependentUpon>FrmUpdatePass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Process\FrmUpdatePlate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Process\FrmUpdatePlate.Designer.cs">
+      <DependentUpon>FrmUpdatePlate.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -175,6 +187,9 @@
     <EmbeddedResource Include="Process\FrmCopyReceipts.resx">
       <DependentUpon>FrmCopyReceipts.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Process\FrmDeleteReceipt.resx">
+      <DependentUpon>FrmDeleteReceipt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Process\FrmMonthlyPayment.resx">
       <DependentUpon>FrmMonthlyPayment.cs</DependentUpon>
     </EmbeddedResource>
@@ -186,6 +201,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Process\FrmUpdatePass.resx">
       <DependentUpon>FrmUpdatePass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Process\FrmUpdatePlate.resx">
+      <DependentUpon>FrmUpdatePlate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

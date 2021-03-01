@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity;
 
+
 namespace Parking.Repositories
 {
     public class RegistryRepository
@@ -61,20 +62,20 @@ namespace Parking.Repositories
                             {
                                 Plate = registry.Plate,
                                 Locker = registry.Locker,
-                                DayPayment = registry.DayPayment
+                                DayPayment = registry.DayPayment,
+                                EntryDate = DateTime.Now
                             };
                         }
 
                         if (reg.DayPayment == true && reg.ExitDate == null)                    
-                        {
-                           
+                        {                                                                                   
                             reg.TotalPayment = context.PaymentMethods.FirstOrDefault(v => v.PaymentMethodID == 3).Value;
-                            //reg.ExitDate = DateTime.Now;
+                            reg.ExitDate = reg.EntryDate.AddHours(12);
                             var dif = reg.ExitDate.Value.Subtract(reg.EntryDate);
                             reg.Days = dif.Days;
                             reg.Hours = dif.Hours;
                             reg.Minutes = dif.Minutes;
-                            reg.Locker = registry.Locker;
+                            reg.Locker = registry.Locker;                          
                         }
                         else
                             reg.TotalPayment = 0;
@@ -472,8 +473,8 @@ namespace Parking.Repositories
                 {
                     reg.IsInSite = true;
                 }
-                reg.ModifiedDate = DateTime.Now;
-                reg.ModifiedBy = userID;
+                //reg.ModifiedDate = DateTime.Now;
+                //reg.ModifiedBy = userID;
 
                 context.SaveChanges();
 
@@ -550,5 +551,46 @@ namespace Parking.Repositories
             }
         }
 
+
+        public string DeleteReceipt(string receiptNumber, int userID)
+        {
+            try
+            {
+                using (var context = new PLTOEntities())
+                {
+                    var reg = context.Registries.Where(r => r.RegistryID == receiptNumber && r.DeletedDate == null).FirstOrDefault();
+
+                    var date = DateTime.Now;
+
+                    if (reg != null)
+                    {
+                        reg.DeletedBy = userID;
+                        reg.DeletedDate = date;
+                    }
+                    else
+                    {
+                        var reg2 = context.MonthlyPayments.Where(r => r.MonthlyPaymentID == receiptNumber && r.DeletedDate == null).FirstOrDefault();
+
+                        if (reg2 != null)
+                        {
+                            reg2.DeletedBy = userID;
+                            reg2.DeletedDate = date;
+                        }
+                        {
+                            return null;
+                        }
+                    }
+
+                    context.SaveChanges();
+                }
+                return receiptNumber;
+            }
+            catch (Exception ex)
+            {
+                receiptNumber = null;
+                throw new Exception(ex.Message);
+            }
+           
+        }
     }
 }

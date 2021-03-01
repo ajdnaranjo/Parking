@@ -168,5 +168,44 @@ namespace Parking.Repositories
             }
         }
 
+        public Client DuplicateClient(Client client, string newPlate)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var user = context.Clients.FirstOrDefault(x => x.Plate == client.Plate);
+
+                if (user == null)
+                {
+                    throw new Exception("La placa actual no existe");
+                }
+                else
+                {
+                    user.IsActive = false;
+
+                    var user2 = context.Clients.FirstOrDefault(x => x.Plate == newPlate);
+
+                    if (user2 == null)
+                    {
+                        user2 = new Client
+                        {
+                            Plate = newPlate,
+                            Document = user.Document,
+                            DocTypeID = user.DocTypeID,
+                            Name = user.Name,
+                            CelPhone = user.CelPhone,
+                            IsActive = true
+                        };
+                        context.Clients.Add(user2);
+                    }
+                    else {
+                        user2.IsActive = true;
+                    }
+                }
+
+                context.SaveChanges();
+
+                return context.Clients.FirstOrDefault(x => x.Plate == newPlate);
+            }
+        }
     }
 }

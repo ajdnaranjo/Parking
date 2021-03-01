@@ -63,7 +63,11 @@ namespace Parking
                     ((ToolStripMenuItem)TsmEditClient).Enabled = true;
                 if (((ToolStripMenuItem)TsmiCloseWorkShiftCopy).Name == item.FormName)
                     ((ToolStripMenuItem)TsmiCloseWorkShiftCopy).Enabled = true;
-                
+                if (((ToolStripMenuItem)tsmUpdatePlate).Name == item.FormName)
+                    ((ToolStripMenuItem)tsmUpdatePlate).Enabled = true;
+                if (((ToolStripMenuItem)tsmDeleteReceipt).Name == item.FormName)
+                    ((ToolStripMenuItem)tsmDeleteReceipt).Enabled = true;
+
             }            
         }
 
@@ -225,6 +229,25 @@ namespace Parking
 
         private void toolStripStatusLabel1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void tsmUpdatePlate_Click(object sender, EventArgs e)
+        {
+            var frm = new Process.FrmUpdatePlate
+            {
+                MdiParent = this
+            };
+            frm.Show();
+        }
+
+        private void tsmDeleteReceipt_Click(object sender, EventArgs e)
+        {
+            var frm = new Process.FrmDeleteReceipt
+            {
+                MdiParent = this
+            };
+            frm.Show();
 
         }
     }
