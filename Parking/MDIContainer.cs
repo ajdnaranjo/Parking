@@ -67,6 +67,8 @@ namespace Parking
                     ((ToolStripMenuItem)tsmUpdatePlate).Enabled = true;
                 if (((ToolStripMenuItem)tsmDeleteReceipt).Name == item.FormName)
                     ((ToolStripMenuItem)tsmDeleteReceipt).Enabled = true;
+                if (((ToolStripMenuItem)tsmUpdatePrices).Name == item.FormName)
+                    ((ToolStripMenuItem)tsmUpdatePrices).Enabled = true;
 
             }            
         }
@@ -249,6 +251,15 @@ namespace Parking
             };
             frm.Show();
 
+        }
+
+        private void tsmUpdatePrices_Click(object sender, EventArgs e)
+        {
+            var frm = new MasterForms.FrmUpdatePrice
+            {
+                MdiParent = this
+            };
+            frm.Show();
         }
     }
 }

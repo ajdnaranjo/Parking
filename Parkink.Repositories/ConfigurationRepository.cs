@@ -129,5 +129,34 @@ namespace Parking.Repositories
                 return config;
             }
         }
+
+        public List<PaymentMethod> GetPaymentMethods()
+        {
+            using (var context = new PLTOEntities())
+            {
+                return context.PaymentMethods.ToList();
+            }
+
+        }
+
+
+        public bool UpdatePayment (int paymentID, decimal value)
+        {
+            using (var context = new PLTOEntities())
+            {
+                var payment = context.PaymentMethods.Where(x => x.PaymentMethodID == paymentID).FirstOrDefault();
+
+                if (payment != null)
+                {
+                    payment.Value = value;
+
+                    context.SaveChanges();
+
+                    return true;
+                }
+                else return false;
+                       
+            }
+        }
     }
 }

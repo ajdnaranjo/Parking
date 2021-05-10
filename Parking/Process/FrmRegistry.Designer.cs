@@ -273,7 +273,7 @@
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DgvLastMovements.DefaultCellStyle = dataGridViewCellStyle10;
-            this.DgvLastMovements.Location = new System.Drawing.Point(766, 105);
+            this.DgvLastMovements.Location = new System.Drawing.Point(766, 29);
             this.DgvLastMovements.Name = "DgvLastMovements";
             this.DgvLastMovements.ReadOnly = true;
             dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -286,7 +286,7 @@
             this.DgvLastMovements.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.DgvLastMovements.RowsDefaultCellStyle = dataGridViewCellStyle12;
-            this.DgvLastMovements.Size = new System.Drawing.Size(287, 391);
+            this.DgvLastMovements.Size = new System.Drawing.Size(287, 467);
             this.DgvLastMovements.TabIndex = 15;
             // 
             // RegistryID

@@ -576,6 +576,7 @@ namespace Parking.Repositories
                             reg2.DeletedBy = userID;
                             reg2.DeletedDate = date;
                         }
+                        else
                         {
                             return null;
                         }

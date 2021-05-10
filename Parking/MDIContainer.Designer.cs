@@ -48,6 +48,7 @@
             this.tsmiFrmUpdatePass = new System.Windows.Forms.ToolStripMenuItem();
             this.TsmEditClient = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmUpdatePlate = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmDeleteReceipt = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,7 +60,7 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.label1 = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
-            this.tsmDeleteReceipt = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmUpdatePrices = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -176,7 +177,8 @@
             this.tsmiFrmUpdatePass,
             this.TsmEditClient,
             this.tsmUpdatePlate,
-            this.tsmDeleteReceipt});
+            this.tsmDeleteReceipt,
+            this.tsmUpdatePrices});
             this.toolsMenu.Name = "toolsMenu";
             this.toolsMenu.Size = new System.Drawing.Size(69, 20);
             this.toolsMenu.Text = "&Opciones";
@@ -220,6 +222,14 @@
             this.tsmUpdatePlate.Size = new System.Drawing.Size(180, 22);
             this.tsmUpdatePlate.Text = "Actualizar Placa";
             this.tsmUpdatePlate.Click += new System.EventHandler(this.tsmUpdatePlate_Click);
+            // 
+            // tsmDeleteReceipt
+            // 
+            this.tsmDeleteReceipt.Enabled = false;
+            this.tsmDeleteReceipt.Name = "tsmDeleteReceipt";
+            this.tsmDeleteReceipt.Size = new System.Drawing.Size(180, 22);
+            this.tsmDeleteReceipt.Text = "Eliminar Recibo";
+            this.tsmDeleteReceipt.Click += new System.EventHandler(this.tsmDeleteReceipt_Click);
             // 
             // helpMenu
             // 
@@ -305,13 +315,13 @@
             this.lblUser.TabIndex = 5;
             this.lblUser.Text = "label2";
             // 
-            // tsmDeleteReceipt
+            // tsmUpdatePrices
             // 
-            this.tsmDeleteReceipt.Enabled = false;
-            this.tsmDeleteReceipt.Name = "tsmDeleteReceipt";
-            this.tsmDeleteReceipt.Size = new System.Drawing.Size(180, 22);
-            this.tsmDeleteReceipt.Text = "Eliminar Recibo";
-            this.tsmDeleteReceipt.Click += new System.EventHandler(this.tsmDeleteReceipt_Click);
+            this.tsmUpdatePrices.Enabled = false;
+            this.tsmUpdatePrices.Name = "tsmUpdatePrices";
+            this.tsmUpdatePrices.Size = new System.Drawing.Size(180, 22);
+            this.tsmUpdatePrices.Text = "Actualizar Precios";
+            this.tsmUpdatePrices.Click += new System.EventHandler(this.tsmUpdatePrices_Click);
             // 
             // MDIContainer
             // 
@@ -370,6 +380,7 @@
         private System.Windows.Forms.Label lblUser;
         private System.Windows.Forms.ToolStripMenuItem tsmUpdatePlate;
         private System.Windows.Forms.ToolStripMenuItem tsmDeleteReceipt;
+        private System.Windows.Forms.ToolStripMenuItem tsmUpdatePrices;
     }
 }
 
